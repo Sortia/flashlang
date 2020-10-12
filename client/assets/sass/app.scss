@@ -1,0 +1,43 @@
+.card-header, .card-footer {
+  background-color: #fff;
+}
+
+.el-progress__text {
+  display: none !important;
+}
+
+.el-progress-bar {
+  padding-right: 0 !important;
+}
+
+//.v-messages.error--text .v-messages__message {
+//  color: #ff5252;
+//}
+
+.error--text {
+  color: #ff5252 !important;
+  caret-color: #ff5252 !important;
+}
+
+html {
+  overflow: auto !important;
+}
+
+.card {
+  border-radius: 15px;
+  color: #1f1f1f;
+}
+
+.card-header {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 15px 15px 0 0;
+  border-radius: 15px 15px 0 0 !important;
+}
+
+a, a:hover {
+  text-decoration: none;
+}
+
+.v-rating button {
+  padding: 0 !important;
+}
