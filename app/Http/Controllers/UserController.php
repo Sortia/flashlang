@@ -27,8 +27,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-//        dd($user->complexity);
-
         return $user->loadCount(
             'studiedFlashcards',
             'studyFlashcards',

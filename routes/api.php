@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PackController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -16,21 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/api/login', function () {
-    $email = Request::get('email');
-    $password = Request::get('password');
-
-    if (Auth::attempt([
-        'email' => $email,
-        'password' => $password
-    ])) {
-        return response()->json('', 204);
-    } else {
-        return response()->json([
-            'error' => 'invalid_credentials'
-        ], 403);
-    }
-});
+Route::post('/api/login', [AuthController::class, 'login']);
 
 
 Route::middleware('auth:sanctum')->get('/api/user', function () {
