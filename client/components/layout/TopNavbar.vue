@@ -86,18 +86,18 @@ export default {
           New Pack
         </v-tab>
 
-        <button
-          type="button"
-          class="navbar-toggler navbar-toggler-right"
-          aria-controls="navigation-index"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          @click="toggleSidebar"
-        >
-          <span class="navbar-toggler-bar burger-lines" />
-          <span class="navbar-toggler-bar burger-lines" />
-          <span class="navbar-toggler-bar burger-lines" />
-        </button>
+<!--        <button-->
+<!--          type="button"-->
+<!--          class="navbar-toggler navbar-toggler-right"-->
+<!--          aria-controls="navigation-index"-->
+<!--          aria-expanded="false"-->
+<!--          aria-label="Toggle navigation"-->
+<!--          @click="toggleSidebar"-->
+<!--        >-->
+<!--          <span class="navbar-toggler-bar burger-lines" />-->
+<!--          <span class="navbar-toggler-bar burger-lines" />-->
+<!--          <span class="navbar-toggler-bar burger-lines" />-->
+<!--        </button>-->
         <div class="collapse navbar-collapse justify-content-end">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">

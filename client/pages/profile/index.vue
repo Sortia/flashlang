@@ -9,12 +9,12 @@
         >
           <v-col class="py-0 align-bottom">
             <v-list-item
-              class="pt-3"
+              class="pt-3 pl-"
               color="rgba(0, 0, 0, .4)"
               dark
             >
               <v-list-item-content style="padding-top: 100px;">
-                <v-list-item-title class="title">
+                <v-list-item-title class="title overline text-subtitle-2 h2">
                   {{ user.name }}
                 </v-list-item-title>
               </v-list-item-content>
@@ -112,6 +112,11 @@
           </v-col>
         </v-row>
       </v-card>
+      <v-card class="mt-5 rounded-lg" elevation="10">
+        <v-card-title class="text-subtitle-2 overline">
+          Statistic
+        </v-card-title>
+      </v-card>
     </v-col>
   </v-row>
 </template>
@@ -152,5 +157,9 @@ export default {
 <style>
 .v-progress-linear__background {
   height: 4px !important;
+}
+
+.v-card {
+  border: none;
 }
 </style>
