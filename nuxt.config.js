@@ -64,6 +64,7 @@ export default {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
+    'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     // Doc: https://github.com/acidjazz/nuxt-tailvue

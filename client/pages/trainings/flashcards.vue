@@ -12,7 +12,7 @@
             :key="i"
             class="h-100"
           >
-            <Slider :front="flashcard.first_side" :back="flashcard.second_side" />
+            <FlashcardSlider :front="flashcard.first_side" :back="flashcard.second_side" />
           </v-carousel-item>
         </v-carousel>
       </v-card>
@@ -22,12 +22,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import Slider from '@/components/trainings/Slider'
+import FlashcardSlider from '@/components/trainings/FlashcardSlider'
 
 export default {
   name: 'Flashcards',
   components: {
-    Slider,
+    FlashcardSlider,
   },
   layout: 'trainings',
   computed: {

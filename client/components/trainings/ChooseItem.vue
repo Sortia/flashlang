@@ -4,15 +4,27 @@
       <div class="face face1">
         <div class="content">
           <p class="text-center h4">
-            {{ front }}
+            {{ right.first_side }}
           </p>
         </div>
       </div>
       <div class="face face2">
         <div class="content">
-          <p class="text-center h4">
-            {{ back }}
-          </p>
+          <div class="container">
+            <v-row>
+              <v-col v-for="(flashcard, index) in choices" :key="index" lg="6">
+                <v-card class="border-0" elevation="15">
+                  <v-btn width="100%" height="60px" :class="fails[index] ? 'fail-button' : 'default-button'" @click="choose(flashcard) ? '' : $set(fails, index, !fails[index])">
+                    <v-card-text class="txt-white">
+                      <p class="text-center">
+                        {{ flashcard.second_side }}
+                      </p>
+                    </v-card-text>
+                  </v-btn>
+                </v-card>
+              </v-col>
+            </v-row>
+          </div>
         </div>
       </div>
     </div>
@@ -21,7 +33,7 @@
 
 <script>
 export default {
-  name: 'Slider',
+  name: 'ChooseItem',
   props: {
     front: {
       type: String,
@@ -31,11 +43,38 @@ export default {
       type: String,
       required: true,
     },
+    choices: {
+      type: Array,
+      required: true,
+    },
+    right: {
+      type: Object,
+      required: true,
+    },
+  },
+  data () {
+    return {
+      fails: [ false, false, false, false ],
+    }
+  },
+  methods: {
+    choose (flashcard) {
+      return flashcard.id === this.right.id ? this.$emit('right') : false
+    },
   },
 }
 </script>
 
 <style scoped>
+
+.default-button {
+  background-color: #47a0e6 !important;
+}
+
+.fail-button {
+  background-color: #e43f3f !important;
+}
+
 .container{
   width: 100%;
   max-width: 1100px;
@@ -66,7 +105,7 @@ export default {
   color: white;
 }
 
-.container .flashcard-card:hover .face.face1{
+.container .flashcard-card .face.face1{
   background: #efbc55;
 
   transform: translateY(0);
@@ -82,7 +121,7 @@ export default {
   font-weight: 400;
 }
 
-.container .flashcard-card:hover .face.face1 .content{
+.container .flashcard-card .face.face1 .content{
   opacity: 1;
 }
 
@@ -111,7 +150,7 @@ export default {
   color: black !important;
 }
 
-.container .flashcard-card:hover .face.face2{
+.container .flashcard-card .face.face2{
   transform: translateY(0);
 }
 
@@ -130,7 +169,7 @@ export default {
   border: 1px solid #333;
 }
 
-.container .flashcard-card .face.face2 .content a:hover{
+.container .flashcard-card .face.face2 .content a{
   background: #333;
   color: #fff;
 }

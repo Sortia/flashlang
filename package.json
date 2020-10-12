@@ -16,6 +16,8 @@
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.12.0",
     "@tailwindcss/ui": "^0.6.0",
+    "bootstrap-vue": "^2.17.3",
+    "move-js": "^0.5.0",
     "nuxt": "^2.14.0",
     "nuxt-tailvue": "^1.0.24"
   },
