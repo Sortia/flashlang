@@ -4,7 +4,7 @@
       <div class="copyright text-center">
         &copy; Coded
         <i class="fa fa-heart heart" /> by
-        <a href="https://vk.com/ssortia" target="_blank">@ssortia</a>
+        <a href="https://t.me/ssortia" target="_blank">@ssortia</a>
       </div>
     </div>
   </footer>
