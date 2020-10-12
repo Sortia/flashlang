@@ -126,17 +126,18 @@ export default {
       user: state => state.users.user,
     }),
     weeklyProgress () {
+      if (!this.user.complexity) return 0
+
       return (this.user.studied_in_this_week_flashcards_count / (this.user.complexity.count_flashcards * 7)) * 100
     },
     monthlyProgress () {
-      return (this.user.studied_in_this_week_flashcards_count / (this.user.complexity.count_flashcards * this.getCountDaysInMonth())) * 100
+      if (!this.user.complexity) return 0
+
+      return (this.user.studied_in_this_month_flashcards_count / (this.user.complexity.count_flashcards * this.getCountDaysInMonth())) * 100
     },
   },
-  fetch () {
-    this.$store.dispatch('users/show', { id: 1 })
-  },
   mounted () {
-    console.log(this.user)
+    this.$store.dispatch('users/show', { id: 1 })
   },
   methods: {
     getCountDaysInMonth () {
