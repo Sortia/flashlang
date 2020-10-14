@@ -5,7 +5,7 @@
         <v-carousel
           height="100%"
           hide-delimiters
-          @change="addItem"
+          @change="next"
         >
           <v-carousel-item
             v-for="(flashcard, i) in items"
@@ -39,6 +39,7 @@ export default {
   },
   watch: {
     pack () {
+      console.log(this.pack)
       this.addItem()
       this.addItem()
     },
@@ -52,6 +53,10 @@ export default {
     this.addItem()
   },
   methods: {
+    next (index) {
+      if (index === this.items.length)
+        this.addItem()
+    },
     addItem () {
       const flashcards = this.pack === 'all' ? this.packs.map(pack => pack.flashcards).flat() : this.pack.flashcards
 
