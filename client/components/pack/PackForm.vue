@@ -8,16 +8,16 @@
       >
         <v-card elevation="10" shaped class="px-5 pb-2">
           <v-row>
-            <v-col lg="6">
+            <v-col sm="6" cols="12">
               <v-text-field :value="pack.name" label="Name" :rules="rules" @input="merge({ name: $event })" />
             </v-col>
-            <v-col lg="6">
+            <v-col sm="6" cols="12">
               <v-text-field :value="pack.description" label="Description" @input="merge({ description: $event })" />
             </v-col>
           </v-row>
         </v-card>
         <v-row class="pt-4 mt-5">
-          <v-col v-for="(flashcard, index) in pack.flashcards" :key="index" md="6">
+          <v-col v-for="(flashcard, index) in pack.flashcards" :key="index" md="6" cols="12">
             <flashcard :flashcard="flashcard" :index="index" />
           </v-col>
         </v-row>
@@ -65,6 +65,7 @@ export default {
     valid: true,
     rules: [
       value => !!value || 'Required',
+      value => (value && value.length <= 10) || 'Name must be less than 10 characters',
     ],
   }),
   computed: {

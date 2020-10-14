@@ -67,6 +67,10 @@ export default {
 
 <style scoped>
 
+.v-btn {
+  text-transform: none;
+}
+
 .default-button {
   background-color: #47a0e6 !important;
 }
