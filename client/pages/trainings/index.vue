@@ -64,15 +64,15 @@
       <v-card shaped elevation="20" class="p-4 reading-card">
         <v-card-title class="p-0">
           <h3 class="pa-2 m-0 p-0">
-            <strong>Reading</strong>
+            <strong>Writing</strong>
           </h3>
         </v-card-title>
         <v-card-text class="pa-2">
-          Specially selected sentences with the studied words.
+          Write the translation of the suggested word.
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <nuxt-link to="/trainings/reading">
+          <nuxt-link to="/trainings/writing">
             <v-btn class="mt-5 float-right px-5" dark rounded>
               Study
             </v-btn>
