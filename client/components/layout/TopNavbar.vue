@@ -82,9 +82,6 @@ export default {
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <v-tabs class="tabs">
-        <v-tab @click="toCreatePack">
-          New Pack
-        </v-tab>
 
 <!--        <button-->
 <!--          type="button"-->
