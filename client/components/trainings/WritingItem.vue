@@ -1,6 +1,11 @@
 <template>
   <div class="container p-5">
     <div class="flashcard-card px-5 pt-4">
+      <v-btn elevation="8" class="flashcard-hint" @click="hint()">
+        <v-icon large>
+          mdi-help
+        </v-icon>
+      </v-btn>
       <div class="face face1">
         <div class="content">
           <p class="text-center h4">
@@ -13,7 +18,7 @@
           <div class="container w-100">
             <v-row class="w-100">
               <v-col offset-sm="0" offset-md="3" sm="12" md="6">
-                <v-text-field autocomplete="off" @input="choose" />
+                <v-text-field ref="input" v-model="text" autocomplete="off" @input="choose" />
               </v-col>
             </v-row>
           </div>
@@ -34,19 +39,49 @@ export default {
   },
   data () {
     return {
-
+      text: '',
     }
   },
+  mounted () {
+    setTimeout(() => this.$refs.input.focus(), 150)
+  },
   methods: {
-    choose (text) {
-      if (this.flashcard.second_side === text)
+    choose () {
+      if (this.flashcard.second_side === this.text)
         this.$emit('right')
+    },
+    hint () {
+      this.choose()
+
+      const textLength = this.text.length
+
+      if (this.flashcard.second_side.substr(0, textLength) === this.text)
+        this.text += this.flashcard.second_side.substr(textLength, 1)
+      else
+        this.text = this.flashcard.second_side.substr(0, 1)
     },
   },
 }
 </script>
 
 <style scoped>
+
+.flashcard-hint {
+  right: 37px;
+  top: 35px;
+  position: absolute;
+  z-index: 100;
+  border-radius: 50%;
+  background-color: #615f5f;
+  min-width: 0 !important;
+  padding: 0 !important;
+}
+
+.flashcard-hint i {
+  color: #948e84 !important;
+  font-size: 22px !important;
+  padding: 7px 7px 7px 7px !important;
+}
 
 .container{
   width: 100%;

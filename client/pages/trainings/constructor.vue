@@ -71,7 +71,7 @@ export default {
     rightTest () {
       this.addItem()
 
-      document.querySelector('.v-window__next button').click()
+      setTimeout(() => document.querySelector('.v-window__next button').click(), 125)
     },
     addItem () {
       const flashcards = this.pack === 'all' ? this.packs.map(pack => pack.flashcards).flat() : this.pack.flashcards

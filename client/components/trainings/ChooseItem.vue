@@ -1,6 +1,11 @@
 <template>
   <div class="container p-5">
     <div class="flashcard-card px-5 pt-4">
+      <v-btn elevation="8" class="flashcard-hint" @click="$set(correct, hint(), !correct[hint()])">
+        <v-icon large>
+          mdi-help
+        </v-icon>
+      </v-btn>
       <div class="face face1">
         <div class="content">
           <p class="text-center h4">
@@ -14,7 +19,7 @@
             <v-row>
               <v-col v-for="(flashcard, index) in choices" :key="index" lg="6">
                 <v-card class="border-0" elevation="15">
-                  <v-btn width="100%" height="60px" :class="fails[index] ? 'fail-button' : 'default-button'" @click="choose(flashcard) ? '' : $set(fails, index, !fails[index])">
+                  <v-btn width="100%" height="60px" :class="[fails[index] ? 'fail-button ' : 'default-button ', correct[index] ? 'right-button' : '']" @click="choose(flashcard) ? '' : $set(fails, index, !fails[index])">
                     <v-card-text class="txt-white">
                       <p class="text-center">
                         {{ flashcard.second_side }}
@@ -55,17 +60,38 @@ export default {
   data () {
     return {
       fails: [ false, false, false, false ],
+      correct: [ false, false, false, false ],
     }
   },
   methods: {
     choose (flashcard) {
-      return flashcard.id === this.right.id ? this.$emit('right') : false
+      return flashcard.second_side === this.right.second_side ? this.$emit('right') : false
+    },
+    hint () {
+      return this.choices.findIndex(item => item.id === this.right.id)
     },
   },
 }
 </script>
 
 <style scoped>
+
+.flashcard-hint {
+  right: 37px;
+  top: 35px;
+  position: absolute;
+  z-index: 100;
+  border-radius: 50%;
+  background-color: #615f5f;
+  min-width: 0 !important;
+  padding: 0 !important;
+}
+
+.flashcard-hint i {
+  color: #948e84 !important;
+  font-size: 22px !important;
+  padding: 7px 7px 7px 7px !important;
+}
 
 .v-btn {
   text-transform: none;
@@ -76,7 +102,11 @@ export default {
 }
 
 .fail-button {
-  background-color: #e43f3f !important;
+  background-color: #e85151 !important;
+}
+
+.right-button {
+  background-color: #4eb972 !important;
 }
 
 .container{

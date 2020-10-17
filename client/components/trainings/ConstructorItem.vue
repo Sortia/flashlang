@@ -1,6 +1,11 @@
 <template>
   <div class="container p-5">
     <div class="flashcard-card px-5 pt-4">
+      <v-btn elevation="8" class="flashcard-hint" @click="$set(blocked, hint().index, true); $set(answer, answer.indexOf(null), hint().letter)">
+        <v-icon large>
+          mdi-help
+        </v-icon>
+      </v-btn>
       <div class="face face1">
         <div class="content">
           <v-row>
@@ -62,12 +67,8 @@ export default {
     return {
       answer: [],
       blocked: [],
+      letters: [],
     }
-  },
-  computed: {
-    letters () {
-      return this.flashcard.second_side.split('').sort(() => Math.random() > 0.5 ? -1 : 1)
-    },
   },
   watch: {
     answer () {
@@ -84,11 +85,37 @@ export default {
   },
   mounted () {
     this.answer = this.flashcard.second_side.split('').map(() => null)
+    this.letters = this.flashcard.second_side.split('').sort(() => Math.random() > 0.5 ? -1 : 1)
+  },
+  methods: {
+    hint () {
+      const letter = this.flashcard.second_side.substr(this.answer.indexOf(null), 1)
+      const index = this.letters.findIndex(item => item === letter)
+
+      return { index, letter }
+    },
   },
 }
 </script>
 
 <style scoped>
+
+.flashcard-hint {
+  right: 37px;
+  top: 35px;
+  position: absolute;
+  z-index: 100;
+  border-radius: 50%;
+  background-color: #615f5f;
+  min-width: 0 !important;
+  padding: 0 !important;
+}
+
+.flashcard-hint i {
+  color: #948e84 !important;
+  font-size: 22px !important;
+  padding: 7px 7px 7px 7px !important;
+}
 
 .container{
   width: 100%;
