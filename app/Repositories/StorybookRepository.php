@@ -71,6 +71,6 @@ class StorybookRepository
         return Storybook::findMany($ids)
             ->sortBy(function ($article) use ($ids) {
                 return array_search($article->getKey(), $ids);
-            });
+            })->shuffle();
     }
 }
