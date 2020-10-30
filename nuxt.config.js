@@ -44,6 +44,7 @@ export default {
     '~/plugins/directives.js',
     '~/plugins/notifier.js',
     '~/plugins/random.js',
+    '~/plugins/heatmap.js',
   ],
   /*
   ** Auto import components

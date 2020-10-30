@@ -13,7 +13,7 @@
               color="rgba(0, 0, 0, .4)"
               dark
             >
-              <v-list-item-content style="padding-top: 100px;">
+              <v-list-item-content style="padding-top: 90px;">
                 <v-list-item-title class="title overline text-subtitle-2 h2">
                   {{ user.name }}
                 </v-list-item-title>
@@ -49,10 +49,10 @@
             <v-col lg="6">
               <div class="pl-2 v-sheet">
                 <div class="transition-swing text-subtitle-2 overline">
-                  Additional
+                  Complexity
                 </div>
                 <div class="transition-swing text-caption text-secondary">
-                  No information
+                  {{ user.complexity ? user.complexity.count_flashcards : '' }} cards per day
                 </div>
               </div>
             </v-col>
@@ -114,8 +114,10 @@
       </v-card>
       <v-card class="mt-5 rounded-lg" elevation="10">
         <v-card-title class="text-subtitle-2 overline">
-          Statistic
+          Calendar heatmap
         </v-card-title>
+        <v-divider />
+        <div class="container d-flex flex-row-reverse mb-3 pb-5" style="overflow: hidden" />
       </v-card>
     </v-col>
   </v-row>
@@ -123,12 +125,14 @@
 
 <script>
 import { mapState } from 'vuex'
+import moment from 'moment'
 
 export default {
   name: 'Index',
   computed: {
     ...mapState({
       user: state => state.users.user,
+      heatmap: state => state.heatmaps.list,
     }),
     weeklyProgress () {
       if (!this.user.complexity) return 0
@@ -141,14 +145,41 @@ export default {
       return (this.user.studied_in_this_month_flashcards_count / (this.user.complexity.count_flashcards * this.getCountDaysInMonth())) * 100
     },
   },
+  watch: {
+    heatmap (heatmap) {
+      this.setHeatmap(heatmap)
+    },
+  },
   mounted () {
-    this.$store.dispatch('users/show', { id: 1 })
+    this.fetch()
   },
   methods: {
     getCountDaysInMonth () {
       const now = new Date()
 
       return new Date(now.getFullYear(), now.getMonth(), 0).getDate()
+    },
+    async fetch () {
+      await this.$store.dispatch('users/show', { id: this.$auth.user.id })
+      return this.$store.dispatch('heatmaps/get', { user_id: this.$auth.user.id })
+    },
+    setHeatmap (data) {
+      const chartData = data.map((item) => {
+        return {
+          date: moment(item.date, 'YYYY-MM-DD').toDate(),
+          count: item.flashcard_ids.length,
+        }
+      })
+      console.log(chartData)
+      const heatmap = this.$heatmap.create()
+        .data(chartData)
+        .selector('.container')
+        .tooltipEnabled(true)
+        .colorRange([ '#f4f7f7', '#79a8a9' ])
+        .onClick(function (data) {
+          console.log('data', data)
+        })
+      heatmap() // render the chart
     },
   },
 }
@@ -162,4 +193,46 @@ export default {
 .v-card {
   border: none;
 }
+
+.container svg {
+  overflow: initial;
+}
+
+text.month-name,
+text.calendar-heatmap-legend-text,
+text.day-initial {
+  font-size: 10px;
+  /*fill: inherit;*/
+  font-family: Helvetica, arial, 'Open Sans', sans-serif;
+}
+rect.day-cell {
+  padding: 5px;
+  shape-rendering: geometricPrecision;
+  outline: 1px solid rgba(27,31,35,.04);
+  outline-offset: -1px;
+  rx: 2;
+  ry: 2;
+}
+rect.day-cell:hover {
+stroke: #555555;
+stroke-width: 1px;
+}
+.day-cell-tooltip {
+position: fixed;
+z-index: 9999;
+padding: 5px 9px;
+color: #bbbbbb;
+font-size: 12px;
+background: rgba(0, 0, 0, 0.85);
+border-radius: 3px;
+text-align: center;
+}
+.day-cell-tooltip > span {
+font-family: Helvetica, arial, 'Open Sans', sans-serif
+}
+.calendar-heatmap {
+box-sizing: initial;
+padding: 15px 0;
+}
+
 </style>

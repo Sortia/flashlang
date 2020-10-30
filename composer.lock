@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d6c3ff59dfe4c519959e065736f66f95",
+    "content-hash": "9196e01566db8212334f990de36b5dea",
     "packages": [
         {
             "name": "acidjazz/metapi",
@@ -2628,6 +2628,53 @@
                 "promises"
             ],
             "time": "2020-05-12T15:16:56+00:00"
+        },
+        {
+            "name": "staudenmeir/eloquent-json-relations",
+            "version": "v1.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/staudenmeir/eloquent-json-relations.git",
+                "reference": "db597473d794a68569cbd53415e16b18c009197a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/staudenmeir/eloquent-json-relations/zipball/db597473d794a68569cbd53415e16b18c009197a",
+                "reference": "db597473d794a68569cbd53415e16b18c009197a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^8.0",
+                "php": "^7.3"
+            },
+            "require-dev": {
+                "laravel/homestead": "^11.0",
+                "phpunit/phpunit": "^9.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Staudenmeir\\EloquentJsonRelations\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonas Staudenmeir",
+                    "email": "mail@jonas-staudenmeir.de"
+                }
+            ],
+            "description": "Laravel Eloquent relationships with JSON keys",
+            "funding": [
+                {
+                    "url": "https://paypal.me/JonasStaudenmeir",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-09-06T10:12:33+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
