@@ -126,7 +126,7 @@
         </v-card-title>
         <v-divider />
         <v-row v-if="day">
-          <v-col>
+          <v-col class="py-0">
             <div v-for="item in day.flashcards" :key="item.id">
               <v-card-text>
                 {{ item.first_side }} - {{ item.second_side }}
