@@ -11,6 +11,6 @@ class HeatmapController extends Controller
      */
     public function index()
     {
-        return Heatmap::with('flashcards')->whereUserId($this->request->user_id)->get();
+        return Heatmap::whereUserId($this->request->user_id)->get();
     }
 }

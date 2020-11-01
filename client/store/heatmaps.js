@@ -2,11 +2,15 @@ const defaultUrl = '/api/heatmaps'
 
 export const state = () => ({
   list: [],
+  selected: null,
 })
 
 export const mutations = {
   set (state, list) {
     state.list = list
+  },
+  select (state, selected) {
+    state.selected = selected
   },
 }
 

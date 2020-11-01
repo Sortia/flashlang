@@ -2,27 +2,52 @@
 
 namespace App\Models;
 
+use Barryvdh\LaravelIdeHelper\Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
-use Staudenmeir\EloquentJsonRelations\Relations\BelongsToJson;
+use Illuminate\Support\Carbon;
 
+/**
+ * App\Models\Heatmap
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $date
+ * @property array $flashcards
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|Heatmap newModelQuery()
+ * @method static Builder|Heatmap newQuery()
+ * @method static Builder|Heatmap query()
+ * @method static Builder|Heatmap whereCreatedAt($value)
+ * @method static Builder|Heatmap whereFlashcardIds($value)
+ * @method static Builder|Heatmap whereId($value)
+ * @method static Builder|Heatmap whereUpdatedAt($value)
+ * @method static Builder|Heatmap whereUserId($value)
+ * @mixin Eloquent
+ */
 class Heatmap extends Model
 {
-    use HasJsonRelationships;
+    protected $fillable = [
+        'user_id',
+        'date',
+        'flashcards'
+    ];
 
     protected $attributes = [
-        'flashcards' => []
+        'flashcards' => '[]'
     ];
 
     protected $casts = [
-        'flashcard_ids' => 'array'
+        'flashcards' => 'collection'
     ];
 
-    /**
-     * @return BelongsToJson
-     */
-    public function flashcards(): BelongsToJson
+    public function pushFlashcard(Flashcard $flashcard)
     {
-        return $this->belongsToJson(Flashcard::class, 'flashcard_ids');
+        $flashcards = $this->flashcards;
+
+        $flashcards->push($flashcard);
+
+        $this->flashcards = $flashcards;
     }
 }

@@ -3,9 +3,16 @@
 namespace App\Observers;
 
 use App\Models\Flashcard;
+use App\Models\Heatmap;
+use Illuminate\Support\Facades\Auth;
 
 class FlashcardObserver
 {
+    public function creating(Flashcard $flashcard)
+    {
+        $this->processStudiedIfNeed($flashcard);
+    }
+
     /**
      * Handle the flashcard "created" event.
      *
@@ -18,7 +25,7 @@ class FlashcardObserver
 
     public function updating(Flashcard $flashcard)
     {
-        $flashcard->studied_at = $flashcard->isStudied() ? now() : null;
+        $this->processStudiedIfNeed($flashcard);
     }
 
     /**
@@ -59,5 +66,36 @@ class FlashcardObserver
     public function forceDeleted(Flashcard $flashcard)
     {
         //
+    }
+
+    /**
+     * Set studied or unstudied if need
+     *
+     * @param Flashcard $flashcard
+     */
+    private function processStudiedIfNeed(Flashcard $flashcard)
+    {
+        if ($this->isSetComplete($flashcard)) {
+            $heatmap = Heatmap::firstOrNew([
+                'user_id' => Auth::id(),
+                'date' => today(),
+            ]);
+
+            $flashcard->studied_at = today();
+
+            $heatmap->pushFlashcard($flashcard);
+            $heatmap->save();
+        }
+    }
+
+    /**
+     * If $flashcard was studied
+     *
+     * @param Flashcard $flashcard
+     * @return bool
+     */
+    private function isSetComplete(Flashcard $flashcard): bool
+    {
+        return $flashcard->isDirty('status_id') && $flashcard->isStudied() && is_null($flashcard->studied_at);
     }
 }

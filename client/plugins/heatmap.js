@@ -153,9 +153,8 @@ const heatmap = {
           })
 
         if (typeof onClick === 'function')
-          (v === 3 ? enterSelection : enterSelection.merge(dayRects)).on('click', function (d) {
-            const count = countForDate(d)
-            onClick({ date: d, count })
+          (v === 3 ? enterSelection : enterSelection.merge(dayRects)).on('click', function (position, date) {
+            onClick(date)
           })
 
         if (chart.tooltipEnabled())

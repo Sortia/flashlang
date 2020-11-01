@@ -118,6 +118,23 @@
         </v-card-title>
         <v-divider />
         <div class="container d-flex flex-row-reverse mb-3 pb-5" style="overflow: hidden" />
+        <v-divider />
+        <v-card-title class="text-subtitle-2 overline">
+          <span class="pr-2">Activity on {{ date | date }},</span>
+          <span v-if="day" class="text--disabled">{{ ' ' }} {{ day.flashcards.length }} words learned this day</span>
+          <span v-else class="text--disabled">{{ ' ' }} A wasted day</span>
+        </v-card-title>
+        <v-divider />
+        <v-row v-if="day">
+          <v-col>
+            <div v-for="item in day.flashcards" :key="item.id">
+              <v-card-text>
+                {{ item.first_side }} - {{ item.second_side }}
+              </v-card-text>
+              <v-divider />
+            </div>
+          </v-col>
+        </v-row>
       </v-card>
     </v-col>
   </v-row>
@@ -129,10 +146,16 @@ import moment from 'moment'
 
 export default {
   name: 'Index',
+  data () {
+    return {
+      date: '',
+    }
+  },
   computed: {
     ...mapState({
       user: state => state.users.user,
       heatmap: state => state.heatmaps.list,
+      day: state => state.heatmaps.selected,
     }),
     weeklyProgress () {
       if (!this.user.complexity) return 0
@@ -148,14 +171,11 @@ export default {
   watch: {
     heatmap (heatmap) {
       this.setHeatmap(heatmap)
+      this.setHeatmapDay(new Date())
     },
   },
   mounted () {
     this.fetch()
-
-    this.$axios.get('/api/collections').then((res) => {
-      console.log(res)
-    })
   },
   methods: {
     getCountDaysInMonth () {
@@ -171,19 +191,26 @@ export default {
       const chartData = data.map((item) => {
         return {
           date: moment(item.date, 'YYYY-MM-DD').toDate(),
-          count: item.flashcard_ids.length,
+          count: item.flashcards.length,
+          id: item.id,
         }
       })
-      console.log(chartData)
+
       const heatmap = this.$heatmap.create()
         .data(chartData)
         .selector('.container')
         .tooltipEnabled(true)
         .colorRange([ '#f4f7f7', '#79a8a9' ])
-        .onClick(function (data) {
-          console.log('data', data)
+        .onClick((date) => {
+          this.setHeatmapDay(date)
         })
       heatmap() // render the chart
+    },
+    setHeatmapDay (date) {
+      this.date = date
+      const day = this.heatmap.find(item => item.date === moment(date).format('YYYY-MM-DD'))
+
+      return this.$store.commit('heatmaps/select', day || null)
     },
   },
 }
