@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\HeatmapController;
 use App\Http\Controllers\PackController;
 use App\Http\Controllers\StorybookController;
@@ -33,6 +34,9 @@ Route::group(['prefix' => 'api'], function () {
     Route::resource('users', UserController::class);
     Route::resource('heatmaps', HeatmapController::class);
     Route::resource('storybooks', StorybookController::class);
+
+    Route::resource('collections', CollectionController::class)->middleware('permission');
+    Route::post('collections/{collection}/copy', [CollectionController::class, 'copy']);
 //    });
 
 });

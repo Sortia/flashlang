@@ -8,11 +8,15 @@
           <p>Profile</p>
         </sidebar-link>
         <sidebar-link to="/packs">
-          <i class="nc-icon nc-atom" />
+          <i class="nc-icon nc-puzzle-10" />
           <p>Packs</p>
         </sidebar-link>
-        <sidebar-link to="/trainings">
+        <sidebar-link to="/collections">
           <i class="nc-icon nc-puzzle-10" />
+          <p>Collections</p>
+        </sidebar-link>
+        <sidebar-link to="/trainings">
+          <i class="nc-icon nc-atom" />
           <p>Training</p>
         </sidebar-link>
         <sidebar-link to="/courses">

@@ -11,6 +11,10 @@
           <i class="nc-icon nc-puzzle-10" />
           <p>Packs</p>
         </sidebar-link>
+        <sidebar-link to="/collections">
+          <i class="nc-icon nc-puzzle-10" />
+          <p>Collections</p>
+        </sidebar-link>
         <sidebar-link to="/trainings">
           <i class="nc-icon nc-atom" />
           <p>Training</p>
@@ -60,11 +64,8 @@ export default {
     MobileMenu,
     Snackbar,
   },
+  mounted () {
+    this.$laravel.setPermissions(this.$auth.user.permissions)
+  },
 }
 </script>
-
-<style>
-html,body {
-  @apply bg-gray-100
-}
-</style>

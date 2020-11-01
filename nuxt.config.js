@@ -45,6 +45,7 @@ export default {
     '~/plugins/notifier.js',
     '~/plugins/random.js',
     '~/plugins/heatmap.js',
+    '~/plugins/laravel-permissions',
   ],
   /*
   ** Auto import components

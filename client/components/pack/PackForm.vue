@@ -18,7 +18,7 @@
         </v-card>
         <v-row class="pt-4 mt-5">
           <v-col v-for="(flashcard, index) in pack.flashcards" :key="index" md="6" cols="12">
-            <flashcard :flashcard="flashcard" :index="index" />
+            <flashcard entity="packs" :flashcard="flashcard" :index="index" />
           </v-col>
         </v-row>
         <v-row class="mt-4">

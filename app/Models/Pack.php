@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Eloquent;
+use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -54,7 +54,7 @@ class Pack extends Model
     /** ------------------- Relations ------------------- **/
     public function flashcards()
     {
-        return $this->hasMany(Flashcard::class);
+        return $this->hasMany(Flashcard::class, 'pack_id');
     }
 
     public function user()
@@ -78,5 +78,12 @@ class Pack extends Model
     public function getProgressAttribute()
     {
         return $this->flashcards->pluck('status_id')->avg() * 20;
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope('collection', function (Builder $builder) {
+            $builder->where('is_public', false);
+        });
     }
 }

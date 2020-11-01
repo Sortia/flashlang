@@ -152,6 +152,10 @@ export default {
   },
   mounted () {
     this.fetch()
+
+    this.$axios.get('/api/collections').then((res) => {
+      console.log(res)
+    })
   },
   methods: {
     getCountDaysInMonth () {

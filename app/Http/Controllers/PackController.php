@@ -31,7 +31,7 @@ class PackController extends Controller
      *
      * @return Collection
      */
-    public function index()
+    public function index(): Collection
     {
         return Pack::my()->with('flashcards.status')->get();
     }
@@ -42,7 +42,7 @@ class PackController extends Controller
      * @param Pack $pack
      * @return Pack
      */
-    public function show(Pack $pack)
+    public function show(Pack $pack): Pack
     {
         return $pack;
     }
@@ -53,10 +53,10 @@ class PackController extends Controller
      * @param Pack $pack
      * @return Pack
      */
-    public function store(Pack $pack)
+    public function store(Pack $pack): Pack
     {
         $this->packService->save($this->request, $pack);
-        $this->flashcardService->save($this->request, $pack);
+        $this->flashcardService->save($this->request->flashcards, $pack);
 
         return $pack;
     }
@@ -67,10 +67,10 @@ class PackController extends Controller
      * @param Pack $pack
      * @return Pack
      */
-    public function update(Pack $pack)
+    public function update(Pack $pack): Pack
     {
         $this->packService->save($this->request, $pack);
-        $this->flashcardService->save($this->request, $pack);
+        $this->flashcardService->save($this->request->flashcards, $pack);
 
         return $pack;
     }

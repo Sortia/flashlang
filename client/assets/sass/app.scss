@@ -45,3 +45,11 @@ a, a:hover {
 button {
   outline: none !important
 }
+
+.theme--light.v-input--is-disabled input {
+  color: black !important;
+}
+
+.theme--light.v-text-field.v-input--is-disabled .v-input__slot::before {
+  border-image: none !important;
+}

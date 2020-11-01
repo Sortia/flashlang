@@ -15,6 +15,10 @@ class User extends Authenticatable
     use HasFactory;
     use Notifiable;
 
+    protected $with = [
+        'role.permissions'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -78,5 +82,20 @@ class User extends Authenticatable
     public function studiedInThisMonthFlashcards()
     {
         return $this->studiedFlashcards()->whereBetween('studied_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()]);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    protected $appends = ['permissions'];
+
+    public function getPermissionsAttribute()
+    {
+        $empty = ['error' => 'no permissions'];
+        return array_map(function ($e) {
+                return is_object($e) ? $e->name : $e['name'];
+            }, $this->role->permissions->toArray()) ?? $empty;
     }
 }

@@ -13,17 +13,25 @@ class RoleSeeder extends BaseSeeder
     {
         $dataArray = [
             [
-                'name' => 'admin',
+                'id' => 1,
+                'name' => 'Admin',
                 'description' => 'All permissions'
             ],
             [
-                'name' => 'user',
+                'id' => 2,
+                'name' => 'User',
                 'description' => 'User permissions'
             ],
             [
-                'name' => 'methodist',
+                'id' => 3,
+                'name' => 'Methodist',
                 'description' => 'Methodist permissions'
-            ]
+            ],
+            [
+                'id' => 4,
+                'name' => 'Advanced user',
+                'description' => 'User with extended capabilities'
+            ],
         ];
 
         foreach ($dataArray as $data) {

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Eloquent;
+use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,7 +31,10 @@ class Role extends Model
     use HasFactory;
 
     /** ------------------- Relations ------------------- **/
-
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
 
     /** -------------------- Methods -------------------- **/
 }
