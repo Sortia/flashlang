@@ -81,7 +81,7 @@ export default {
       this.$store.commit(this.entity + '/mergeFlashcard', data)
     },
     haveEditPermission () {
-      return this.$laravel.hasPermission(this.route + '_edit1')
+      return this.$laravel.hasPermission(this.route + '_edit')
     },
 
   },

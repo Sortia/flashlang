@@ -4,14 +4,14 @@
       <div class="face face1">
         <div class="content">
           <p class="text-center h4">
-            {{ front }}
+            {{ flashcard.front }}
           </p>
         </div>
       </div>
       <div class="face face2">
         <div class="content">
           <p class="text-center h4">
-            {{ back }}
+            {{ flashcard.back }}
           </p>
         </div>
       </div>
@@ -23,12 +23,8 @@
 export default {
   name: 'FlashcardSlider',
   props: {
-    front: {
-      type: String,
-      required: true,
-    },
-    back: {
-      type: String,
+    flashcard: {
+      type: Object,
       required: true,
     },
   },

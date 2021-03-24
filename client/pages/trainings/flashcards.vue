@@ -12,7 +12,7 @@
             :key="i"
             class="h-100"
           >
-            <FlashcardSlider :front="flashcard.first_side" :back="flashcard.second_side" />
+            <FlashcardSlider :flashcard="flashcard" />
           </v-carousel-item>
         </v-carousel>
       </v-card>
@@ -39,23 +39,33 @@ export default {
   },
   watch: {
     pack () {
-      console.log(this.pack)
       this.addItem()
       this.addItem()
     },
   },
+  created () {
+    this.$bus.$on('test-event', () => {
+      const pack = this.pack
+      this.$store.dispatch('packs/get').then(() => {
+        this.$store.commit('trainings/remove')
+        if (this.pack === 'all')
+          this.$store.commit('packs/setPack', 'all')
+        else
+          this.$store.commit('packs/setPack', this.packs.find(item => item.id === pack.id))
+      })
+    })
+  },
   mounted () {
-    this.$store.commit('packs/setPack', this.$store.state.packs.list[0] || {})
-
-    if (!this.pack.flashcards)
-      return this.$router.push('/trainings')
-
-    this.addItem()
+    this.$store.dispatch('packs/get').then(() => {
+      this.$store.commit('packs/setPack', 'all')
+    })
+  },
+  beforeDestroy () {
+    this.$store.commit('trainings/remove')
   },
   methods: {
-    next (index) {
-      if (index === this.items.length)
-        this.addItem()
+    next () {
+      this.addItem()
     },
     addItem () {
       const flashcards = this.pack === 'all' ? this.packs.map(pack => pack.flashcards).flat() : this.pack.flashcards

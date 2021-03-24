@@ -89,7 +89,7 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    protected $appends = ['permissions'];
+    protected $appends = ['permissions', 'settings'];
 
     public function getPermissionsAttribute()
     {
@@ -97,5 +97,10 @@ class User extends Authenticatable
         return array_map(function ($e) {
                 return is_object($e) ? $e->name : $e['name'];
             }, $this->role->permissions->toArray()) ?? $empty;
+    }
+
+    public function getSettingsAttribute()
+    {
+        return get_all_settings();
     }
 }

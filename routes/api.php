@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\HeatmapController;
 use App\Http\Controllers\PackController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StorybookController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -19,17 +20,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/api/login', [AuthController::class, 'login']);
-
-
-Route::middleware('auth:sanctum')->get('/api/user', function () {
-    return request()->user();
-});
-
 Route::group(['prefix' => 'api'], function () {
+    Route::middleware('auth:sanctum')->get('/user', fn() => request()->user());
+    Route::post('/login', [AuthController::class, 'login']);
 
-
-//    Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('packs', PackController::class);
     Route::resource('users', UserController::class);
     Route::resource('heatmaps', HeatmapController::class);
@@ -37,6 +31,7 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::resource('collections', CollectionController::class)->middleware('permission');
     Route::post('collections/{collection}/copy', [CollectionController::class, 'copy']);
-//    });
 
+    Route::get('settings', [SettingController::class, 'index']);
+    Route::post('settings/set', [SettingController::class, 'set']);
 });

@@ -60,12 +60,9 @@ export default {
     },
   },
   mounted () {
-    this.$store.commit('packs/setPack', this.$store.state.packs.list[0] || {})
-
-    if (!this.pack.flashcards)
-      return this.$router.push('/trainings')
-
-    this.addItem()
+    this.$store.dispatch('packs/get').then(() => {
+      this.$store.commit('packs/setPack', 'all')
+    })
   },
   methods: {
     rightTest () {

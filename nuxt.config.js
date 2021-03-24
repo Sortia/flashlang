@@ -46,6 +46,7 @@ export default {
     '~/plugins/random.js',
     '~/plugins/heatmap.js',
     '~/plugins/laravel-permissions',
+    '~/plugins/bus',
   ],
   /*
   ** Auto import components

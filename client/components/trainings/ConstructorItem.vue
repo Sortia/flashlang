@@ -11,7 +11,7 @@
           <v-row>
             <v-col cols="12">
               <p class="text-center h4">
-                {{ flashcard.first_side }}
+                {{ flashcard.front }}
               </p>
             </v-col>
           </v-row>
@@ -73,23 +73,21 @@ export default {
   watch: {
     answer () {
       if (!this.answer.includes(null))
-        if (this.answer.join('') === this.flashcard.second_side)
+        if (this.answer.join('') === this.flashcard.back)
           this.$emit('right')
         else {
           this.answer = this.answer.map(() => null)
           this.blocked = this.answer.map(() => null)
         }
-
-      console.log(this.answer, this.blocked)
     },
   },
   mounted () {
-    this.answer = this.flashcard.second_side.split('').map(() => null)
-    this.letters = this.flashcard.second_side.split('').sort(() => Math.random() > 0.5 ? -1 : 1)
+    this.answer = this.flashcard.back.split('').map(() => null)
+    this.letters = this.flashcard.back.split('').sort(() => Math.random() > 0.5 ? -1 : 1)
   },
   methods: {
     hint () {
-      const letter = this.flashcard.second_side.substr(this.answer.indexOf(null), 1)
+      const letter = this.flashcard.back.substr(this.answer.indexOf(null), 1)
       const index = this.letters.findIndex(item => item === letter)
 
       return { index, letter }

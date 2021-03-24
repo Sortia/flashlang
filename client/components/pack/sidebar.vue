@@ -29,6 +29,132 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
+    <!--    <v-list-->
+    <!--      nav-->
+    <!--      dense-->
+    <!--      style="position: absolute; bottom: 0; left: 80px"-->
+    <!--    >-->
+    <!--      <v-menu-->
+    <!--        v-model="menu"-->
+    <!--        :close-on-content-click="false"-->
+    <!--        :nudge-width="200"-->
+    <!--        offset-x-->
+    <!--      >-->
+    <!--        <template v-slot:activator="{ on, attrs }">-->
+    <!--          <v-btn-->
+    <!--            color="indigo"-->
+    <!--            dark-->
+    <!--            v-bind="attrs"-->
+    <!--            v-on="on"-->
+    <!--          >-->
+    <!--            Settings-->
+    <!--          </v-btn>-->
+    <!--        </template>-->
+
+    <!--        <v-card>-->
+    <!--          <v-list>-->
+    <!--            <v-list-item>-->
+    <!--              <v-list-item-content>-->
+    <!--                <v-list-item-title>Settings</v-list-item-title>-->
+    <!--              </v-list-item-content>-->
+    <!--            </v-list-item>-->
+    <!--          </v-list>-->
+
+    <!--          <v-divider />-->
+
+    <!--          <v-list>-->
+    <!--            <v-list-item>Show side:</v-list-item>-->
+    <!--            <v-list-item>-->
+    <!--              <v-list-item-action>-->
+    <!--                <v-switch-->
+    <!--                  v-model="message"-->
+    <!--                  loading="off"-->
+    <!--                />-->
+    <!--              </v-list-item-action>-->
+    <!--              <v-list-item-title>Enable messages</v-list-item-title>-->
+    <!--            </v-list-item>-->
+    <!--            <v-divider />-->
+
+    <!--            <v-card-actions>-->
+    <!--              <v-spacer />-->
+
+    <!--              <v-btn-->
+    <!--                text-->
+    <!--                @click="menu = false"-->
+    <!--              >-->
+    <!--                Cancel-->
+    <!--              </v-btn>-->
+    <!--              <v-btn-->
+    <!--                color="primary"-->
+    <!--                text-->
+    <!--                @click="menu = false"-->
+    <!--              >-->
+    <!--                Save-->
+    <!--              </v-btn>-->
+    <!--            </v-card-actions>-->
+    <!--          </v-list>-->
+    <!--        </v-card>-->
+    <!--      </v-menu>-->
+    <!--    </v-list>-->
+    <div class="overflow-hidden" style="position:absolute; bottom: 0; width: 100%">
+      <v-divider />
+
+      <v-bottom-navigation horizontal>
+        <v-menu
+          v-model="menu"
+          :close-on-content-click="false"
+          :nudge-width="200"
+          offset-x
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-bind="attrs"
+              v-on="on"
+            >
+              <span>Settings</span>
+
+              <v-icon>mdi-cog</v-icon>
+            </v-btn>
+          </template>
+
+          <v-card>
+            <v-list>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Settings</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+
+            <v-divider />
+
+            <v-list>
+              <v-list-item>
+                <v-list-item-action>
+                  <v-switch
+                    v-model="show_side"
+                    loading="off"
+                    false-value="first"
+                    true-value="second"
+                  />
+                </v-list-item-action>
+                <v-list-item-title>{{ show_side_label }}</v-list-item-title>
+              </v-list-item>
+              <v-divider />
+              <v-card-actions>
+                <v-spacer />
+                <v-btn text @click="menu = false">
+                  Cancel
+                </v-btn>
+                <v-btn color="primary" text @click="menu = false; saveSettings()">
+                  Save
+                </v-btn>
+              </v-card-actions>
+            </v-list>
+          </v-card>
+        </v-menu>
+      </v-bottom-navigation>
+    </div>
   </v-navigation-drawer>
 </template>
 
@@ -40,14 +166,28 @@ export default {
   data () {
     return {
       selected: 0,
+      show_side: '',
+      show_side_label: 'Show first side',
+      menu: false,
+
     }
   },
   computed: {
     ...mapState({
       packs: state => state.packs.list,
       pack: state => state.packs.pack,
-      // items: state => state.trainings.items,
+      items: state => state.trainings.items,
     }),
+  },
+  watch: {
+    show_side (value) {
+      this.show_side_label = `Show ${value} side`
+    },
+  },
+  mounted () {
+    this.$axios.get('/api/settings/').then((res) => {
+      this.show_side = res.data.find(item => item.setting === 'study_show_side').value || 'first'
+    })
   },
   methods: {
     change (value) {
@@ -57,6 +197,21 @@ export default {
         this.$store.commit('packs/setPack', 'all')
       else
         this.$store.commit('packs/setPack', this.packs[value - 1])
+    },
+    saveSettings () {
+      const settings = [
+        {
+          name: 'study_show_side',
+          value: this.show_side,
+        },
+      ]
+
+      this.$axios.post('/api/settings/set', { settings }).then(() => {
+        this.$notifier.showMessage({ content: 'Successful saved!', color: 'pink' })
+        this.$bus.$emit('test-event')
+      }).catch(() => {
+        this.$notifier.showMessage({ content: 'Error!', color: 'pink' })
+      })
     },
   },
 }

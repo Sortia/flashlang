@@ -9,7 +9,7 @@
       <div class="face face1">
         <div class="content">
           <p class="text-center h4">
-            {{ right.first_side }}
+            {{ right.front }}
           </p>
         </div>
       </div>
@@ -22,7 +22,7 @@
                   <v-btn width="100%" height="60px" :class="[fails[index] ? 'fail-button ' : 'default-button ', correct[index] ? 'right-button' : '']" @click="choose(flashcard) ? '' : $set(fails, index, !fails[index])">
                     <v-card-text class="txt-white">
                       <p class="text-center">
-                        {{ flashcard.second_side }}
+                        {{ flashcard.back }}
                       </p>
                     </v-card-text>
                   </v-btn>
@@ -40,14 +40,6 @@
 export default {
   name: 'ChooseItem',
   props: {
-    front: {
-      type: String,
-      required: true,
-    },
-    back: {
-      type: String,
-      required: true,
-    },
     choices: {
       type: Array,
       required: true,
@@ -65,7 +57,7 @@ export default {
   },
   methods: {
     choose (flashcard) {
-      return flashcard.second_side === this.right.second_side ? this.$emit('right') : false
+      return flashcard.back === this.right.back ? this.$emit('right') : false
     },
     hint () {
       return this.choices.findIndex(item => item.id === this.right.id)

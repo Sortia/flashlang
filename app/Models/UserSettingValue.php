@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Eloquent;
+use Barryvdh\LaravelIdeHelper\Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $user_id
  * @property int $setting_value_id
+ * @property int $setting_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read User $user
@@ -26,11 +27,18 @@ use Illuminate\Support\Carbon;
  * @method static Builder|UserSettingValue whereSettingValueId($value)
  * @method static Builder|UserSettingValue whereUpdatedAt($value)
  * @method static Builder|UserSettingValue whereUserId($value)
+ * @method static Builder|UserSettingValue whereSettingId($value)
  * @mixin Eloquent
  */
 class UserSettingValue extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'setting_id',
+        'setting_value_id',
+    ];
 
     /** ------------------- Relations ------------------- **/
     public function user()
@@ -40,7 +48,12 @@ class UserSettingValue extends Model
 
     public function value()
     {
-        return $this->belongsTo(SettingValue::class);
+        return $this->belongsTo(SettingValue::class, 'setting_value_id');
+    }
+
+    public function setting()
+    {
+        return $this->belongsTo(Setting::class);
     }
 
     /** -------------------- Methods -------------------- **/

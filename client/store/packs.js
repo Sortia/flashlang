@@ -42,12 +42,12 @@ export const mutations = {
 
 export const actions = {
   get ({ commit }, query) {
-    this.$axios.get(`${defaultUrl}`, { params: query }).then((res) => {
+    return this.$axios.get(`${defaultUrl}`, { params: query }).then((res) => {
       commit('set', res.data)
     })
   },
   show ({ commit }, params) {
-    this.$axios.get(`${defaultUrl}/${params.id}`).then((res) => {
+    return this.$axios.get(`${defaultUrl}/${params.id}`).then((res) => {
       commit('setPack', res.data)
     })
   },

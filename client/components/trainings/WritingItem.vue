@@ -9,7 +9,7 @@
       <div class="face face1">
         <div class="content">
           <p class="text-center h4">
-            {{ flashcard.first_side }}
+            {{ flashcard.front }}
           </p>
         </div>
       </div>
@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     choose () {
-      if (this.flashcard.second_side === this.text)
+      if (this.flashcard.back === this.text)
         this.$emit('right')
     },
     hint () {
@@ -55,10 +55,10 @@ export default {
 
       const textLength = this.text.length
 
-      if (this.flashcard.second_side.substr(0, textLength) === this.text)
-        this.text += this.flashcard.second_side.substr(textLength, 1)
+      if (this.flashcard.back.substr(0, textLength) === this.text)
+        this.text += this.flashcard.back.substr(textLength, 1)
       else
-        this.text = this.flashcard.second_side.substr(0, 1)
+        this.text = this.flashcard.back.substr(0, 1)
     },
   },
 }

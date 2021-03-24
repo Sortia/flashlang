@@ -13,7 +13,7 @@
             class="h-100"
             light
           >
-            <ChooseItem :front="flashcard.first_side" :back="flashcard.second_side" :choices="choices" :right="right" @right="rightTest" />
+            <ChooseItem :front="flashcard.front" :back="flashcard.back" :choices="choices" :right="right" @right="rightTest" />
           </v-carousel-item>
         </v-carousel>
       </v-card>
@@ -60,12 +60,9 @@ export default {
     },
   },
   mounted () {
-    this.$store.commit('packs/setPack', this.$store.state.packs.list[0] || {})
-
-    if (!this.pack.flashcards)
-      return this.$router.push('/trainings')
-
-    this.addItem()
+    this.$store.dispatch('packs/get').then(() => {
+      this.$store.commit('packs/setPack', this.$store.state.packs.list[0] || {})
+    })
   },
   methods: {
     rightTest () {
