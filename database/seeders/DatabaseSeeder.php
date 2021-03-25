@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         DB::statement('SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";');
 
+        $this->call(LanguagesSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(PermissionRoleSeeder::class);
         $this->call(SettingSeeder::class);

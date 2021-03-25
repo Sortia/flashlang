@@ -8,15 +8,30 @@
       >
         <v-card elevation="10" shaped class="px-5 pb-2">
           <v-row>
-            <v-col sm="6" cols="12">
-              <v-text-field :value="pack.name" label="Name" :rules="rules" @input="merge({ name: $event })" />
+            <v-col sm="6" cols="12" class="pb-2">
+              <v-text-field
+                :value="pack.name"
+                label="Название"
+                :rules="rules.name"
+                auto
+                autocomplete="false"
+                @input="merge({ name: $event })"
+              />
             </v-col>
-            <v-col sm="6" cols="12">
-              <v-text-field :value="pack.description" label="Description" @input="merge({ description: $event })" />
+            <v-col sm="6" cols="12" class="pb-2">
+              <v-text-field :value="pack.description" label="Описание" autocomplete="false" :rules="rules.description" @input="merge({ description: $event })" />
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col sm="6" cols="12" class="pt-0">
+              <base-select :items="languages" :value="pack.first_lang_id" label="Изучаемый язык" @input="merge({ first_lang_id: $event })" />
+            </v-col>
+            <v-col sm="6" cols="12" class="pt-0">
+              <base-select :items="languages" :value="pack.second_lang_id" label="Родной язык" @input="merge({ first_lang_id: $event })" />
             </v-col>
           </v-row>
         </v-card>
-        <v-row class="pt-4 mt-5">
+        <v-row class="mt-5">
           <v-col v-for="(flashcard, index) in pack.flashcards" :key="index" md="6" cols="12">
             <flashcard entity="packs" :flashcard="flashcard" :index="index" />
           </v-col>
@@ -55,22 +70,31 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
 import Flashcard from '@/components/flashcard/Flashcard'
+import BaseSelect from '@/components/Inputs/BaseSelect'
 
 export default {
   name: 'PackForm',
   components: {
     Flashcard,
+    BaseSelect,
   },
   data: () => ({
     valid: true,
-    rules: [
-      value => !!value || 'Required',
-      value => (value && value.length <= 10) || 'Name must be less than 10 characters',
-    ],
+    rules: {
+      name: [
+        value => !!value || 'Поле "Название" обязательно для заполнения!',
+        value => (value && value.length <= 50) || 'Название должно быть не длиннее 50 символов!',
+      ],
+      description: [
+        value => (!value || value.length <= 50) || 'Описание должно быть не длиннее 50 символов!',
+      ],
+    },
+    items: [ 'Foo', 'Bar', 'Fizz', 'Buzz' ],
   }),
   computed: {
     ...mapState({
       pack: state => state.packs.pack,
+      languages: state => state.languages.list,
     }),
   },
   beforeDestroy () {
@@ -92,7 +116,7 @@ export default {
     savePack () {
       if (this.validate())
         this.$store.dispatch(this.getAction(), this.pack).then((res) => {
-          this.$notifier.showMessage({ content: 'Successful saved!', color: 'pink' })
+          this.$notifier.showMessage({ content: 'Успешно!', color: 'pink' })
           this.$router.push('/packs/' + res.data.id)
         })
     },

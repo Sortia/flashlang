@@ -29,10 +29,24 @@
       <v-col cols="12" sm="12" class="pb-0 pt-2">
         <v-row>
           <v-col lg="6" cols="12">
-            <v-text-field :disabled="disabled" :value="flashcard.first_side" label="Front" :rules="rules" @input="mergeFlashcard({ first_side: $event, index })" />
+            <v-text-field
+              :disabled="disabled"
+              :value="flashcard.first_side"
+              label="Слово"
+              :rules="rules"
+              autocomplete="false"
+              @input="mergeFlashcard({ first_side: $event, index })"
+            />
           </v-col>
           <v-col lg="6" cols="12">
-            <v-text-field :disabled="disabled" :value="flashcard.second_side" label="Back" :rules="rules" @input="mergeFlashcard({ second_side: $event, index })" />
+            <v-text-field
+              :disabled="disabled"
+              :value="flashcard.second_side"
+              label="Перевод"
+              :rules="rules"
+              autocomplete="false"
+              @input="mergeFlashcard({ second_side: $event, index })"
+            />
           </v-col>
         </v-row>
       </v-col>
@@ -64,8 +78,8 @@ export default {
   },
   data: () => ({
     rules: [
-      value => !!value || 'Required',
-      value => (value && value.length <= 25) || 'Name must be less than 25 characters',
+      value => !!value || 'Поле обязательно для заполнения',
+      value => (value && value.length <= 25) || 'Поле должно быть не длиннее 25 символов',
     ],
   }),
   computed: {

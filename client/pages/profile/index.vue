@@ -26,7 +26,7 @@
             <v-col lg="6">
               <div class="pl-2 v-sheet">
                 <div class="transition-swing text-subtitle-2 overline">
-                  Email
+                  Электронный адрес
                 </div>
                 <div class="transition-swing text-caption text-secondary">
                   {{ user.email }}
@@ -36,7 +36,7 @@
             <v-col lg="6">
               <div class="pl-2 v-sheet">
                 <div class="transition-swing text-subtitle-2 overline">
-                  Registration date
+                  Дата регистрации
                 </div>
                 <div class="transition-swing text-caption text-secondary">
                   {{ user.created_at | date }}
@@ -49,10 +49,10 @@
             <v-col lg="6">
               <div class="pl-2 v-sheet">
                 <div class="transition-swing text-subtitle-2 overline">
-                  Complexity
+                  Сложность
                 </div>
                 <div class="transition-swing text-caption text-secondary">
-                  {{ user.complexity ? user.complexity.count_flashcards : '' }} cards per day
+                  {{ user.complexity ? user.complexity.count_flashcards : '' }} карточек в день
                 </div>
               </div>
             </v-col>
@@ -67,35 +67,35 @@
             <p class="text-center mb-2">
               <span class="h4 text--secondary font-weight-regular">{{ user.study_flashcards_count }}</span>
               <br>
-              <span class="text--disabled overline">On study</span>
+              <span class="text--disabled overline">На изучении</span>
             </p>
           </v-col>
           <v-col md="3">
             <p class="text-center mb-2">
               <span class="h4 text--secondary font-weight-bold">{{ user.studied_flashcards_count }}</span>
               <br>
-              <span class="text--disabled overline">Studied</span>
+              <span class="text--disabled overline">Изучено</span>
             </p>
           </v-col>
           <v-col md="3">
             <p class="text-center mb-2">
               <span class="h4 text--secondary font-weight-bold">{{ user.studied_in_this_week_flashcards_count }}</span>
               <br>
-              <span class="text--disabled overline">In this week</span>
+              <span class="text--disabled overline">На этой неделе</span>
             </p>
           </v-col>
           <v-col md="3">
             <p class="text-center mb-2">
               <span class="h4 text--secondary font-weight-bold">{{ user.studied_in_this_month_flashcards_count }}</span>
               <br>
-              <span class="text--disabled overline">In this month</span>
+              <span class="text--disabled overline">В этом месяце</span>
             </p>
           </v-col>
         </v-row>
         <v-divider />
         <v-row class="px-3">
           <v-col lg="6" class="px-4 py-3">
-            <span class="text--disabled overline">Weekly progress</span>
+            <span class="text--disabled overline">Недельный прогресс</span>
             <v-progress-linear
               color="teal"
               class="pb-3"
@@ -103,7 +103,7 @@
             />
           </v-col>
           <v-col lg="6" class="px-4 py-3">
-            <span class="text--disabled overline">Monthly progress</span>
+            <span class="text--disabled overline">Месячный прогресс</span>
             <v-progress-linear
               color="teal"
               class="pb-3"
@@ -114,15 +114,15 @@
       </v-card>
       <v-card class="mt-5 rounded-lg" elevation="10">
         <v-card-title class="text-subtitle-2 overline">
-          Calendar heatmap
+          Календарь изученных слов
         </v-card-title>
         <v-divider />
         <div class="container d-flex flex-row-reverse mb-3 pb-5" style="overflow: hidden" />
         <v-divider />
         <v-card-title class="text-subtitle-2 overline">
-          <span class="pr-2">Activity on {{ date | date }},</span>
-          <span v-if="day" class="text--disabled">{{ ' ' }} {{ day.flashcards.length }} words learned this day</span>
-          <span v-else class="text--disabled">{{ ' ' }} A wasted day</span>
+          <span class="pr-2">Активность за {{ date | date }}:</span>
+          <span v-if="day" class="text--disabled">{{ ' ' }} {{ day.flashcards.length }} слов изучено</span>
+          <span v-else class="text--disabled">{{ ' ' }} День прошел зря!</span>
         </v-card-title>
         <v-divider />
         <v-row v-if="day">

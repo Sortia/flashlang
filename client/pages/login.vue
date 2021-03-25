@@ -3,10 +3,10 @@
     <div class="auth-form mx-auto my-auto col-lg-3 col-md-5">
       <div class="card">
         <div class="card-header py-3 text-uppercase text-center">
-          Login
+          Вход
         </div>
         <button @click="userLogin">
-          LOGIN
+          Вход
         </button>
         <nuxt-link to="/packs">
           Link

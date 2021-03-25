@@ -111,7 +111,7 @@
               v-bind="attrs"
               v-on="on"
             >
-              <span>Settings</span>
+              <span>Настройки</span>
 
               <v-icon>mdi-cog</v-icon>
             </v-btn>
@@ -121,7 +121,7 @@
             <v-list>
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title>Settings</v-list-item-title>
+                  <v-list-item-title>Настройки</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -144,10 +144,10 @@
               <v-card-actions>
                 <v-spacer />
                 <v-btn text @click="menu = false">
-                  Cancel
+                  Закрыть
                 </v-btn>
                 <v-btn color="primary" text @click="menu = false; saveSettings()">
-                  Save
+                  Сохранить
                 </v-btn>
               </v-card-actions>
             </v-list>
@@ -167,7 +167,7 @@ export default {
     return {
       selected: 0,
       show_side: '',
-      show_side_label: 'Show first side',
+      show_side_label: 'Показать слово',
       menu: false,
 
     }
@@ -181,7 +181,7 @@ export default {
   },
   watch: {
     show_side (value) {
-      this.show_side_label = `Show ${value} side`
+      this.show_side_label = 'Показать ' + value ? 'слово' : 'перевод'
     },
   },
   mounted () {
@@ -207,10 +207,10 @@ export default {
       ]
 
       this.$axios.post('/api/settings/set', { settings }).then(() => {
-        this.$notifier.showMessage({ content: 'Successful saved!', color: 'pink' })
+        this.$notifier.showMessage({ content: 'Успешно!', color: 'pink' })
         this.$bus.$emit('test-event')
       }).catch(() => {
-        this.$notifier.showMessage({ content: 'Error!', color: 'pink' })
+        this.$notifier.showMessage({ content: 'Ошибка!', color: 'pink' })
       })
     },
   },

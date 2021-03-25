@@ -4,17 +4,17 @@
       <v-card shaped elevation="20" class="p-4 flashcard-card">
         <v-card-title class="p-0">
           <h3 class="pa-2 m-0 p-0">
-            <strong>Flashcards</strong>
+            <strong>Флеш-карточки</strong>
           </h3>
         </v-card-title>
         <v-card-text class="pa-2">
-          Each flashcard bears a question on one side and an answer on the other.
+          Каждая карточка содержит вопрос с одной стороны и ответ - с другой.
         </v-card-text>
         <v-card-actions>
           <v-spacer />
           <nuxt-link to="/trainings/flashcards">
             <v-btn class="mt-5 float-right px-5" dark rounded>
-              Study
+              Начать
             </v-btn>
           </nuxt-link>
         </v-card-actions>
@@ -24,17 +24,17 @@
       <v-card shaped elevation="20" class="p-4 choose-card">
         <v-card-title class="p-0">
           <h3 class="pa-2 m-0 p-0">
-            <strong>Choose</strong>
+            <strong>Выбор</strong>
           </h3>
         </v-card-title>
         <v-card-text class="pa-2">
-          Choose one of the suggested translation options for the word.
+          Выберите один из предложенных вариантов перевода слова.
         </v-card-text>
         <v-card-actions>
           <v-spacer />
           <nuxt-link to="/trainings/choose">
             <v-btn class="mt-5 float-right px-5" dark rounded>
-              Study
+              Начать
             </v-btn>
           </nuxt-link>
         </v-card-actions>
@@ -44,17 +44,17 @@
       <v-card shaped elevation="20" class="p-4 constructor-card">
         <v-card-title class="p-0">
           <h3 class="pa-2 m-0 p-0">
-            <strong>Constructor</strong>
+            <strong>Конструктор</strong>
           </h3>
         </v-card-title>
         <v-card-text class="pa-2">
-          Gather the correct translation word from the suggested letters.
+          Соберите правильный перевод из предложенных букв.
         </v-card-text>
         <v-card-actions>
           <v-spacer />
           <nuxt-link to="/trainings/constructor">
             <v-btn class="mt-5 float-right px-5" dark rounded>
-              Study
+              Начать
             </v-btn>
           </nuxt-link>
         </v-card-actions>
@@ -64,17 +64,17 @@
       <v-card shaped elevation="20" class="p-4 writing-card">
         <v-card-title class="p-0">
           <h3 class="pa-2 m-0 p-0">
-            <strong>Writing</strong>
+            <strong>Письмо</strong>
           </h3>
         </v-card-title>
         <v-card-text class="pa-2">
-          Write the translation of the suggested word.
+          Напишите перевод предложенного слова.
         </v-card-text>
         <v-card-actions>
           <v-spacer />
           <nuxt-link to="/trainings/writing">
             <v-btn class="mt-5 float-right px-5" dark rounded>
-              Study
+              Начать
             </v-btn>
           </nuxt-link>
         </v-card-actions>
@@ -84,17 +84,17 @@
       <v-card shaped elevation="20" class="p-4 reading-card">
         <v-card-title class="p-0">
           <h3 class="pa-2 m-0 p-0">
-            <strong>Reading</strong>
+            <strong>Чтение</strong>
           </h3>
         </v-card-title>
         <v-card-text class="pa-2">
-          Specially selected sentences with the studied words.
+          Специально подобранные предложения с изученными словами.
         </v-card-text>
         <v-card-actions>
           <v-spacer />
           <nuxt-link to="/trainings/reading">
             <v-btn class="mt-5 float-right px-5" dark rounded>
-              Study
+              Начать
             </v-btn>
           </nuxt-link>
         </v-card-actions>
@@ -104,17 +104,17 @@
       <v-card shaped elevation="20" class="p-4 sprint-card">
         <v-card-title class="p-0">
           <h3 class="pa-2 m-0 p-0">
-            <strong>Sprint</strong>
+            <strong>Спринт</strong>
           </h3>
         </v-card-title>
         <v-card-text class="pa-2">
-          Specially selected sentences with the studied words.
+          // TODO
         </v-card-text>
         <v-card-actions>
           <v-spacer />
           <nuxt-link to="/trainings/sprint">
             <v-btn class="mt-5 float-right px-5" dark rounded>
-              Study
+              Начать
             </v-btn>
           </nuxt-link>
         </v-card-actions>

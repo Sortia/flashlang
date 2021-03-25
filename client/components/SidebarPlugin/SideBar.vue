@@ -119,6 +119,7 @@ export default {
 
  .sidebar .nav-main__links {
    flex: 1;
+   padding-left: 0;
  }
  .sidebar .sidebar-wrapper .logo .logo__container {
    padding-left: 10px;

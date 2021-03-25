@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\HeatmapController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PackController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StorybookController;
@@ -24,6 +25,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::middleware('auth:sanctum')->get('/user', fn() => request()->user());
     Route::post('/login', [AuthController::class, 'login']);
 
+    Route::resource('languages', LanguageController::class);
     Route::resource('packs', PackController::class);
     Route::resource('users', UserController::class);
     Route::resource('heatmaps', HeatmapController::class);

@@ -21,17 +21,17 @@ const heatmap = {
     let max = 10
     let colorRange = [ '#ffffff', '#218380' ]
     let tooltipEnabled = true
-    let tooltipUnit = 'word'
+    let tooltipUnit = 'слов'
     let legendEnabled = true
     let onClick = null
     const weekStart = 0 // 0 for Sunday, 1 for Monday
     let locale = {
-      months: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
-      days: [ 'S', 'Mon', 'T', 'Wed', 'T', 'Fri', 'S' ],
-      No: 'No',
-      on: 'on',
-      Less: 'Less',
-      More: 'More',
+      months: [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Мая', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ],
+      days: [ 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб' ],
+      No: 'Нет',
+      on: 'в',
+      Less: 'Меньше',
+      More: 'Больше',
     }
     const v = Number(d3.version.split('.')[0])
 
@@ -248,7 +248,8 @@ const heatmap = {
 
       function pluralizedTooltipUnit (count) {
         if (typeof tooltipUnit === 'string')
-          return (tooltipUnit + (count === 1 ? '' : 's'))
+          // return (tooltipUnit + (count === 1 ? '' : 's'))
+          return tooltipUnit
 
         for (const i in tooltipUnit) {
           const _rule = tooltipUnit[i]

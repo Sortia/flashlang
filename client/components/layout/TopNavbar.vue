@@ -23,7 +23,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a href="#" class="nav-link" @click="logout">
-              Log out
+              Выйти
             </a>
           </li>
         </ul>
@@ -99,7 +99,7 @@ export default {
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a href="#" class="nav-link" @click="logout">
-                Log out
+                Выйти
               </a>
             </li>
           </ul>

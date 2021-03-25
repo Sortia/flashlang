@@ -9,10 +9,10 @@
         <v-card elevation="10" shaped class="px-5 pb-2">
           <v-row>
             <v-col sm="6" cols="12">
-              <v-text-field :disabled="!haveEditPermission()" :value="collection.name" label="Name" :rules="nameRules" @input="merge({ name: $event })" />
+              <v-text-field :disabled="!haveEditPermission()" :value="collection.name" label="Название" :rules="rules.name" @input="merge({ name: $event })" />
             </v-col>
             <v-col sm="6" cols="12">
-              <v-text-field :disabled="!haveEditPermission()" :value="collection.description" label="Description" :rules="descriptionRules" @input="merge({ description: $event })" />
+              <v-text-field :disabled="!haveEditPermission()" :value="collection.description" label="Описание" :rules="rules.description" @input="merge({ description: $event })" />
             </v-col>
           </v-row>
         </v-card>
@@ -30,7 +30,7 @@
                 x-large
                 @click="addFlashcard"
               >
-                Add
+                Добавить
               </v-btn>
             </span>
           </v-col>
@@ -42,7 +42,7 @@
                 x-large
                 @click="saveCollection"
               >
-                Save
+                Сохранить
               </v-btn>
             </span>
             <span class="float-right">
@@ -52,7 +52,7 @@
                 x-large
                 @click="copyCollection"
               >
-                Copy
+                Копировать
               </v-btn>
             </span>
           </v-col>
@@ -73,14 +73,15 @@ export default {
   },
   data: () => ({
     valid: true,
-    nameRules: [
-      value => !!value || 'Required',
-      value => (value && value.length <= 10) || 'Name must be less than 10 characters',
-    ],
-    descriptionRules: [
-      value => !!value || 'Required',
-      value => (value && value.length <= 100) || 'Name must be less than 100 characters',
-    ],
+    rules: {
+      name: [
+        value => !!value || 'Поле "Название" обязательно для заполнения!',
+        value => (value && value.length <= 50) || 'Название должно быть не длиннее 50 символов!',
+      ],
+      description: [
+        value => (!value || value.length <= 50) || 'Описание должно быть не длиннее 50 символов!',
+      ],
+    },
   }),
   computed: {
     ...mapState({
@@ -106,13 +107,13 @@ export default {
     saveCollection () {
       if (this.validate())
         this.$store.dispatch(this.getAction(), this.collection).then((res) => {
-          this.$notifier.showMessage({ content: 'Successful saved!', color: 'pink' })
+          this.$notifier.showMessage({ content: 'Успешно!', color: 'pink' })
           this.$router.push('/collections/' + res.data.id)
         })
     },
     copyCollection () {
       this.$axios.post(`/api/collections/${this.$route.params.id}/copy`).then((res) => {
-        this.$notifier.showMessage({ content: 'Successful saved!', color: 'pink' })
+        this.$notifier.showMessage({ content: 'Успешно!', color: 'pink' })
         this.$router.push('/packs/' + res.data.id)
       })
     },

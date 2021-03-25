@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import moment from 'moment'
-// import 'moment/locale/ru'
+import 'moment/locale/ru'
 
-// moment.locale('ru')
+moment.locale('ru')
 
 Vue.filter('datetime', function (value) {
   if (!value)

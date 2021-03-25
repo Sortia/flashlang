@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Auth;
  * @property string $name
  * @property string $description
  * @property int $user_id
+ * @property int $first_lang_id
+ * @property int $second_lang_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Collection|Flashcard[] $flashcards
@@ -49,6 +51,8 @@ class Pack extends Model
         'id',
         'name',
         'description',
+        'first_lang_id',
+        'second_lang_id',
     ];
 
     /** ------------------- Relations ------------------- **/

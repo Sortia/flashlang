@@ -18,6 +18,8 @@ class PackService
         $pack->name = $data->name;
         $pack->description = $data->description;
         $pack->user_id = Auth::id();
+        $pack->first_lang_id = $data->first_lang_id;
+        $pack->second_lang_id = $data->second_lang_id;
 
         $pack->save();
     }

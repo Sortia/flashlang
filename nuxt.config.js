@@ -1,3 +1,4 @@
+import ru from '../flashlang/node_modules/vuetify/src/locale/ru.ts'
 
 export default {
   /*
@@ -74,6 +75,12 @@ export default {
     [ 'nuxt-tailvue', { all: true } ],
     '@nuxtjs/vuetify',
   ],
+  vuetify: {
+    lang: {
+      locales: { ru },
+      current: 'ru',
+    },
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
