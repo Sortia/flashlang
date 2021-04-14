@@ -16,6 +16,7 @@
             :value="flashcard.status_id"
             @input="mergeFlashcard({ status_id: $event, index })"
           />
+          <tooltip v-if="index === 0" text="Чем больше звезд - тем реже попадается на тренировках" />
         </v-col>
         <v-col v-if="haveEditPermission()" cols="2">
           <span class="float-right">
@@ -28,7 +29,7 @@
     <v-row no-gutters class="my-1 mx-4">
       <v-col cols="12" sm="12" class="pb-0 pt-2">
         <v-row>
-          <v-col lg="6" cols="12">
+          <v-col lg="4" cols="12">
             <v-text-field
               :disabled="disabled"
               :value="flashcard.first_side"
@@ -38,7 +39,16 @@
               @input="mergeFlashcard({ first_side: $event, index })"
             />
           </v-col>
-          <v-col lg="6" cols="12">
+          <v-col lg="4" cols="12">
+            <v-text-field
+              :disabled="disabled"
+              :value="flashcard.transcription"
+              label="Транскрипция"
+              autocomplete="false"
+              @input="mergeFlashcard({ transcription: $event, index })"
+            />
+          </v-col>
+          <v-col lg="4" cols="12">
             <v-text-field
               :disabled="disabled"
               :value="flashcard.second_side"
@@ -55,9 +65,13 @@
 </template>
 
 <script>
+import Tooltip from '@/components/elements/tooltip'
 
 export default {
   name: 'Flashcard',
+  components: {
+    Tooltip,
+  },
   props: {
     entity: {
       type: String,
@@ -101,3 +115,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.v-rating {
+  display: contents;
+}
+</style>

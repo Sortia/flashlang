@@ -2,6 +2,9 @@
 
 return [
 
+    'yandex_key' => env('YANDEX_KEY'),
+    'yandex_folder_id' => env('YANDEX_FOLDER_ID'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

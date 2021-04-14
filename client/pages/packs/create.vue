@@ -11,7 +11,7 @@ export default {
     PackForm,
   },
   mounted () {
-    this.setDefaultFlashcards()
+    // this.setDefaultFlashcards()
   },
   methods: {
     setDefaultFlashcards () {

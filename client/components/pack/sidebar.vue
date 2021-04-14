@@ -16,7 +16,7 @@
       >
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title v-text="'All packs'" />
+            <v-list-item-title v-text="'Все наборы'" />
           </v-list-item-content>
         </v-list-item>
         <v-list-item
@@ -181,7 +181,7 @@ export default {
   },
   watch: {
     show_side (value) {
-      this.show_side_label = 'Показать ' + value ? 'слово' : 'перевод'
+      this.show_side_label = 'Показать ' + (value === 'first' ? 'слово' : 'перевод')
     },
   },
   mounted () {

@@ -80,6 +80,9 @@ export default {
       locales: { ru },
       current: 'ru',
     },
+    icons: {
+      iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
+    },
   },
   /*
   ** Axios module configuration

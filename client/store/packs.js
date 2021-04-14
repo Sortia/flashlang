@@ -14,11 +14,8 @@ export const mutations = {
   setPack (state, pack = {}) {
     state.pack = pack
   },
-  newFlashcard (state) {
-    state.pack.flashcards.push({
-      first_side: '',
-      second_side: '',
-    })
+  newFlashcard (state, form) {
+    state.pack.flashcards.push(form)
   },
   removeFlashcard (state, index) {
     state.pack.flashcards.splice(index, 1)

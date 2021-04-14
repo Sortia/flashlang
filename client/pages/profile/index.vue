@@ -50,6 +50,7 @@
               <div class="pl-2 v-sheet">
                 <div class="transition-swing text-subtitle-2 overline">
                   Сложность
+                  <tooltip text="В зависимости от сложности расчитывается прогресс" />
                 </div>
                 <div class="transition-swing text-caption text-secondary">
                   {{ user.complexity ? user.complexity.count_flashcards : '' }} карточек в день
@@ -114,7 +115,10 @@
       </v-card>
       <v-card class="mt-5 rounded-lg" elevation="10">
         <v-card-title class="text-subtitle-2 overline">
-          Календарь изученных слов
+          <div class="transition-swing text-subtitle-2 overline">
+            Календарь изученных слов
+            <tooltip text="Чем больше слов изучено за день - тем более насыщенный цвет" />
+          </div>
         </v-card-title>
         <v-divider />
         <div class="container d-flex flex-row-reverse mb-3 pb-5" style="overflow: hidden" />
@@ -144,8 +148,13 @@
 import { mapState } from 'vuex'
 import moment from 'moment'
 
+import Tooltip from '@/components/elements/tooltip'
+
 export default {
   name: 'Index',
+  components: {
+    Tooltip,
+  },
   data () {
     return {
       date: '',

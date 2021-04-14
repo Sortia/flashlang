@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\DictionaryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\HeatmapController;
@@ -36,4 +37,10 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::get('settings', [SettingController::class, 'index']);
     Route::post('settings/set', [SettingController::class, 'set']);
+
+
+
+    Route::group(['prefix' => 'dictionary'], function () {
+        Route::get('translate', [DictionaryController::class, 'translate']);
+    });
 });

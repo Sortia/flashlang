@@ -7,7 +7,7 @@ const heatmap = {
   create() {
     // defaults
     const width = 980
-    const height = 150
+    const height = 100
     const legendWidth = 150
     let selector = 'body'
     const SQUARE_LENGTH = 12
@@ -22,7 +22,7 @@ const heatmap = {
     let colorRange = [ '#ffffff', '#218380' ]
     let tooltipEnabled = true
     let tooltipUnit = 'слов'
-    let legendEnabled = true
+    let legendEnabled = false
     let onClick = null
     const weekStart = 0 // 0 for Sunday, 1 for Monday
     let locale = {

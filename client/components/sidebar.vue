@@ -2,7 +2,7 @@
   <side-bar>
     <mobile-menu slot="content" />
     <sidebar-link to="/packs">
-      <i class="nc-icon nc-puzzle-10" />
+      <i class="nc-icon nc-grid-45" />
       <p>Главная</p>
     </sidebar-link>
     <hr>
@@ -10,10 +10,6 @@
       <i class="nc-icon nc-circle-09" />
       <p>Профиль</p>
     </sidebar-link>
-    <!--    <sidebar-link to="/packs">-->
-    <!--      <i class="nc-icon nc-puzzle-10" />-->
-    <!--      <p>Флеш карточки</p>-->
-    <!--    </sidebar-link>-->
     <sidebar-link to="/collections">
       <i class="nc-icon nc-puzzle-10" />
       <p>Коллекции</p>
@@ -23,21 +19,13 @@
       <p>Тренировки</p>
     </sidebar-link>
     <sidebar-link to="/testing">
-      <i class="nc-icon nc-atom" />
+      <i class="nc-icon nc-layers-3" />
       <p>Тестирование</p>
     </sidebar-link>
     <sidebar-link to="/courses">
-      <i class="nc-icon nc-chart-pie-35" />
+      <i class="nc-icon nc-map-big" />
       <p>Курсы</p>
     </sidebar-link>
-    <!--    <sidebar-link to="/notifications">-->
-    <!--      <i class="nc-icon nc-bell-55" />-->
-    <!--      <p>Notifications</p>-->
-    <!--    </sidebar-link>-->
-    <!--    <sidebar-link to="/settings">-->
-    <!--      <i class="nc-icon nc-settings-gear-64" />-->
-    <!--      <p>Settings</p>-->
-    <!--    </sidebar-link>-->
   </side-bar>
 </template>
 
