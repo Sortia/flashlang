@@ -5,7 +5,7 @@
         <div class="card-header py-3 text-uppercase text-center">
           Вход
         </div>
-        <button @click="userLogin">
+        <button @click="userLogin()">
           Вход
         </button>
         <nuxt-link to="/packs">
@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     userLogin () {
+      console.log(123)
       this.$axios.get('/sanctum/csrf-cookie', {
         headers: {
           'X-Requested-With': 'XMLHttpRequest',

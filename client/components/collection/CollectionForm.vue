@@ -6,16 +6,18 @@
         v-model="valid"
         lazy-validation
       >
-        <v-card elevation="10" shaped class="px-5 pb-2">
-          <v-row>
-            <v-col sm="6" cols="12">
-              <v-text-field :disabled="!haveEditPermission()" :value="collection.name" label="Название" :rules="rules.name" @input="merge({ name: $event })" />
-            </v-col>
-            <v-col sm="6" cols="12">
-              <v-text-field :disabled="!haveEditPermission()" :value="collection.description" label="Описание" :rules="rules.description" @input="merge({ description: $event })" />
-            </v-col>
-          </v-row>
-        </v-card>
+        <!--        <v-card elevation="10" shaped class="px-5 pb-2">-->
+        <!--          <v-row>-->
+        <!--            <v-col sm="6" cols="12">-->
+        <!--              <v-text-field :disabled="!haveEditPermission()" :value="collection.name" label="Название" :rules="rules.name" @input="merge({ name: $event })" />-->
+        <!--            </v-col>-->
+        <!--            <v-col sm="6" cols="12">-->
+        <!--              <v-text-field :disabled="!haveEditPermission()" :value="collection.description" label="Описание" :rules="rules.description" @input="merge({ description: $event })" />-->
+        <!--            </v-col>-->
+        <!--          </v-row>-->
+        <!--        </v-card>-->
+        <pack-header :pack="collection" :type="'collection'" :disabled="!haveEditPermission()" />
+        <pack-translate v-if="haveEditPermission()" :pack="collection" :type="'collection'" />
         <v-row class="pt-4 mt-5">
           <v-col v-for="(flashcard, index) in collection.flashcards" :key="index" md="6" cols="12">
             <flashcard entity="collections" :flashcard="flashcard" :index="index" :disabled="!haveEditPermission()" />
@@ -65,11 +67,15 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
 import Flashcard from '@/components/flashcard/Flashcard'
+import PackHeader from '@/components/pack/header'
+import PackTranslate from '@/components/pack/translate'
 
 export default {
   name: 'CollectionForm',
   components: {
     Flashcard,
+    PackHeader,
+    PackTranslate,
   },
   data: () => ({
     valid: true,
