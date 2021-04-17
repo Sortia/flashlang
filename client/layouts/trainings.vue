@@ -35,7 +35,7 @@ export default {
     MainSidebar,
   },
   mounted () {
-    this.$laravel.setPermissions(this.$auth.user.permissions)
+    // this.$laravel.setPermissions(this.$auth.user.permissions)
   },
 }
 </script>

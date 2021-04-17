@@ -6,8 +6,8 @@
         v-model="valid"
         lazy-validation
       >
-        <pack-header />
-        <pack-translate />
+        <pack-header :pack="pack" :type="'packs'" />
+        <pack-translate :pack="pack" />
 
         <v-row class="mt-5">
           <v-col v-for="(flashcard, index) in pack.flashcards" :key="index" md="6" cols="12">

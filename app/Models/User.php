@@ -93,10 +93,11 @@ class User extends Authenticatable
 
     public function getPermissionsAttribute()
     {
-        $empty = ['error' => 'no permissions'];
-        return array_map(function ($e) {
-                return is_object($e) ? $e->name : $e['name'];
-            }, $this->role->permissions->toArray()) ?? $empty;
+        return [];
+//        $empty = ['error' => 'no permissions'];
+//        return array_map(function ($e) {
+//                return is_object($e) ? $e->name : $e['name'];
+//            }, $this->role->permissions->toArray()) ?? $empty;
     }
 
     public function getSettingsAttribute()

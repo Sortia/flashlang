@@ -35,7 +35,7 @@ export default {
     Sidebar,
   },
   mounted () {
-    this.$laravel.setPermissions(this.$auth.user.permissions)
+    // this.$laravel.setPermissions(this.$auth.user.permissions)
     this.$store.dispatch('languages/get')
   },
 }

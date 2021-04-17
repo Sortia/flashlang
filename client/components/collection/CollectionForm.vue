@@ -127,7 +127,8 @@ export default {
       return this.collection.id ? 'collections/update' : 'collections/create'
     },
     haveEditPermission () {
-      return this.$laravel.hasPermission('collections_edit')
+      return true
+      // return this.$laravel.hasPermission('collections_edit')
     },
   },
 }

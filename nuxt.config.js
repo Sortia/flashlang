@@ -46,7 +46,7 @@ export default {
     '~/plugins/notifier.js',
     '~/plugins/random.js',
     '~/plugins/heatmap.js',
-    '~/plugins/laravel-permissions',
+    // '~/plugins/laravel-permissions',
     '~/plugins/bus',
   ],
   /*
@@ -71,6 +71,7 @@ export default {
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/auth',
+    'cookie-universal-nuxt',
     // Doc: https://github.com/acidjazz/nuxt-tailvue
     [ 'nuxt-tailvue', { all: true } ],
     '@nuxtjs/vuetify',
@@ -89,6 +90,11 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   auth: {
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      home: '/packs',
+    },
     strategies: {
       local: {
         provider: 'laravel/sanctum',
@@ -145,7 +151,7 @@ export default {
   publicRuntimeConfig: {
     apiUrl: process.env.API_URL,
   },
-  // router: {
-  //   middleware: [ 'auth' ],
-  // },
+  router: {
+    middleware: [ 'auth' ],
+  },
 }

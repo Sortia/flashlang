@@ -6,7 +6,6 @@
     </v-card>
     <v-row>
       <v-col
-        v-permission="'collections_create'"
         lg="3"
         md="4"
         sm="6"
@@ -48,7 +47,6 @@
             v-slot:default="{ hover }"
           >
             <v-card
-              v-permission="'collections_read'"
               class="rounded-xl d-flex align-items-start flex-column p-3 pb-1"
               style="min-height: 200px;"
               :elevation="hover ? 24 : 10"

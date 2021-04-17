@@ -61,11 +61,9 @@ export default {
       this.$sidebar.displaySidebar(false)
     },
     logout () {
-      console.log(this.$cookies.get('auth._token.local'))
       this.$cookies.remove('auth._token.local')
       this.$auth.logout()
       this.$router.push('/login')
-      // console.log(this.$cookies.get('auth._token.local'))
     },
     toCreatePack () {
       this.$router.push('/packs/create')
@@ -138,8 +136,8 @@ export default {
       this.$sidebar.displaySidebar(false)
     },
     logout () {
-      console.log(this.$cookies.get('auth._token.local'))
-      this.$cookies.remove('auth._token.local')
+      this.$cookies.remove('laranuxt_session')
+      this.$store.commit('users/set', {})
       this.$auth.logout()
       this.$router.push('/login')
     },

@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'api'], function () {
     Route::middleware('auth:sanctum')->get('/user', fn() => request()->user());
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
 
     Route::resource('languages', LanguageController::class);
     Route::resource('packs', PackController::class);
@@ -32,7 +33,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::resource('heatmaps', HeatmapController::class);
     Route::resource('storybooks', StorybookController::class);
 
-    Route::resource('collections', CollectionController::class)->middleware('permission');
+    Route::resource('collections', CollectionController::class);
     Route::post('collections/{collection}/copy', [CollectionController::class, 'copy']);
 
     Route::get('settings', [SettingController::class, 'index']);
