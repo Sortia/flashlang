@@ -26,6 +26,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::middleware('auth:sanctum')->get('/user', fn() => request()->user());
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/auth/logout', [AuthController::class, 'logout']);
+    Route::post('/auth/register', [AuthController::class, 'register']);
 
     Route::resource('languages', LanguageController::class);
     Route::resource('packs', PackController::class);

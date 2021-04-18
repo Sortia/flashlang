@@ -6,26 +6,16 @@
         v-model="valid"
         lazy-validation
       >
-        <!--        <v-card elevation="10" shaped class="px-5 pb-2">-->
-        <!--          <v-row>-->
-        <!--            <v-col sm="6" cols="12">-->
-        <!--              <v-text-field :disabled="!haveEditPermission()" :value="collection.name" label="Название" :rules="rules.name" @input="merge({ name: $event })" />-->
-        <!--            </v-col>-->
-        <!--            <v-col sm="6" cols="12">-->
-        <!--              <v-text-field :disabled="!haveEditPermission()" :value="collection.description" label="Описание" :rules="rules.description" @input="merge({ description: $event })" />-->
-        <!--            </v-col>-->
-        <!--          </v-row>-->
-        <!--        </v-card>-->
-        <pack-header :pack="collection" :type="'collection'" :disabled="!haveEditPermission()" />
-        <pack-translate v-if="haveEditPermission()" :pack="collection" :type="'collection'" />
+        <pack-header :pack="collection" :type="'collections'" :disabled="!isCreator()" />
+        <pack-translate v-if="isCreator()" :pack="collection" :type="'collections'" />
         <v-row class="pt-4 mt-5">
           <v-col v-for="(flashcard, index) in collection.flashcards" :key="index" md="6" cols="12">
-            <flashcard entity="collections" :flashcard="flashcard" :index="index" :disabled="!haveEditPermission()" />
+            <flashcard entity="collections" :flashcard="flashcard" :index="index" :disabled="!isCreator()" />
           </v-col>
         </v-row>
         <v-row class="mt-4">
           <v-col sm="6">
-            <span v-if="haveEditPermission()" class="float-right">
+            <span v-if="isCreator()" class="float-right">
               <v-btn
                 color="success"
                 elevation="10"
@@ -37,7 +27,7 @@
             </span>
           </v-col>
           <v-col sm="6">
-            <span v-if="haveEditPermission()" class="float-left">
+            <span v-if="isCreator()" class="float-left">
               <v-btn
                 color="primary"
                 elevation="10"
@@ -126,9 +116,9 @@ export default {
     getAction () {
       return this.collection.id ? 'collections/update' : 'collections/create'
     },
-    haveEditPermission () {
-      return true
-      // return this.$laravel.hasPermission('collections_edit')
+    isCreator () {
+      console.log(this.collection.user_id, this.$auth.user.id)
+      return this.collection.user_id === this.$auth.user.id
     },
   },
 }
