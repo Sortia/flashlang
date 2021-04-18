@@ -6,27 +6,14 @@
         v-model="valid"
         lazy-validation
       >
-        <pack-header :pack="pack" :type="'packs'" />
-        <pack-translate :pack="pack" />
+        <v-card elevation="10" shaped class="px-5 pb-2">
+          <pack-header :pack="pack" :entity="'packs'" @update="save" />
+        </v-card>
+        <pack-translate :pack="pack" :entity="'packs'" @update="save" />
 
         <v-row class="mt-5">
           <v-col v-for="(flashcard, index) in pack.flashcards" :key="index" md="6" cols="12">
-            <flashcard entity="packs" :flashcard="flashcard" :index="index" />
-          </v-col>
-        </v-row>
-        <v-row class="mt-1">
-          <v-col sm="12" class="pb-0">
-            <span class="float-right mr-5">
-              <v-btn
-                class="big-color-btn"
-                color="success"
-                elevation="10"
-                x-large
-                @click="savePack"
-              >
-                Сохранить
-              </v-btn>
-            </span>
+            <flashcard entity="packs" :flashcard="flashcard" :index="index" @update="save" />
           </v-col>
         </v-row>
       </v-form>
@@ -73,15 +60,11 @@ export default {
     validate () {
       return this.$refs.form.validate()
     },
-    savePack () {
+    save () {
       if (this.validate())
-        this.$store.dispatch(this.getAction(), this.pack).then((res) => {
-          this.$notifier.showMessage({ content: 'Успешно!', color: 'pink' })
+        this.$store.dispatch('packs/update', this.pack).then((res) => {
           this.$router.push('/packs/' + res.data.id)
         })
-    },
-    getAction () {
-      return this.pack.id ? 'packs/update' : 'packs/create'
     },
   },
 }

@@ -11,8 +11,9 @@
         sm="6"
         cols="12"
         class="mb-5"
+        @click.stop="dialog = true"
       >
-        <nuxt-link :to="`/packs/create`">
+        <button class="w-100">
           <v-hover
             v-slot:default="{ hover }"
           >
@@ -32,8 +33,38 @@
               </v-container>
             </v-card>
           </v-hover>
-        </nuxt-link>
+        </button>
       </v-col>
+      <v-dialog
+        v-model="dialog"
+        max-width="1000"
+      >
+        <v-card>
+          <v-card-title class="headline">
+            Добавить новый набор
+          </v-card-title>
+
+          <v-card-text class="pb-0">
+            <v-form
+              ref="form"
+              v-model="valid"
+            >
+              <pack-header :pack="pack" :entity="'packs'" />
+            </v-form>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer />
+            <v-btn
+              color="green darken-1"
+              text
+              @click="create"
+            >
+              Сохранить
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <v-col
         v-for="(pack) in packs"
         :key="pack.id"
@@ -73,16 +104,36 @@
 <script>
 
 import { mapState } from 'vuex'
+import PackHeader from '@/components/pack/header'
 
 export default {
   name: 'Index',
+  components: {
+    PackHeader,
+  },
+  data () {
+    return {
+      valid: true,
+      dialog: false,
+    }
+  },
   computed: {
     ...mapState({
       packs: state => state.packs.list,
+      pack: state => state.packs.pack,
     }),
   },
   mounted () {
     this.$store.dispatch('packs/get')
+  },
+  methods: {
+    create () {
+      if (this.$refs.form.validate())
+        this.$store.dispatch('packs/create', this.pack).then((res) => {
+          this.$notifier.showMessage({ content: 'Успешно!', color: 'pink' })
+          this.$router.push('/packs/' + res.data.id)
+        })
+    },
   },
 }
 </script>

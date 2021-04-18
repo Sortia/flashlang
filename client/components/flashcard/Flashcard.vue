@@ -4,23 +4,22 @@
       class="rounded-xl"
       elevation="10"
     >
-      <div>
+      <div v-if="!disabled">
         <v-row no-gutters class="mb-3 pt-3 mx-4">
-          <v-col cols="10">
+          <v-col v-if="entity === 'packs'" cols="10">
             <v-rating
-              v-if="entity === 'packs'"
               color="warning"
               hover
               background-color="grey"
               length="5"
               size="23"
               :value="flashcard.status_id"
-              @input="mergeFlashcard({ status_id: $event, index })"
+              @input="mergeFlashcard({ status_id: $event, index }); $emit('update')"
             />
-            <tooltip v-if="index === 0" text="Чем больше звезд - тем реже попадается на тренировках" />
+            <tooltip v-if="index === 0" text="Чем лучше изучено слово (больше звезд) - тем реже оно попадается на тренировках" />
           </v-col>
           <v-col>
-          <span v-if="!disabled" class="float-right">
+          <span class="float-right">
             <i class="nc-icon nc-simple-remove" @click="removeFlashcard(index)" />
           </span>
           </v-col>
@@ -36,6 +35,7 @@
                 label="Слово"
                 :rules="rules"
                 autocomplete="false"
+                @blur="$emit('update')"
                 @input="mergeFlashcard({ first_side: $event, index })"
               />
             </v-col>
@@ -44,6 +44,7 @@
                 :value="flashcard.transcription"
                 label="Транскрипция"
                 autocomplete="false"
+                @blur="$emit('update')"
                 @input="mergeFlashcard({ transcription: $event, index })"
               />
             </v-col>
@@ -53,6 +54,7 @@
                 label="Перевод"
                 :rules="rules"
                 autocomplete="false"
+                @blur="$emit('update')"
                 @input="mergeFlashcard({ second_side: $event, index })"
               />
             </v-col>
@@ -95,23 +97,14 @@ export default {
       value => (value && value.length <= 25) || 'Поле должно быть не длиннее 25 символов',
     ],
   }),
-  computed: {
-    route () { // todo move to plugin
-      return this.$route.fullPath.split('/').slice(-2, -1)
-    },
-  },
   methods: {
-    removeFlashcard (index) { // todo emit
+    removeFlashcard (index) {
       this.$store.commit(this.entity + '/removeFlashcard', index)
+      this.$emit('update')
     },
-    mergeFlashcard (data) { // todo emit
+    mergeFlashcard (data) {
       this.$store.commit(this.entity + '/mergeFlashcard', data)
     },
-    haveEditPermission () {
-      return true
-      // return this.$laravel.hasPermission(this.route + '_edit')
-    },
-
   },
 }
 </script>

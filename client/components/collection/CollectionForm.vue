@@ -2,53 +2,31 @@
   <v-row>
     <v-col lg="12">
       <v-form
-        ref="form"
+        ref="collection_form"
         v-model="valid"
         lazy-validation
       >
-        <pack-header :pack="collection" :type="'collections'" :disabled="!isCreator()" />
-        <pack-translate v-if="isCreator()" :pack="collection" :type="'collections'" />
+        <v-card elevation="10" shaped class="px-5 pb-2">
+          <pack-header :pack="collection" :entity="'collections'" :disabled="!isCreator()" @update="save" />
+        </v-card>
+        <pack-translate v-if="isCreator()" :pack="collection" :entity="'collections'" @update="save" />
         <v-row class="pt-4 mt-5">
           <v-col v-for="(flashcard, index) in collection.flashcards" :key="index" md="6" cols="12">
-            <flashcard entity="collections" :flashcard="flashcard" :index="index" :disabled="!isCreator()" />
+            <flashcard entity="collections" :flashcard="flashcard" :index="index" :disabled="!isCreator()" @update="save" />
           </v-col>
         </v-row>
-        <v-row class="mt-4">
-          <v-col sm="6">
-            <span v-if="isCreator()" class="float-right">
-              <v-btn
-                color="success"
-                elevation="10"
-                x-large
-                @click="addFlashcard"
-              >
-                Добавить
-              </v-btn>
-            </span>
-          </v-col>
-          <v-col sm="6">
-            <span v-if="isCreator()" class="float-left">
-              <v-btn
-                color="primary"
-                elevation="10"
-                x-large
-                @click="saveCollection"
-              >
-                Сохранить
-              </v-btn>
-            </span>
-            <span class="float-right">
-              <v-btn
-                color="primary"
-                elevation="10"
-                x-large
-                @click="copyCollection"
-              >
-                Копировать
-              </v-btn>
-            </span>
-          </v-col>
-        </v-row>
+        <div class="mt-4">
+          <span class="float-right">
+            <v-btn
+              color="primary"
+              elevation="10"
+              x-large
+              @click="copy"
+            >
+              Копировать
+            </v-btn>
+          </span>
+        </div>
       </v-form>
     </v-col>
   </v-row>
@@ -92,32 +70,21 @@ export default {
       merge: 'collections/merge',
     }),
     validate () {
-      return this.$refs.form.validate()
+      return this.$refs.collection_form.validate()
     },
-    async addFlashcard () {
-      await this.$store.commit('collections/newFlashcard')
-
-      // set focus to first flashcard input field
-      this.$refs.form.$children.slice(-1).pop().$children[0].$children[2].focus()
-    },
-    saveCollection () {
+    save () {
       if (this.validate())
-        this.$store.dispatch(this.getAction(), this.collection).then((res) => {
-          this.$notifier.showMessage({ content: 'Успешно!', color: 'pink' })
+        this.$store.dispatch('collections/update', this.collection).then((res) => {
           this.$router.push('/collections/' + res.data.id)
         })
     },
-    copyCollection () {
+    copy () {
       this.$axios.post(`/api/collections/${this.$route.params.id}/copy`).then((res) => {
         this.$notifier.showMessage({ content: 'Успешно!', color: 'pink' })
         this.$router.push('/packs/' + res.data.id)
       })
     },
-    getAction () {
-      return this.collection.id ? 'collections/update' : 'collections/create'
-    },
     isCreator () {
-      console.log(this.collection.user_id, this.$auth.user.id)
       return this.collection.user_id === this.$auth.user.id
     },
   },

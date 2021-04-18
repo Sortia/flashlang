@@ -11,8 +11,9 @@
         sm="6"
         cols="12"
         class="mb-5"
+        @click.stop="dialog = true"
       >
-        <nuxt-link :to="`/collections/create`">
+        <button class="w-100">
           <v-hover
             v-slot:default="{ hover }"
           >
@@ -27,12 +28,44 @@
                   <v-icon large>
                     mdi-puzzle-plus
                   </v-icon>
+                  <span class="pl-4">Добавить</span>
                 </v-row>
               </v-container>
             </v-card>
           </v-hover>
-        </nuxt-link>
+        </button>
       </v-col>
+      <v-dialog
+        v-model="dialog"
+        max-width="1000"
+      >
+        <v-card>
+          <v-card-title class="headline">
+            Добавить новую коллекцию
+          </v-card-title>
+
+          <v-card-text class="pb-0">
+            <v-form
+              ref="collection_form"
+              v-model="valid"
+            >
+              <pack-header :pack="collection" :entity="'collections'" />
+            </v-form>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer />
+            <v-btn
+              color="green darken-1"
+              text
+              @click="create"
+            >
+              Сохранить
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
       <v-col
         v-for="(collection) in collections"
         :key="collection.id"
@@ -59,7 +92,6 @@
                 {{ collection.name }}
                 <v-card-text class="p-2 w-100 text-center text-muted">
                   {{ collection.description }}
-                  <!--              <v-progress-linear rounded :value="collection.progress" color="green" />-->
                 </v-card-text>
               </v-col>
             </v-card>
@@ -73,16 +105,36 @@
 <script>
 
 import { mapState } from 'vuex'
+import PackHeader from '@/components/pack/header'
 
 export default {
   name: 'Index',
+  components: {
+    PackHeader,
+  },
+  data () {
+    return {
+      valid: true,
+      dialog: false,
+    }
+  },
   computed: {
     ...mapState({
       collections: state => state.collections.list,
+      collection: state => state.collections.collection,
     }),
   },
   mounted () {
     this.$store.dispatch('collections/get')
+  },
+  methods: {
+    create () {
+      if (this.$refs.collection_form.validate())
+        this.$store.dispatch('collections/create', this.collection).then((res) => {
+          this.$notifier.showMessage({ content: 'Успешно!', color: 'pink' })
+          this.$router.push('/collections/' + res.data.id)
+        })
+    },
   },
 }
 </script>

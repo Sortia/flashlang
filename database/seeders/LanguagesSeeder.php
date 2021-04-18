@@ -13,21 +13,21 @@ class LanguagesSeeder extends BaseSeeder
     {
         $dataArray = [
             [
-                'name' => 'Русский'
+                'name' => 'Русский',
+                'code' => 'ru'
             ],
             [
-                'name' => 'Английский'
+                'name' => 'Английский',
+                'code' => 'en'
             ],
             [
-                'name' => 'Француский'
-            ],
-            [
-                'name' => 'Немецкий'
+                'name' => 'Француский',
+                'code' => 'fr'
             ],
         ];
 
         foreach ($dataArray as $data) {
-            $this->insertWithSequenceUpdate('complexities', $data);
+            $this->insertWithSequenceUpdate('languages', $data);
         }
     }
 }

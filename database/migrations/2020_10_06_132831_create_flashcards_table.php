@@ -17,6 +17,7 @@ class CreateFlashcardsTable extends Migration
             $table->id();
             $table->string('first_side');
             $table->string('second_side');
+            $table->string('transcription')->nullable();
             $table->bigInteger('status_id')->default(0);
             $table->bigInteger('pack_id');
             $table->date('studied_at')->nullable();

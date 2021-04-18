@@ -57,7 +57,7 @@
             x-large
             @click="translate"
           >
-            Перевод
+            Перевести
           </v-btn>
         </span>
       </v-col>
@@ -75,6 +75,10 @@ export default {
       type: Object,
       required: true,
     },
+    entity: {
+      type: String,
+      required: true,
+    },
   },
   data: () => ({
     dictionary: {
@@ -87,7 +91,6 @@ export default {
   }),
   computed: {
     ...mapState({
-      // pack: state => state.packs.pack,
       languages: state => state.languages.list,
     }),
   },
@@ -117,11 +120,12 @@ export default {
       this.dictionary.translate = translate
     },
     addFlashcard () {
-      this.$store.commit('packs/newFlashcard', {
+      this.$store.commit(this.entity + '/newFlashcard', {
         first_side: this.dictionary.word,
         second_side: this.dictionary.translate,
         transcription: this.dictionary.transcription,
       })
+      this.$emit('update')
       this.resetForm()
     },
     resetForm () {

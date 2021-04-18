@@ -42,6 +42,7 @@ class Flashcard extends Model
         'first_side',
         'second_side',
         'status_id',
+        'transcription',
     ];
 
     protected $appends = [

@@ -6,6 +6,7 @@
     :label="label"
     :item-text="itemText"
     :item-value="itemValue"
+    :disabled="disabled"
     @input="$emit('input', $event)"
   />
 </template>
@@ -37,6 +38,10 @@ export default {
     clearable: {
       type: Boolean,
       default: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
 }

@@ -14,11 +14,8 @@ export const mutations = {
   setCollection (state, collection = {}) {
     state.collection = collection
   },
-  newFlashcard (state) {
-    state.collection.flashcards.push({
-      first_side: '',
-      second_side: '',
-    })
+  newFlashcard (state, form) {
+    state.collection.flashcards.push(form)
   },
   removeFlashcard (state, index) {
     state.collection.flashcards.splice(index, 1)
@@ -32,8 +29,6 @@ export const mutations = {
   mergeFlashcard (state, form) {
     const index = form.index
     delete form.index
-
-    console.log(form)
 
     state.collection.flashcards[index] = {
       ...state.collection.flashcards[index],
