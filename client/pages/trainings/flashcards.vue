@@ -48,16 +48,13 @@ export default {
       const pack = this.pack
       this.$store.dispatch('packs/get').then(() => {
         this.$store.commit('trainings/remove')
-        if (this.pack === 'all')
-          this.$store.commit('packs/setPack', 'all')
-        else
-          this.$store.commit('packs/setPack', this.packs.find(item => item.id === pack.id))
+        this.$store.commit('packs/setPack', this.packs.find(item => item.id === pack.id))
       })
     })
   },
   mounted () {
     this.$store.dispatch('packs/get').then(() => {
-      this.$store.commit('packs/setPack', 'all')
+      this.$store.commit('packs/setPack', this.packs[0])
     })
   },
   beforeDestroy () {
@@ -68,13 +65,11 @@ export default {
       this.addItem()
     },
     addItem () {
-      const flashcards = this.pack === 'all' ? this.packs.map(pack => pack.flashcards).flat() : this.pack.flashcards
-
-      if (!flashcards) return
+      if (!this.pack.flashcards) return
 
       // except last flashcard (only if count pack flashcards > 1)
-      const excepted = flashcards.filter((el) => {
-        return this.items.length === 0 || flashcards.length < 2 ? true : el.id !== this.items[this.items.length - 1].id
+      const excepted = this.pack.flashcards.filter((el) => {
+        return this.items.length === 0 || this.pack.flashcards.length < 2 ? true : el.id !== this.items[this.items.length - 1].id
       })
 
       this.$store.commit('trainings/add', this.$random.from(excepted))

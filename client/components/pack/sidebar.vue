@@ -12,13 +12,8 @@
         v-model="selected"
         color="primary"
         mandatory
-        @change="change"
+        @change="change($event)"
       >
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title v-text="'Все наборы'" />
-          </v-list-item-content>
-        </v-list-item>
         <v-list-item
           v-for="item in packs"
           :key="item.id"
@@ -29,73 +24,6 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
-    <!--    <v-list-->
-    <!--      nav-->
-    <!--      dense-->
-    <!--      style="position: absolute; bottom: 0; left: 80px"-->
-    <!--    >-->
-    <!--      <v-menu-->
-    <!--        v-model="menu"-->
-    <!--        :close-on-content-click="false"-->
-    <!--        :nudge-width="200"-->
-    <!--        offset-x-->
-    <!--      >-->
-    <!--        <template v-slot:activator="{ on, attrs }">-->
-    <!--          <v-btn-->
-    <!--            color="indigo"-->
-    <!--            dark-->
-    <!--            v-bind="attrs"-->
-    <!--            v-on="on"-->
-    <!--          >-->
-    <!--            Settings-->
-    <!--          </v-btn>-->
-    <!--        </template>-->
-
-    <!--        <v-card>-->
-    <!--          <v-list>-->
-    <!--            <v-list-item>-->
-    <!--              <v-list-item-content>-->
-    <!--                <v-list-item-title>Settings</v-list-item-title>-->
-    <!--              </v-list-item-content>-->
-    <!--            </v-list-item>-->
-    <!--          </v-list>-->
-
-    <!--          <v-divider />-->
-
-    <!--          <v-list>-->
-    <!--            <v-list-item>Show side:</v-list-item>-->
-    <!--            <v-list-item>-->
-    <!--              <v-list-item-action>-->
-    <!--                <v-switch-->
-    <!--                  v-model="message"-->
-    <!--                  loading="off"-->
-    <!--                />-->
-    <!--              </v-list-item-action>-->
-    <!--              <v-list-item-title>Enable messages</v-list-item-title>-->
-    <!--            </v-list-item>-->
-    <!--            <v-divider />-->
-
-    <!--            <v-card-actions>-->
-    <!--              <v-spacer />-->
-
-    <!--              <v-btn-->
-    <!--                text-->
-    <!--                @click="menu = false"-->
-    <!--              >-->
-    <!--                Cancel-->
-    <!--              </v-btn>-->
-    <!--              <v-btn-->
-    <!--                color="primary"-->
-    <!--                text-->
-    <!--                @click="menu = false"-->
-    <!--              >-->
-    <!--                Save-->
-    <!--              </v-btn>-->
-    <!--            </v-card-actions>-->
-    <!--          </v-list>-->
-    <!--        </v-card>-->
-    <!--      </v-menu>-->
-    <!--    </v-list>-->
     <div class="overflow-hidden" style="position:absolute; bottom: 0; width: 100%">
       <v-divider />
 
@@ -192,11 +120,7 @@ export default {
   methods: {
     change (value) {
       this.$store.commit('trainings/remove')
-
-      if (value === 0) // All packs
-        this.$store.commit('packs/setPack', 'all')
-      else
-        this.$store.commit('packs/setPack', this.packs[value - 1])
+      this.$store.commit('packs/setPack', this.packs[value])
     },
     saveSettings () {
       const settings = [

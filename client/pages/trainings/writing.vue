@@ -61,7 +61,7 @@ export default {
   },
   mounted () {
     this.$store.dispatch('packs/get').then(() => {
-      this.$store.commit('packs/setPack', 'all')
+      this.$store.commit('packs/setPack', this.packs[0])
     })
   },
   methods: {
@@ -71,13 +71,11 @@ export default {
       setTimeout(() => document.querySelector('.v-window__next button').click(), 125)
     },
     addItem () {
-      const flashcards = this.pack === 'all' ? this.packs.map(pack => pack.flashcards).flat() : this.pack.flashcards
-
-      if (!flashcards) return
+      if (!this.pack.flashcards) return
 
       // except last flashcard (only if count pack flashcards > 1)
-      const excepted = flashcards.filter((el) => {
-        return this.items.length === 0 || flashcards.length < 2 ? true : el.id !== this.items[this.items.length - 1].id
+      const excepted = this.pack.flashcards.filter((el) => {
+        return this.items.length === 0 || this.pack.flashcards.length < 2 ? true : el.id !== this.items[this.items.length - 1].id
       })
 
       this.right = this.$random.from(excepted)
