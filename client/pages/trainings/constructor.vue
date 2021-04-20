@@ -59,6 +59,12 @@ export default {
       this.addItem()
     },
   },
+  created () {
+    this.$bus.$on('test-event', () => {
+      this.$store.commit('trainings/remove')
+      this.$store.dispatch('packs/show', { id: this.pack.id })
+    })
+  },
   mounted () {
     this.$store.dispatch('packs/get').then(() => {
       this.$store.commit('packs/setPack', this.packs[0])

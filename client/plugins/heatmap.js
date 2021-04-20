@@ -24,10 +24,10 @@ const heatmap = {
     let tooltipUnit = 'слов'
     let legendEnabled = false
     let onClick = null
-    const weekStart = 0 // 0 for Sunday, 1 for Monday
+    const weekStart = 1 // 0 for Sunday, 1 for Monday
     let locale = {
-      months: [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Мая', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ],
-      days: [ 'Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб' ],
+      months: [ 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь' ],
+      days: [ 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс' ],
       No: 'Нет',
       on: 'в',
       Less: 'Меньше',
@@ -236,10 +236,11 @@ const heatmap = {
 
         locale.days.forEach(function (day, index) {
           index = formatWeekday(index)
-          if (index % 2)
+
+          if (!(index % 2))
             svg.append('text')
               .attr('class', 'day-initial')
-              .attr('transform', 'translate(-8,' + (SQUARE_LENGTH + SQUARE_PADDING) * (index + 1) + ')')
+              .attr('transform', 'translate(-8,' + (SQUARE_LENGTH + SQUARE_PADDING) * (index + 2) + ')')
               .style('text-anchor', 'end')
               .attr('dy', '2')
               .text(day)

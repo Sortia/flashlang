@@ -12,7 +12,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         if (Auth::attempt([
-            'email' => $request->email,
+            'name' => $request->name,
             'password' => $request->password
         ])) {
             return response()->json('', 204);

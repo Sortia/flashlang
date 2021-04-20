@@ -13,6 +13,9 @@
               <p class="text-center h4">
                 {{ flashcard.front }}
               </p>
+              <p v-if="flashcard.back === flashcard.second_side && flashcard.transcription" class="text-center transcription-bot">
+                [{{ flashcard.transcription }}]
+              </p>
             </v-col>
           </v-row>
           <div class="row justify-content-center mb-4">
@@ -28,6 +31,9 @@
               </v-card-title>
             </v-card>
           </div>
+          <p v-if="answer.join('') === flashcard.back && flashcard.transcription && flashcard.back === flashcard.first_side" class="text-center transcription-bot">
+            [{{ flashcard.transcription }}]
+          </p>
         </div>
       </div>
       <div class="face face2">
@@ -68,14 +74,13 @@ export default {
       answer: [],
       blocked: [],
       letters: [],
+      show_trans: false,
     }
   },
   watch: {
     answer () {
       if (!this.answer.includes(null))
-        if (this.answer.join('') === this.flashcard.back)
-          this.$emit('right')
-        else {
+        if (this.answer.join('') !== this.flashcard.back) {
           this.answer = this.answer.map(() => null)
           this.blocked = this.answer.map(() => null)
         }
@@ -84,6 +89,7 @@ export default {
   mounted () {
     this.answer = this.flashcard.back.split('').map(() => null)
     this.letters = this.flashcard.back.split('').sort(() => Math.random() > 0.5 ? -1 : 1)
+    console.log(this.answer, this.flashcard)
   },
   methods: {
     hint () {

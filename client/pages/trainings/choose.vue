@@ -13,7 +13,7 @@
             class="h-100"
             light
           >
-            <ChooseItem :front="flashcard.front" :back="flashcard.back" :choices="choices" :right="right" @right="rightTest" />
+            <ChooseItem :front="flashcard.front" :back="flashcard.back" :choices="choices" :right="right" @right="slide" />
           </v-carousel-item>
         </v-carousel>
       </v-card>
@@ -59,13 +59,19 @@ export default {
       this.addItem()
     },
   },
+  created () {
+    this.$bus.$on('test-event', () => {
+      this.$store.commit('trainings/remove')
+      this.$store.dispatch('packs/show', { id: this.pack.id })
+    })
+  },
   mounted () {
     this.$store.dispatch('packs/get').then(() => {
       this.$store.commit('packs/setPack', this.packs.list[0])
     })
   },
   methods: {
-    rightTest () {
+    slide () {
       this.addItem()
 
       document.querySelector('.v-window__next button').click()

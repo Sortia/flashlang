@@ -11,6 +11,9 @@
           <p class="text-center h4">
             {{ right.front }}
           </p>
+          <p v-if="right.front === right.first_side && right.transcription" class="text-center transcription-bot">
+            [{{ right.transcription }}]
+          </p>
         </div>
       </div>
       <div class="face face2">
@@ -23,6 +26,9 @@
                     <v-card-text class="txt-white">
                       <p class="text-center">
                         {{ flashcard.back }}
+                      </p>
+                      <p v-if="right.back === right.first_side && flashcard.transcription" class="text-center transcription-bot">
+                        [{{ flashcard.transcription }}]
                       </p>
                     </v-card-text>
                   </v-btn>
@@ -54,6 +60,9 @@ export default {
       fails: [ false, false, false, false ],
       correct: [ false, false, false, false ],
     }
+  },
+  mounted () {
+    console.log(this.right)
   },
   methods: {
     choose (flashcard) {

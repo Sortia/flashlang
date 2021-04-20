@@ -6,12 +6,18 @@
           <p class="text-center h4">
             {{ flashcard.front }}
           </p>
+          <p v-if="flashcard.back === flashcard.second_side && flashcard.transcription" class="text-center transcription-top">
+            [{{ flashcard.transcription }}]
+          </p>
         </div>
       </div>
       <div class="face face2">
         <div class="content">
           <p class="text-center h4">
             {{ flashcard.back }}
+          </p>
+          <p v-if="flashcard.back === flashcard.first_side && flashcard.transcription" class="text-center transcription-bot">
+            [{{ flashcard.transcription }}]
           </p>
         </div>
       </div>
@@ -27,6 +33,9 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  mounted () {
+    console.log(this.flashcard)
   },
 }
 </script>
@@ -129,5 +138,13 @@ export default {
 .container .flashcard-card .face.face2 .content a:hover{
   background: #333;
   color: #fff;
+}
+
+.transcription-top {
+  color: #ded7d7;
+}
+
+.transcription-bot {
+  color: gray;
 }
 </style>

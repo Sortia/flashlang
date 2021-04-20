@@ -45,11 +45,8 @@ export default {
   },
   created () {
     this.$bus.$on('test-event', () => {
-      const pack = this.pack
-      this.$store.dispatch('packs/get').then(() => {
-        this.$store.commit('trainings/remove')
-        this.$store.commit('packs/setPack', this.packs.find(item => item.id === pack.id))
-      })
+      this.$store.commit('trainings/remove')
+      this.$store.dispatch('packs/show', { id: this.pack.id })
     })
   },
   mounted () {

@@ -44,7 +44,7 @@ class PackController extends Controller
      */
     public function show(Pack $pack): Pack
     {
-        return $pack;
+        return $pack->load('flashcards.status');
     }
 
     /**

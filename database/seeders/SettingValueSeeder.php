@@ -23,12 +23,12 @@ class SettingValueSeeder extends BaseSeeder
                 'setting_id' => 1,
             ],
             [
-                'name' => 'front_text',
+                'name' => 'first',
                 'description' => 'Front',
                 'setting_id' => 2,
             ],
             [
-                'name' => 'back_text',
+                'name' => 'second',
                 'description' => 'Back',
                 'setting_id' => 2,
             ],

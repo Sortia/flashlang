@@ -11,8 +11,8 @@
         <div class="card-body p-3 text-center">
           <div>
             <v-text-field
-              v-model="login.email"
-              label="Электронная почта"
+              v-model="login.name"
+              label="Имя пользователя"
             />
           </div>
           <div>
@@ -50,7 +50,7 @@ export default {
   data () {
     return {
       login: {
-        email: '',
+        name: '',
         password: '',
       },
     }
@@ -66,7 +66,7 @@ export default {
         .then(function () {
           this.$auth.loginWith('local', {
             data: {
-              email: this.login.email,
+              name: this.login.name,
               password: this.login.password,
             },
           }).then(() => {
