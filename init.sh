@@ -20,9 +20,6 @@ docker-compose exec app php artisan config:cache
 docker-compose exec app composer dump-autoload
 
 yarn install
-cd ./nuxt
-yarn install
-cd ..
 
 yarn build
 
