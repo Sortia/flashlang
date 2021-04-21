@@ -21,6 +21,4 @@ docker-compose exec app composer dump-autoload
 
 yarn install
 
-yarn build
-
-sudo chmod -R 777 ./storage
+sudo chmod -R 777 .
