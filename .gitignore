@@ -9,15 +9,13 @@
 /public/*.html
 /.idea
 !/public/*.*
-/resources/views/app.blade.php
 /nuxt/.editorconfig
-/public/index.html
 /public/*.png
 /public/laranuxt.gif
 /public/README.md
 /public/200.html
 /public/.nojekyll
-
+/resources/views/app.blade.php
 
 ## Laravel
 
