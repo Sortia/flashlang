@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[9],{783:function(n,e,t){"use strict";t.r(e);var c={name:"Index",mounted:function(){this.$router.push("/packs")}},o=t(19),component=Object(o.a)(c,(function(){var n=this.$createElement;return(this._self._c||n)("div",{})}),[],!1,null,"ca64840c",null);e.default=component.exports}}]);

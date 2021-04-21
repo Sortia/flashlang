@@ -1,7 +1,7 @@
 import ru from '../flashlang/node_modules/vuetify/src/locale/ru.ts'
 
 export default {
-  mode: 'spa',
+  ssr: false,
   /*
   ** Nuxt.js root directory
   ** See https://nuxtjs.org/api/configuration-srcdir/
