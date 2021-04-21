@@ -151,7 +151,4 @@ export default {
   publicRuntimeConfig: {
     apiUrl: process.env.API_URL,
   },
-  router: {
-    middleware: [ 'auth' ],
-  },
 }

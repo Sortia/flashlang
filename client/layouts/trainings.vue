@@ -28,6 +28,7 @@ import MainSidebar from '~/components/sidebar'
 import Snackbar from '~/components/Snackbar'
 
 export default {
+  middleware: 'custom_auth',
   components: {
     TopNavbar,
     Snackbar,
