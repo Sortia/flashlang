@@ -1,4 +1,6 @@
 /main
+/dbdata
+/flashlang
 /nginx
 /.idea
 !/public/*.*
