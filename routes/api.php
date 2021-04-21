@@ -7,6 +7,7 @@ use App\Http\Controllers\HeatmapController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PackController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SPAController;
 use App\Http\Controllers\StorybookController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -46,3 +47,6 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('translate', [DictionaryController::class, 'translate']);
     });
 });
+
+Route::get('{any}', [SPAController::class, 'index'])->where('any', '.*');
+

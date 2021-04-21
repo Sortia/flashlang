@@ -1,6 +1,7 @@
 import ru from '../flashlang/node_modules/vuetify/src/locale/ru.ts'
 
 export default {
+  mode: 'spa',
   /*
   ** Nuxt.js root directory
   ** See https://nuxtjs.org/api/configuration-srcdir/
@@ -132,16 +133,23 @@ export default {
       accept: 'application/json',
     },
   },
-
   proxy: {
-    '/api': 'http://localhost:8000',
-    '/sanctum': 'http://localhost:8000',
+    '/api': 'http://localhost/',
+    '/sanctum': 'http://localhost/',
   },
+  // proxy: {
+  //   '/api': 'http://localhost:9000',
+  //   '/sanctum': 'http://localhost:9000',
+  // },
   /*
   ** Build configuration
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+    /*
+     ** You can extend webpack config here
+     */
+    extend (config, ctx) {},
   },
 
   /*

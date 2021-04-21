@@ -1,0 +1,71 @@
+version: "3.1"
+services:
+  #PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    expose:
+      - 9000
+    networks:
+      - app-network
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - app-network
+
+  #Postgre service
+  db:
+    image: postgres:12
+    restart: unless-stopped
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+    networks:
+      - app-network
+    ports:
+      - 5432:5432
+
+  #Node js for building project
+  nodejs:
+    build: ./node
+    tty: true
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+    command: sh -c "yarn install && yarn build && cd .. && yarn production"
+    ports:
+      - 8080:8080
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local

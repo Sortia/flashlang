@@ -13,3 +13,8 @@ php artisan config:cache
 composer dump-autoload
 
 yarn dev
+
+/*
+sudo docker run --rm --interactive --tty \
+  --volume $PWD:/app \
+  composer install
