@@ -1,10 +1,23 @@
 /main
+/nginx
 /dbdata
 /flashlang
-/nginx
+/public/css
+/public/js
+/public/img
+/public/mix-manifest.json
+/public/_nuxt
+/public/*/
+/public/*.html
 /.idea
 !/public/*.*
 /nuxt/.editorconfig
+/public/*.png
+/public/laranuxt.gif
+/public/README.md
+/public/200.html
+/public/.nojekyll
+/resources/views/app.blade.php
 
 ## Laravel
 

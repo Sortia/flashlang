@@ -60,9 +60,9 @@ export default {
   */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
+    // '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
-    '@nuxtjs/tailwindcss',
+    // '@nuxtjs/tailwindcss',
   ],
   /*
   ** Nuxt.js modules
@@ -150,6 +150,7 @@ export default {
      ** You can extend webpack config here
      */
     extend (config, ctx) {},
+    babel: { compact: true },
   },
 
   /*
