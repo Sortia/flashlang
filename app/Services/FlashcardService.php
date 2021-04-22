@@ -18,7 +18,11 @@ class FlashcardService
         $this->delete($data, $pack);
 
         foreach ($data as $flashcard) {
-            $pack->flashcards()->updateOrCreate(['id' => Arr::get($flashcard, 'id')], $flashcard);
+            if (Arr::get($flashcard, 'id')) {
+                Flashcard::find($flashcard['id'])->update($flashcard);
+            } else {
+                $pack->flashcards()->create($flashcard);
+            }
         }
     }
 
