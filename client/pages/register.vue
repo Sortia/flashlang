@@ -2,16 +2,14 @@
   <div class="h-100 pt-5">
     <div class="auth-form mx-auto my-auto col-lg-3 col-md-5">
       <v-card
-        class="rounded-xl"
+        class="rounded-xl p-4"
         elevation="10"
       >
-        <div class="card-header py-3 text-uppercase text-center">
+        <div class="card-header pt-3 pb-5 text-uppercase text-center">
           Регистрация
         </div>
         <div class="card-body p-3 text-center">
-          <v-form
-            ref="form"
-          >
+          <v-form ref="form" class="my-3">
             <div>
               <v-text-field
                 v-model="login.name"
@@ -42,23 +40,24 @@
                 :rules="rules.confirm"
               />
             </div>
+            <v-btn
+              elevation="7"
+              x-large
+              class="auth-btn"
+              @click="register"
+              color="primary"
+            >
+              Зарегистрироваться
+            </v-btn>
           </v-form>
           <div class="mt-3 d-flex">
             <v-btn
-              elevation="10"
+              elevation="7"
               x-large
-              class="auth-btn mx-3"
-              @click="register"
-            >
-              Регистрация
-            </v-btn>
-            <v-btn
-              elevation="10"
-              x-large
-              class="auth-btn mx-3"
+              class="auth-btn mt-3"
               @click="$router.push('/login')"
             >
-              Вход
+              Войти
             </v-btn>
           </div>
         </div>
@@ -71,7 +70,7 @@
 export default {
   auth: false,
   layout: 'auth',
-  data () {
+  data() {
     return {
       login: {
         name: '',
@@ -100,7 +99,7 @@ export default {
     }
   },
   methods: {
-    register () {
+    register() {
       if (this.$refs.form.validate())
         this.$axios.post('/api/auth/register', this.login).then(() => {
           this.$auth.loginWith('local', {
@@ -125,6 +124,6 @@ body {
 
 <style scoped>
 .auth-btn {
-  min-width: 175px !important;
+  width: 100%;
 }
 </style>

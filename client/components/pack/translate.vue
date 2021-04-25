@@ -97,7 +97,7 @@ export default {
   methods: {
     translate () {
       if (!this.enteredLanguages())
-        return this.$notifier.showMessage({ content: 'Сначала выберите языки!', color: 'pink' })
+        return this.$notifier.show('Сначала выберите языки!')
 
       this.$axios.get('api/dictionary/translate', {
         params: {
@@ -111,9 +111,9 @@ export default {
         this.dictionary.synonyms = res.data.synonyms
       }).catch((error) => {
         if (error.response.status === 406)
-          this.$notifier.showMessage({ content: 'Слово или словосочетание не найдено!', color: 'pink' })
+          this.$notifier.show('Слово или словосочетание не найдено!')
         else
-          this.$notifier.showMessage({ content: 'Упс... Что-то пошло не так!', color: 'pink' })
+          this.$notifier.show('Упс... Что-то пошло не так!')
       })
     },
     choose (translate) {

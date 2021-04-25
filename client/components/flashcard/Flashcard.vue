@@ -14,17 +14,25 @@
               length="5"
               size="23"
               :value="flashcard.status_id"
-              @input="mergeFlashcard({ status_id: $event, index }); $emit('update')"
+              @input="merge({ status_id: $event, index }); $emit('update')"
             />
             <tooltip v-if="index === 0" text="Чем лучше изучено слово (больше звезд) - тем реже оно попадается на тренировках" />
           </v-col>
+          <v-col v-if="entity === 'collections'" cols="10">
+            <button type="button" @click="selected = !selected; merge({ selected: selected, index })">
+              <i v-if="selected" slot="extra" class="icon mdi mdi-check add-icon"></i>
+              <i v-else slot="extra" class="icon mdi mdi-close add-icon"></i>
+              <tooltip v-if="index === 0" text="Можно выбрать какие слова добавить себе в набор" />
+            </button>
+          </v-col>
+
           <v-col>
           <span class="float-right">
-            <i class="nc-icon nc-simple-remove" @click="removeFlashcard(index)" />
+            <i slot="extra" class="icon mdi mdi-close-circle" style="color: #7f7979" @click="remove(index)"></i>
           </span>
           </v-col>
         </v-row>
-        <v-divider class="mx-4" />
+        <v-divider class="mx-4 my-2" />
       </div>
       <v-row no-gutters class="my-1 mx-4">
         <v-col cols="12" sm="12" class="pb-0 pt-2">
@@ -36,7 +44,7 @@
                 :rules="rules"
                 autocomplete="false"
                 @blur="$emit('update')"
-                @input="mergeFlashcard({ first_side: $event, index })"
+                @input="merge({ first_side: $event, index })"
               />
             </v-col>
             <v-col lg="4" cols="12">
@@ -45,7 +53,7 @@
                 label="Транскрипция"
                 autocomplete="false"
                 @blur="$emit('update')"
-                @input="mergeFlashcard({ transcription: $event, index })"
+                @input="merge({ transcription: $event, index })"
               />
             </v-col>
             <v-col lg="4" cols="12">
@@ -55,7 +63,7 @@
                 :rules="rules"
                 autocomplete="false"
                 @blur="$emit('update')"
-                @input="mergeFlashcard({ second_side: $event, index })"
+                @input="merge({ second_side: $event, index })"
               />
             </v-col>
           </v-row>
@@ -92,17 +100,21 @@ export default {
     },
   },
   data: () => ({
+    selected: true,
     rules: [
       value => !!value || 'Поле обязательно для заполнения',
       value => (value && value.length <= 25) || 'Поле должно быть не длиннее 25 символов',
     ],
   }),
+  mounted() {
+    this.merge({ selected: this.selected, index: this.index })
+  },
   methods: {
-    removeFlashcard (index) {
-      this.$store.commit(this.entity + '/removeFlashcard', index)
+    remove (index) {
+      this.$store.commit(this.entity + '/remove', index)
       this.$emit('update')
     },
-    mergeFlashcard (data) {
+    merge (data) {
       this.$store.commit(this.entity + '/mergeFlashcard', data)
     },
   },
@@ -112,5 +124,12 @@ export default {
 <style>
 .v-rating {
   display: contents;
+}
+</style>
+
+<style scoped>
+.add-icon {
+  font-size: 20px;
+  margin-left: 8px;
 }
 </style>

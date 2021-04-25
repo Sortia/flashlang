@@ -1,9 +1,6 @@
 import Vue from 'vue'
-// import ElementUI from 'element-ui'
 import Sidebar from '../components/SidebarPlugin/SideBar.vue'
 import SidebarLink from '../components/SidebarPlugin/SidebarLink.vue'
-
-// import 'element-ui/lib/theme-chalk/index.css'
 
 const SidebarStore = {
   showSidebar: false,
@@ -33,5 +30,3 @@ if (!Vue.prototype.$sidebar)
 
 Vue.component('side-bar', Sidebar)
 Vue.component('sidebar-link', SidebarLink)
-
-// Vue.use(ElementUI)

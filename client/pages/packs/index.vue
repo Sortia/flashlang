@@ -130,7 +130,7 @@ export default {
     create () {
       if (this.$refs.form.validate())
         this.$store.dispatch('packs/create', this.pack).then((res) => {
-          this.$notifier.showMessage({ content: 'Успешно!', color: 'pink' })
+          this.$notifier.success()
           this.$router.push('/packs/' + res.data.id)
         })
     },

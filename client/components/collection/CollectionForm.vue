@@ -79,8 +79,10 @@ export default {
         })
     },
     copy () {
-      this.$axios.post(`/api/collections/${this.$route.params.id}/copy`).then((res) => {
-        this.$notifier.showMessage({ content: 'Успешно!', color: 'pink' })
+      const flashcard_ids = this.collection.flashcards.filter((flashcard) => flashcard.selected).map((flashcard) => flashcard.id)
+
+      this.$axios.post(`/api/collections/${this.$route.params.id}/copy`, { flashcard_ids }).then((res) => {
+        this.$notifier.success()
         this.$router.push('/packs/' + res.data.id)
       })
     },

@@ -97,7 +97,7 @@ class CollectionController extends Controller
         $pack = new Pack();
 
         $this->packService->save($collection, $pack);
-        $this->flashcardService->save($collection->flashcards->map->only(['first_side', 'second_side'])->toArray(), $pack);
+        $this->flashcardService->save($collection->flashcards->whereIn('id', $this->request->flashcard_ids)->map->only(['first_side', 'second_side', 'transcription'])->toArray(), $pack);
 
         return $pack;
     }

@@ -2,41 +2,48 @@
   <div class="h-100 pt-5">
     <div class="auth-form mx-auto my-auto col-lg-3 col-md-5">
       <v-card
-        class="rounded-xl"
+        class="rounded-xl p-4"
         elevation="10"
       >
-        <div class="card-header py-3 text-uppercase text-center">
+        <div class="card-header pt-3 pb-5 text-uppercase text-center">
           Вход в аккаунт
         </div>
         <div class="card-body p-3 text-center">
-          <div>
-            <v-text-field
-              v-model="login.name"
-              label="Имя пользователя"
-            />
-          </div>
-          <div>
-            <v-text-field
-              v-model="login.password"
-              label="Пароль"
-              type="password"
-            />
-          </div>
+          <v-form @submit.prevent="userLogin" class="my-3">
+            <div>
+              <v-text-field
+                v-model="login.name"
+                label="Имя пользователя"
+              />
+            </div>
+            <div>
+              <v-text-field
+                v-model="login.password"
+                label="Пароль"
+                type="password"
+              />
+            </div>
+            <div v-if="error" class="auth-error mb-2 text-left">
+              Неверное имя пользователя или пароль
+            </div>
+            <v-btn
+              type="submit"
+              elevation="7"
+              x-large
+              class="auth-btn mt-3"
+              color="primary"
+              @click="userLogin"
+            >
+              Войти
+            </v-btn>
+          </v-form>
           <v-btn
-            elevation="10"
+            elevation="7"
             x-large
-            class="auth-btn mx-3"
-            @click="userLogin"
-          >
-            Вход
-          </v-btn>
-          <v-btn
-            elevation="10"
-            x-large
-            class="auth-btn mx-3"
+            class="auth-btn mt-5"
             @click="$router.push('/register')"
           >
-            Регистрация
+            Зарегистрироваться
           </v-btn>
         </div>
       </v-card>
@@ -47,16 +54,17 @@
 <script>
 export default {
   layout: 'auth',
-  data () {
+  data() {
     return {
       login: {
         name: '',
         password: '',
       },
+      error: false
     }
   },
   methods: {
-    userLogin () {
+    userLogin() {
       this.$axios.get('/sanctum/csrf-cookie', {
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
@@ -71,6 +79,10 @@ export default {
             },
           }).then(() => {
             this.$router.push('/packs')
+          }).catch((data) => {
+            if (data.response.status === 403) {
+              this.error = true
+            }
           })
         }.bind(this))
     },
@@ -86,6 +98,11 @@ body {
 
 <style scoped>
 .auth-btn {
-  min-width: 175px !important;
+  width: 100%;
+}
+.auth-error {
+  font-family: serif;
+  font-size: 14px;
+  color: #ff2424;
 }
 </style>

@@ -131,10 +131,10 @@ export default {
       ]
 
       this.$axios.post('/api/settings/set', { settings }).then(() => {
-        this.$notifier.showMessage({ content: 'Успешно!', color: 'pink' })
+        this.$notifier.show()
         this.$bus.$emit('test-event')
       }).catch(() => {
-        this.$notifier.showMessage({ content: 'Ошибка!', color: 'pink' })
+        this.$notifier.error()
       })
     },
   },

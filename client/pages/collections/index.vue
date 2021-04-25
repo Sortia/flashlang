@@ -131,7 +131,7 @@ export default {
     create () {
       if (this.$refs.collection_form.validate())
         this.$store.dispatch('collections/create', this.collection).then((res) => {
-          this.$notifier.showMessage({ content: 'Успешно!', color: 'pink' })
+          this.$notifier.success()
           this.$router.push('/collections/' + res.data.id)
         })
     },
