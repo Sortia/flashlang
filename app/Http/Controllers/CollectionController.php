@@ -33,11 +33,14 @@ class CollectionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Collection[]|\Illuminate\Database\Eloquent\Collection|Response
+     * @return Collection[]|\Illuminate\Database\Eloquent\Collection
      */
     public function index()
     {
-        return Collection::all();
+        return Collection::on()->when($this->request->search, function ($query) {
+            $query->where('name', 'ILIKE', '%' . $this->request->search . '%');
+            $query->orWhere('description', 'ILIKE', '%' . $this->request->search . '%');
+        })->get();
     }
 
     /**

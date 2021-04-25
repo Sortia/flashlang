@@ -34,7 +34,10 @@ class PackController extends Controller
      */
     public function index(): Collection
     {
-        return Pack::my()->with('flashcards.status')->get();
+        return Pack::on()->my()->when($this->request->search, function ($query) {
+            $query->where('name', 'ILIKE', '%' . $this->request->search . '%');
+            $query->orWhere('description', 'ILIKE', '%' . $this->request->search . '%');
+        })->with('flashcards.status')->get();
     }
 
     /**

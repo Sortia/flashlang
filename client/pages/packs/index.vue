@@ -4,6 +4,13 @@
       <!--   todo   -->
       Тут должна быть подсказка что с этими наборами делать...
     </v-card>
+    <v-text-field
+      class="pack-search mb-3"
+      solo
+      label="Поиск по наборам"
+      prepend-inner-icon="mdi-magnify"
+      @input="search"
+    />
     <v-row>
       <v-col
         lg="3"
@@ -49,12 +56,12 @@
               ref="form"
               v-model="valid"
             >
-              <pack-header :pack="pack" :entity="'packs'"/>
+              <pack-header :pack="pack" :entity="'packs'" />
             </v-form>
           </v-card-text>
 
           <v-card-actions>
-            <v-spacer/>
+            <v-spacer />
             <v-btn
               color="green darken-1"
               text
@@ -87,14 +94,14 @@
               <v-card-text class="pt-0 pr-2 text-left w-100 text-muted">
                 <small class="text-left">{{ pack.created_at | date }}</small>
                 <small class="float-right">
-                  <i slot="extra" class="icon mdi mdi-close-circle pack-delete" @click.prevent="destroy(pack)"></i>
+                  <i slot="extra" class="icon mdi mdi-close-circle pack-delete" @click.prevent="destroy(pack)" />
                 </small>
               </v-card-text>
               <v-col class="mb-auto mt-5 p-2 w-100 text-center">
                 {{ pack.name }}
               </v-col>
               <v-card-text class="p-2 w-100">
-                <v-progress-linear rounded :value="pack.progress" color="green"/>
+                <v-progress-linear rounded :value="pack.progress" color="green" />
               </v-card-text>
             </v-card>
           </v-hover>
@@ -106,7 +113,7 @@
 
 <script>
 
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 import PackHeader from '@/components/pack/header'
 
 export default {
@@ -114,7 +121,7 @@ export default {
   components: {
     PackHeader,
   },
-  data() {
+  data () {
     return {
       valid: true,
       dialog: false,
@@ -126,25 +133,27 @@ export default {
       pack: state => state.packs.pack,
     }),
   },
-  mounted() {
+  mounted () {
     this.$store.dispatch('packs/get')
   },
   methods: {
-    create() {
+    search (search) {
+      this.$store.dispatch('packs/get', { search })
+    },
+    create () {
       if (this.$refs.form.validate())
         this.$store.dispatch('packs/create', this.pack).then((res) => {
           this.$notifier.success()
           this.$router.push('/packs/' + res.data.id)
         })
     },
-    destroy(pack) {
-      if (confirm(`Удалить набор  "${pack.name}"?`)) {
+    destroy (pack) {
+      if (confirm(`Удалить набор  "${pack.name}"?`))
         this.$store.dispatch('packs/destroy', pack).then(() => {
           this.$notifier.success()
           this.$store.dispatch('packs/get')
         })
-      }
-    }
+    },
   },
 }
 </script>
@@ -156,5 +165,11 @@ export default {
 }
 .pack-delete:hover {
   color: #2f2d2d;
+}
+.pack-search {
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  box-shadow: 0 8px 8px 5px rgba(0, 0, 0, 0.08), 0 5px 8px 0 rgba(0, 0, 0, 0.08), 0 5px 14px 0 rgba(0, 0, 0, 0.08) !important;
+  max-height: 48px;
 }
 </style>

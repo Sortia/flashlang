@@ -1,9 +1,16 @@
 <template>
   <div>
-    <v-card elevation="5" shaped class="px-5 py-3 mb-4">
+    <v-card elevation="5" class="collection-tip px-5 py-3 mb-4">
       <!--   todo   -->
       Тут должна быть подсказка что с этими коллекциями делать...
     </v-card>
+    <v-text-field
+      class="collection-search mb-3"
+      solo
+      label="Поиск по коллекциям"
+      prepend-inner-icon="mdi-magnify"
+      @input="search"
+    />
     <v-row>
       <v-col
         lg="3"
@@ -88,7 +95,7 @@
               <v-card-text class="pt-0 pr-2 text-left w-100 text-muted">
                 <small class="text-left">{{ collection.created_at | date }}</small>
                 <small v-if="collection.user_id === $auth.user.id" class="float-right">
-                  <i slot="extra" class="icon mdi mdi-close-circle collection-delete" @click.prevent="destroy(collection)"></i>
+                  <i slot="extra" class="icon mdi mdi-close-circle collection-delete" @click.prevent="destroy(collection)" />
                 </small>
               </v-card-text>
               <v-col class="mb-auto mt-4 p-2 w-100 text-center">
@@ -131,6 +138,9 @@ export default {
     this.$store.dispatch('collections/get')
   },
   methods: {
+    search (search) {
+      this.$store.dispatch('collections/get', { search })
+    },
     create () {
       if (this.$refs.collection_form.validate())
         this.$store.dispatch('collections/create', this.collection).then((res) => {
@@ -138,14 +148,13 @@ export default {
           this.$router.push('/collections/' + res.data.id)
         })
     },
-    destroy(collection) {
-      if (confirm(`Удалить коллекцию  "${collection.name}"?`)) {
+    destroy (collection) {
+      if (confirm(`Удалить коллекцию  "${collection.name}"?`))
         this.$store.dispatch('collections/destroy', collection).then(() => {
           this.$notifier.success()
           this.$store.dispatch('collections/get')
         })
-      }
-    }
+    },
   },
 }
 </script>
@@ -157,5 +166,15 @@ export default {
 }
 .collection-delete:hover {
   color: #2f2d2d;
+}
+.collection-tip {
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+}
+.collection-search {
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  box-shadow: 0 8px 8px 5px rgba(0, 0, 0, 0.08), 0 5px 8px 0 rgba(0, 0, 0, 0.08), 0 5px 14px 0 rgba(0, 0, 0, 0.08) !important;
+  max-height: 48px;
 }
 </style>
