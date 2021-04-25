@@ -20,7 +20,8 @@ class PackService
         $pack->user_id = Auth::id();
         $pack->first_lang_id = $data->first_lang_id;
         $pack->second_lang_id = $data->second_lang_id;
-
         $pack->save();
+
+        return $pack;
     }
 }

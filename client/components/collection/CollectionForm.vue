@@ -17,6 +17,13 @@
         </v-row>
         <div class="mt-4">
           <span class="float-right">
+            <v-select
+              class="d-inline-block mr-3 copy-types-select"
+              :items="copyTypes"
+              :value="null"
+              @input="copyBy = $event"
+              solo
+            ></v-select>
             <v-btn
               color="primary"
               elevation="10"
@@ -47,6 +54,29 @@ export default {
   },
   data: () => ({
     valid: true,
+    copyBy: null,
+    copyTypes: [
+      {
+        text: 'Все',
+        value: null,
+      },
+      {
+        text: 'По 5 в наборе',
+        value: 5,
+      },
+      {
+        text: 'По 10 в наборе',
+        value: 10,
+      },
+      {
+        text: 'По 15 в наборе',
+        value: 15,
+      },
+      {
+        text: 'По 20 в наборе',
+        value: 20,
+      },
+    ],
     rules: {
       name: [
         value => !!value || 'Поле "Название" обязательно для заполнения!',
@@ -81,9 +111,11 @@ export default {
     copy () {
       const flashcard_ids = this.collection.flashcards.filter((flashcard) => flashcard.selected).map((flashcard) => flashcard.id)
 
-      this.$axios.post(`/api/collections/${this.$route.params.id}/copy`, { flashcard_ids }).then((res) => {
+      this.$axios.post(`/api/collections/${this.$route.params.id}/copy`, { flashcard_ids, copyBy: this.copyBy }).then((res) => {
         this.$notifier.success()
         this.$router.push('/packs/' + res.data.id)
+      }).catch(() => {
+        this.$notifier.error()
       })
     },
     isCreator () {
@@ -92,3 +124,15 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.copy-types-select {
+  max-width: 200px;
+}
+</style>
+
+<style>
+.copy-types-select .v-input__slot {
+  height: 52px
+}
+</style>

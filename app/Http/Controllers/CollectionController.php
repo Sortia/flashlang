@@ -7,6 +7,7 @@ use App\Models\Pack;
 use App\Services\FlashcardService;
 use App\Services\PackService;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CollectionController extends Controller
@@ -92,12 +93,30 @@ class CollectionController extends Controller
      * @param Collection $collection
      * @return Pack
      */
-    public function copy(Collection $collection): Pack
+    public function copy(Collection $collection, Request $request): Pack
     {
-        $pack = new Pack();
+        // выбираем из карточек только слова и транскрипцию
+        $cards = $collection->flashcards->whereIn('id', $request->flashcard_ids)->map->only(['first_side', 'second_side', 'transcription']);
 
-        $this->packService->save($collection, $pack);
-        $this->flashcardService->save($collection->flashcards->whereIn('id', $this->request->flashcard_ids)->map->only(['first_side', 'second_side', 'transcription'])->toArray(), $pack);
+        // если на фронте выбрано, что нужно разбить на несколько наборов
+        if ($request->copyBy) {
+            $keys = $cards->keys();
+            foreach ($cards->chunk($request->copyBy) as $key => $chunk) {
+                $collectionData = $collection->toArray();
+                // разные имена для наборов
+                $collectionData['name'] = $collectionData['name'] . ' #' . ($key + 1);
+
+                $tempPack = $this->packService->save((object)$collectionData, new Pack());
+                $this->flashcardService->save($chunk->toArray(), $tempPack);
+                // на фронт возвращается первый сохраненный набор, чтобы перейти на страницу с ним
+                if ( $keys[0] === $key) {
+                    $pack = $tempPack;
+                }
+            }
+        } else {
+            $pack = $this->packService->save($collection, new Pack());
+            $this->flashcardService->save($cards->toArray(), $pack);
+        }
 
         return $pack;
     }
