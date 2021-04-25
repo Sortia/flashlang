@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Collection;
+use App\Models\Flashcard;
 use App\Models\Pack;
 use App\Services\FlashcardService;
 use App\Services\PackService;
@@ -86,6 +87,8 @@ class CollectionController extends Controller
      */
     public function destroy(Collection $collection)
     {
+        Flashcard::wherePackId($collection->id)->delete();
+
         $collection->delete();
     }
 

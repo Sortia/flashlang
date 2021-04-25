@@ -49,12 +49,12 @@
               ref="form"
               v-model="valid"
             >
-              <pack-header :pack="pack" :entity="'packs'" />
+              <pack-header :pack="pack" :entity="'packs'"/>
             </v-form>
           </v-card-text>
 
           <v-card-actions>
-            <v-spacer />
+            <v-spacer/>
             <v-btn
               color="green darken-1"
               text
@@ -84,14 +84,17 @@
               :elevation="hover ? 24 : 10"
               :class="{ 'on-hover': hover }"
             >
-              <v-card-text class="pt-0 pr-2 text-right w-100 text-muted">
-                <small>{{ pack.created_at | date }}</small>
+              <v-card-text class="pt-0 pr-2 text-left w-100 text-muted">
+                <small class="text-left">{{ pack.created_at | date }}</small>
+                <small class="float-right">
+                  <i slot="extra" class="icon mdi mdi-close-circle pack-delete" @click.prevent="destroy(pack)"></i>
+                </small>
               </v-card-text>
               <v-col class="mb-auto mt-5 p-2 w-100 text-center">
                 {{ pack.name }}
               </v-col>
               <v-card-text class="p-2 w-100">
-                <v-progress-linear rounded :value="pack.progress" color="green" />
+                <v-progress-linear rounded :value="pack.progress" color="green"/>
               </v-card-text>
             </v-card>
           </v-hover>
@@ -103,7 +106,7 @@
 
 <script>
 
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 import PackHeader from '@/components/pack/header'
 
 export default {
@@ -111,7 +114,7 @@ export default {
   components: {
     PackHeader,
   },
-  data () {
+  data() {
     return {
       valid: true,
       dialog: false,
@@ -123,17 +126,35 @@ export default {
       pack: state => state.packs.pack,
     }),
   },
-  mounted () {
+  mounted() {
     this.$store.dispatch('packs/get')
   },
   methods: {
-    create () {
+    create() {
       if (this.$refs.form.validate())
         this.$store.dispatch('packs/create', this.pack).then((res) => {
           this.$notifier.success()
           this.$router.push('/packs/' + res.data.id)
         })
     },
+    destroy(pack) {
+      if (confirm(`Удалить набор  "${pack.name}"?`)) {
+        this.$store.dispatch('packs/destroy', pack).then(() => {
+          this.$notifier.success()
+          this.$store.dispatch('packs/get')
+        })
+      }
+    }
   },
 }
 </script>
+
+<style scoped>
+.pack-delete {
+  color: #7f7979;
+  font-size: 16px;
+}
+.pack-delete:hover {
+  color: #2f2d2d;
+}
+</style>

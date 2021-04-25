@@ -85,8 +85,11 @@
               :elevation="hover ? 24 : 10"
               :class="{ 'on-hover': hover }"
             >
-              <v-card-text class="pt-0 pr-2 text-right w-100 text-muted">
-                <small>{{ collection.created_at | date }}</small>
+              <v-card-text class="pt-0 pr-2 text-left w-100 text-muted">
+                <small class="text-left">{{ collection.created_at | date }}</small>
+                <small v-if="collection.user_id === $auth.user.id" class="float-right">
+                  <i slot="extra" class="icon mdi mdi-close-circle collection-delete" @click.prevent="destroy(collection)"></i>
+                </small>
               </v-card-text>
               <v-col class="mb-auto mt-4 p-2 w-100 text-center">
                 {{ collection.name }}
@@ -135,6 +138,24 @@ export default {
           this.$router.push('/collections/' + res.data.id)
         })
     },
+    destroy(collection) {
+      if (confirm(`Удалить коллекцию  "${collection.name}"?`)) {
+        this.$store.dispatch('collections/destroy', collection).then(() => {
+          this.$notifier.success()
+          this.$store.dispatch('collections/get')
+        })
+      }
+    }
   },
 }
 </script>
+
+<style scoped>
+.collection-delete {
+  color: #7f7979;
+  font-size: 16px;
+}
+.collection-delete:hover {
+  color: #2f2d2d;
+}
+</style>

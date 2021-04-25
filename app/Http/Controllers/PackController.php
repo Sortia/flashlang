@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pack;
+use App\Models\Flashcard;
 use App\Services\FlashcardService;
 use App\Services\PackService;
 use Illuminate\Database\Eloquent\Collection;
@@ -73,5 +74,15 @@ class PackController extends Controller
         $this->flashcardService->save($this->request->flashcards, $pack);
 
         return $pack;
+    }
+
+    /**
+     * @param Pack $pack
+     */
+    public function destroy(Pack $pack)
+    {
+        Flashcard::wherePackId($pack->id)->delete();
+
+        $pack->delete();
     }
 }

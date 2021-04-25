@@ -131,9 +131,17 @@
         <v-divider />
         <v-row v-if="day">
           <v-col class="py-0">
-            <div v-for="item in day.flashcards" :key="item.id">
-              <v-card-text>
-                {{ item.first_side }} - {{ item.second_side }}
+            <div v-for="flashcard in day.flashcards" :key="flashcard.id">
+              <v-card-text style="font-size: 16px;  ">
+                <span>
+                  {{ flashcard.first_side }}
+                </span>
+                <span v-if="flashcard.transcription">
+                - {{ flashcard.transcription }}
+                </span>
+                <span>
+                - {{ flashcard.second_side }}
+                </span>
               </v-card-text>
               <v-divider />
             </div>
