@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Flashcard;
 
 class FlashcardController extends Controller
 {
-    //
+    public function update(Flashcard $flashcard)
+    {
+        $flashcard->update($this->request->toArray());
+    }
 }

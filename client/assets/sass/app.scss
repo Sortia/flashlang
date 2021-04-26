@@ -53,3 +53,7 @@ button {
 .theme--light.v-text-field.v-input--is-disabled .v-input__slot::before {
   border-image: none !important;
 }
+
+.v-data-table-header tr th {
+  font-size: 14px !important;
+}

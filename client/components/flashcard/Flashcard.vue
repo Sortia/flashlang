@@ -106,7 +106,7 @@ export default {
       value => (value && value.length <= 25) || 'Поле должно быть не длиннее 25 символов',
     ],
   }),
-  mounted() {
+  mounted () {
     this.merge({ selected: this.selected, index: this.index })
   },
   methods: {

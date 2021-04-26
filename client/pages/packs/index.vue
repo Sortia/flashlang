@@ -90,7 +90,7 @@
               class="rounded-xl d-flex align-items-start flex-column p-3 pb-1"
               style="min-height: 200px;"
               :elevation="hover ? 24 : 10"
-              :class="{ 'on-hover': hover }"
+              :class="{ 'on-hover': hover, 'pack-completed' : pack.progress === 100 }"
             >
               <v-card-text class="pt-0 pr-2 text-left w-100 text-muted">
                 <small class="text-left">{{ pack.created_at | date }}</small>
@@ -201,5 +201,9 @@ export default {
   border-bottom-left-radius: 25px;
   box-shadow: 0 8px 8px 5px rgba(0, 0, 0, 0.08), 0 5px 8px 0 rgba(0, 0, 0, 0.08), 0 5px 14px 0 rgba(0, 0, 0, 0.08) !important;
   max-height: 48px;
+}
+
+.pack-completed {
+  background-color: rgba(232, 216, 189, 0.35);
 }
 </style>

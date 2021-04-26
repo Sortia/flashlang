@@ -3,14 +3,14 @@
     <mobile-menu slot="content" />
     <sidebar-link to="/packs">
       <i class="nc-icon nc-grid-45" />
-      <p>Главная</p>
+      <p>Мои Наборы</p>
     </sidebar-link>
     <hr>
     <sidebar-link to="/profile">
       <i class="nc-icon nc-circle-09" />
       <p>Профиль</p>
     </sidebar-link>
-    <sidebar-link to="/dictionary">
+    <sidebar-link to="/vocabulary">
       <i class="nc-icon nc-notes" />
       <p>Словарь</p>
     </sidebar-link>
