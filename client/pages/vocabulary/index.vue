@@ -8,10 +8,13 @@
     <v-data-table
       :headers="headers"
       :items="list"
-      hide-default-footer
       class="elevation-5"
       :single-expand="true"
       show-expand
+      :options.sync="options"
+      :items-per-page="15"
+      :loading="loading"
+      :server-items-length="totalDesserts"
     >
       <template v-slot:header.status_id="{ header }">
         <span style="padding-left: 35px;">{{ header.text }}</span>
@@ -20,7 +23,7 @@
         {{ item | date }}
       </template>
       <template v-slot:item.first_side="{ item }">
-        <nuxt-link :to="`/packs/${item.pack.id}`" style="font-weight: 500;">
+        <nuxt-link :to="`/packs/${item.pack_id}`" style="font-weight: 500;">
           {{ item.first_side }}
         </nuxt-link>
       </template>
@@ -39,16 +42,9 @@
         <td :colspan="headers.length">
           <v-row>
             <v-col lg="4">
-              <span class="font-weight-bold">Набор:</span>
-              <nuxt-link :to="`/packs/${item.pack.id}`">
-                {{ item.pack.name }}
-              </nuxt-link>
-            </v-col>
-            <v-col lg="4">
               <span class="font-weight-bold">Дата добавления:</span>
               {{ item.created_at | date }}
             </v-col>
-            <v-col lg="4" />
           </v-row>
         </td>
       </template>
@@ -61,6 +57,9 @@ export default {
   name: 'Index',
   data () {
     return {
+      options: {},
+      totalDesserts: 0,
+      loading: true,
       headers: [
         {
           text: 'Слово',
@@ -86,15 +85,26 @@ export default {
       list: [],
     }
   },
-  mounted () {
-    this.$axios.get('api/vocabulary').then((response) => {
-      this.list = response.data
-    })
+  watch: {
+    options: {
+      handler () {
+        this.getDataFromApi()
+      },
+      deep: true,
+    },
   },
   methods: {
     update (flashcard, status_id) {
       this.$axios.put(`/api/flashcards/${flashcard.id}`, { status_id }).then(() => {
         this.$notifier.success()
+      })
+    },
+    getDataFromApi () {
+      this.loading = true
+      this.$axios.get('api/vocabulary', { params: this.options }).then((response) => {
+        this.list = response.data.data
+        this.totalDesserts = response.data.total
+        this.loading = false
       })
     },
   },
