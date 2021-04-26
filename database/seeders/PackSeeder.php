@@ -17,7 +17,6 @@ class PackSeeder extends BaseSeeder
                 'name' => 'Test collection',
                 'description' => 'test description',
                 'user_id' => 1,
-                'is_public' => true,
                 'first_lang_id' => 2,
                 'second_lang_id' => 1,
             ],
@@ -63,8 +62,9 @@ class PackSeeder extends BaseSeeder
         ];
 
         foreach ($dataPackArray as $data) {
-            $this->insertWithSequenceUpdate('packs', $data);
+            $this->insertWithSequenceUpdate('collections', $data);
         }
+
         foreach ($dataFlashcardsArray as $data) {
             $this->insertWithSequenceUpdate('flashcards', $data);
         }

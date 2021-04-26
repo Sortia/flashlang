@@ -105,6 +105,9 @@
                   {{ collection.description }}
                 </v-card-text>
               </v-col>
+              <v-card-text class="pt-0 pr-2 text-left w-100 text-muted">
+                <small class="text-left">Рейтинг: {{ collection.count_copies }}</small>
+              </v-card-text>
             </v-card>
           </v-hover>
         </nuxt-link>

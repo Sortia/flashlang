@@ -13,9 +13,9 @@ class AlterPacksAddIsPublicColumn extends Migration
      */
     public function up()
     {
-        Schema::table('packs', function (Blueprint $table) {
-            $table->boolean('is_public')->default(false)->after('description');
-        });
+//        Schema::table('packs', function (Blueprint $table) {
+//            $table->boolean('is_public')->default(false)->after('description');
+//        });
     }
 
     /**
@@ -25,8 +25,8 @@ class AlterPacksAddIsPublicColumn extends Migration
      */
     public function down()
     {
-        Schema::table('packs', function (Blueprint $table) {
-            $table->dropColumn('is_public');
-        });
+//        Schema::table('packs', function (Blueprint $table) {
+//            $table->dropColumn('is_public');
+//        });
     }
 }

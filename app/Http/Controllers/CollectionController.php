@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Collection;
 use App\Models\Flashcard;
 use App\Models\Pack;
+use App\Services\CollectionService;
 use App\Services\FlashcardService;
 use App\Services\PackService;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class CollectionController extends Controller
 {
     private FlashcardService $flashcardService;
+
+    private CollectionService $service;
 
     private PackService $packService;
 
@@ -21,11 +23,13 @@ class CollectionController extends Controller
      * CollectionController constructor.
      * @param FlashcardService $flashcardService
      * @param PackService $packService
+     * @param CollectionService $service
      */
-    public function __construct(FlashcardService $flashcardService, PackService $packService)
+    public function __construct(FlashcardService $flashcardService, PackService $packService, CollectionService $service)
     {
         parent::__construct(request());
 
+        $this->service = $service;
         $this->packService = $packService;
         $this->flashcardService = $flashcardService;
     }
@@ -44,7 +48,7 @@ class CollectionController extends Controller
             $query->limit($this->request->limit);
         })->when($this->request->page, function ($query) {
             $query->offset($this->request->limit * ($this->request->page - 1));
-        })->get();
+        })->orderBy('count_copies', 'desc')->get();
     }
 
     /**
@@ -55,7 +59,7 @@ class CollectionController extends Controller
      */
     public function store(Collection $collection): Collection
     {
-        $this->packService->save($this->request, $collection);
+        $this->service->save($this->request, $collection);
         $this->flashcardService->save($this->request->flashcards, $collection);
 
         return $collection;
@@ -80,7 +84,7 @@ class CollectionController extends Controller
      */
     public function update(Collection $collection): Collection
     {
-        $this->packService->save($this->request, $collection);
+        $this->service->save($this->request, $collection);
         $this->flashcardService->save($this->request->flashcards, $collection);
 
         return $collection;
@@ -101,6 +105,7 @@ class CollectionController extends Controller
 
     /**
      * @param Collection $collection
+     * @param Request $request
      * @return Pack
      */
     public function copy(Collection $collection, Request $request): Pack
@@ -127,6 +132,8 @@ class CollectionController extends Controller
             $pack = $this->packService->save($collection, new Pack());
             $this->flashcardService->save($cards->toArray(), $pack);
         }
+
+        $this->service->copyProcess($collection);
 
         return $pack;
     }

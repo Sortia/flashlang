@@ -56,7 +56,7 @@ class User extends Authenticatable
 
     public function flashcards()
     {
-        return $this->hasManyThrough(Flashcard::class, Pack::class)->where('is_public', false);
+        return $this->hasManyThrough(Flashcard::class, Pack::class);
     }
 
     public function complexity()

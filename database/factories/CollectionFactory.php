@@ -25,7 +25,6 @@ class CollectionFactory extends Factory
             'user_id' => $this->faker->numberBetween(1, 3),
             'name' => $this->faker->text(15),
             'description' => $this->faker->text(50),
-            'is_public' => true,
             'first_lang_id' => $this->faker->numberBetween(1, 3),
             'second_lang_id' => $this->faker->numberBetween(1, 3),
         ];

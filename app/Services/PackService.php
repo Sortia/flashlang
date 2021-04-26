@@ -6,11 +6,12 @@ use App\Models\Collection;
 use App\Models\Pack;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use stdClass;
 
 class PackService
 {
     /**
-     * @param Collection|Request $data
+     * @param Collection|Request|stdClass $data
      * @param Pack $pack
      */
     public function save($data, Pack $pack)

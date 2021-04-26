@@ -14,6 +14,8 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property string|null $description
  * @property int $user_id
+ * @property int $count_copies
+ * @property array $copy_user_ids
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|Flashcard[] $flashcards
@@ -21,31 +23,22 @@ use Illuminate\Support\Carbon;
  * @property-read mixed $progress
  * @property-read User $user
  * @method static Builder|Pack my()
- * @method static \Illuminate\Database\Eloquent\Builder|Collection newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Collection newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Collection query()
- * @method static \Illuminate\Database\Eloquent\Builder|Collection whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Collection whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Collection whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Collection whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Collection whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Collection whereUserId($value)
+ * @method static Builder|Collection newModelQuery()
+ * @method static Builder|Collection newQuery()
+ * @method static Builder|Collection query()
+ * @method static Builder|Collection whereCreatedAt($value)
+ * @method static Builder|Collection whereDescription($value)
+ * @method static Builder|Collection whereId($value)
+ * @method static Builder|Collection whereName($value)
+ * @method static Builder|Collection whereUpdatedAt($value)
+ * @method static Builder|Collection whereUserId($value)
  * @mixin Eloquent
  */
 class Collection extends Pack
 {
     use HasFactory;
 
-    protected $table = 'packs';
-
-    protected $attributes = [
-        'is_public' => true,
+    protected $casts = [
+        'copy_user_ids' => 'array'
     ];
-
-    protected static function booted()
-    {
-        static::addGlobalScope('collection', function (Builder $builder) {
-            $builder->where('is_public', true);
-        });
-    }
 }

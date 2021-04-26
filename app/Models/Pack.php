@@ -83,11 +83,4 @@ class Pack extends Model
     {
         return $this->flashcards->pluck('status_id')->avg() * 20;
     }
-
-    protected static function booted()
-    {
-        static::addGlobalScope('collection', function (Builder $builder) {
-            $builder->where('is_public', false);
-        });
-    }
 }
