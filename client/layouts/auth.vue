@@ -12,6 +12,6 @@ export default {}
 
 <style scoped>
 .v-application {
-  background-color: rgba(156, 236, 88, 0.3);
+  background-color: rgba(108, 243, 137, 0.3);
 }
 </style>

@@ -11,6 +11,12 @@ export const mutations = {
   set (state, list) {
     state.list = list
   },
+  clear (state) {
+    state.list = []
+  },
+  add (state, list) {
+    state.list = state.list.concat(list)
+  },
   setPack (state, pack = {}) {
     state.pack = pack
   },
@@ -35,12 +41,22 @@ export const mutations = {
       ...form,
     }
   },
+  delete (state, form) {
+    const index = state.list.findIndex(n => n.id === form.id)
+    if (index !== -1)
+      state.list.splice(index, 1)
+  },
 }
 
 export const actions = {
   get ({ commit }, query) {
     return this.$axios.get(`${defaultUrl}`, { params: query }).then((res) => {
       commit('set', res.data)
+    })
+  },
+  load ({ commit }, query) {
+    this.$axios.get(`${defaultUrl}`, { params: query }).then((res) => {
+      commit('add', res.data)
     })
   },
   show ({ commit }, params) {
@@ -55,6 +71,8 @@ export const actions = {
     return this.$axios.post(`${defaultUrl}`, params)
   },
   destroy ({ commit }, params) {
+    commit('delete', params)
+
     return this.$axios.delete(`${defaultUrl}/${params.id}`, params)
   },
 }

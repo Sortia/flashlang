@@ -5,6 +5,7 @@
       Тут должна быть подсказка что с этими коллекциями делать...
     </v-card>
     <v-text-field
+      v-model="query"
       class="collection-search mb-3"
       solo
       label="Поиск по коллекциям"
@@ -109,6 +110,7 @@
         </nuxt-link>
       </v-col>
     </v-row>
+    <infinite-loading :identifier="infiniteId" @infinite="infiniteHandler" />
   </div>
 </template>
 
@@ -116,16 +118,21 @@
 
 import { mapState } from 'vuex'
 import PackHeader from '@/components/pack/header'
+import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
   name: 'Index',
   components: {
     PackHeader,
+    InfiniteLoading,
   },
   data () {
     return {
+      page: 1,
       valid: true,
       dialog: false,
+      query: null,
+      infiniteId: +new Date(),
     }
   },
   computed: {
@@ -134,12 +141,14 @@ export default {
       collection: state => state.collections.collection,
     }),
   },
-  mounted () {
-    this.$store.dispatch('collections/get')
+  destroyed () {
+    this.$store.commit('collections/clear')
   },
   methods: {
-    search (search) {
-      this.$store.dispatch('collections/get', { search })
+    search () {
+      this.page = 1
+      this.$store.commit('collections/clear')
+      this.infiniteId += 1
     },
     create () {
       if (this.$refs.collection_form.validate())
@@ -152,8 +161,25 @@ export default {
       if (confirm(`Удалить коллекцию  "${collection.name}"?`))
         this.$store.dispatch('collections/destroy', collection).then(() => {
           this.$notifier.success()
-          this.$store.dispatch('collections/get')
         })
+    },
+    infiniteHandler ($state) {
+      this.$axios.get('/api/collections', {
+        params: {
+          page: this.page,
+          limit: (this.page === 1 ? 19 : 20),
+          search: this.query,
+        },
+      }).then(({ data }) => {
+        if (data.length === (this.page === 1 ? 19 : 20)) {
+          this.page += 1
+          this.$store.commit('collections/add', data)
+          $state.loaded()
+        } else {
+          this.$store.commit('collections/add', data)
+          $state.complete()
+        }
+      })
     },
   },
 }

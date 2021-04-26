@@ -5,6 +5,7 @@
       Тут должна быть подсказка что с этими наборами делать...
     </v-card>
     <v-text-field
+      v-model="query"
       class="pack-search mb-3"
       solo
       label="Поиск по наборам"
@@ -108,6 +109,7 @@
         </nuxt-link>
       </v-col>
     </v-row>
+    <infinite-loading :identifier="infiniteId" @infinite="infiniteHandler" />
   </div>
 </template>
 
@@ -115,16 +117,21 @@
 
 import { mapState } from 'vuex'
 import PackHeader from '@/components/pack/header'
+import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
   name: 'Index',
   components: {
     PackHeader,
+    InfiniteLoading,
   },
   data () {
     return {
+      page: 1,
       valid: true,
       dialog: false,
+      query: null,
+      infiniteId: +new Date(),
     }
   },
   computed: {
@@ -133,12 +140,14 @@ export default {
       pack: state => state.packs.pack,
     }),
   },
-  mounted () {
-    this.$store.dispatch('packs/get')
+  destroyed () {
+    this.$store.commit('packs/clear')
   },
   methods: {
-    search (search) {
-      this.$store.dispatch('packs/get', { search })
+    search () {
+      this.page = 1
+      this.$store.commit('packs/clear')
+      this.infiniteId += 1
     },
     create () {
       if (this.$refs.form.validate())
@@ -151,8 +160,25 @@ export default {
       if (confirm(`Удалить набор  "${pack.name}"?`))
         this.$store.dispatch('packs/destroy', pack).then(() => {
           this.$notifier.success()
-          this.$store.dispatch('packs/get')
         })
+    },
+    infiniteHandler ($state) {
+      this.$axios.get('/api/packs', {
+        params: {
+          page: this.page,
+          limit: (this.page === 1 ? 19 : 20),
+          search: this.query,
+        },
+      }).then(({ data }) => {
+        if (data.length === (this.page === 1 ? 19 : 20)) {
+          this.page += 1
+          this.$store.commit('packs/add', data)
+          $state.loaded()
+        } else {
+          this.$store.commit('packs/add', data)
+          $state.complete()
+        }
+      })
     },
   },
 }

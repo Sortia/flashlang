@@ -40,6 +40,10 @@ class CollectionController extends Controller
         return Collection::on()->when($this->request->search, function ($query) {
             $query->where('name', 'ILIKE', '%' . $this->request->search . '%');
             $query->orWhere('description', 'ILIKE', '%' . $this->request->search . '%');
+        })->when($this->request->limit, function ($query) {
+            $query->limit($this->request->limit);
+        })->when($this->request->page, function ($query) {
+            $query->offset($this->request->limit * ($this->request->page - 1));
         })->get();
     }
 

@@ -36,8 +36,13 @@ export default {
     Sidebar,
   },
   mounted () {
-    // this.$laravel.setPermissions(this.$auth.user.permissions)
     this.$store.dispatch('languages/get')
   },
 }
 </script>
+
+<style scoped>
+.content {
+  background-color: rgba(185, 223, 253, 0.1);
+}
+</style>

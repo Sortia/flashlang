@@ -23,10 +23,12 @@
     "d3": "^6.2.0",
     "move-js": "^0.5.0",
     "nuxt": "^2.14.0",
-    "nuxt-tailvue": "^1.0.24"
+    "nuxt-tailvue": "^1.0.24",
+    "vue-infinite-loading": "^2.4.5"
   },
   "devDependencies": {
     "@mdi/font": "^5.9.55",
+    "cookie-universal-nuxt": "^2.1.4",
     "@nuxtjs/eslint-config": "^3.1.0",
     "@nuxtjs/eslint-module": "^2.0.0",
     "@nuxtjs/moment": "^1.6.1",

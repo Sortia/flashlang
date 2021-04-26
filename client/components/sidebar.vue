@@ -10,6 +10,10 @@
       <i class="nc-icon nc-circle-09" />
       <p>Профиль</p>
     </sidebar-link>
+    <sidebar-link to="/dictionary">
+      <i class="nc-icon nc-notes" />
+      <p>Словарь</p>
+    </sidebar-link>
     <sidebar-link to="/collections">
       <i class="nc-icon nc-puzzle-10" />
       <p>Коллекции</p>
