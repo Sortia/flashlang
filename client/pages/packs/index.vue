@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card elevation="5" shaped class="px-5 py-3 mb-4">
+    <v-card elevation="5" class="pack-tip px-5 py-3 mb-4">
       <!--   todo   -->
       Тут должна быть подсказка что с этими наборами делать...
     </v-card>
@@ -165,6 +165,10 @@ export default {
 }
 .pack-delete:hover {
   color: #2f2d2d;
+}
+.pack-tip {
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
 }
 .pack-search {
   border-bottom-right-radius: 25px;
