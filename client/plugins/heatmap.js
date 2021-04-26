@@ -230,7 +230,7 @@ const heatmap = {
               cur_x = prev_x + 20;
             }
 
-            return prev_x = cur_x
+            return prev_x = cur_x + 20
           })
           .attr('y', 0) // fix these to the top
 

@@ -9,8 +9,6 @@
       :headers="headers"
       :items="list"
       class="elevation-5"
-      :single-expand="true"
-      show-expand
       :options.sync="options"
       :items-per-page="15"
       :loading="loading"
@@ -37,16 +35,6 @@
           :value="item.status_id"
           @input="update(item, $event)"
         />
-      </template>
-      <template v-slot:expanded-item="{ headers, item }">
-        <td :colspan="headers.length">
-          <v-row>
-            <v-col lg="4">
-              <span class="font-weight-bold">Дата добавления:</span>
-              {{ item.created_at | date }}
-            </v-col>
-          </v-row>
-        </td>
       </template>
     </v-data-table>
   </div>
@@ -78,8 +66,8 @@ export default {
           value: 'status_id',
         },
         {
-          text: '',
-          value: 'data-table-expand',
+          text: 'Дата добавления',
+          value: 'created_at',
         },
       ],
       list: [],
