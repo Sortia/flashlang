@@ -3,7 +3,7 @@
     class="sidebar"
     :data-color="backgroundColor"
   >
-    <div class="sidebar-wrapper" :style="{ backgroundImage: `url(${backgroundImagePath})` }">
+    <div class="sidebar-wrapper">
       <div class="" style="z-index: 10">
         <div class="logo">
           <a href="#" class="simple-text logo__container">
@@ -105,8 +105,7 @@ export default {
     background-size: auto 100%;
   }
   .sidebar-wrapper::before {
-    opacity: 0.7;
-    background-color: #151414;
+    background-color: #4257b2;
     display: block;
     content: "";
     position: absolute;

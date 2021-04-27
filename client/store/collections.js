@@ -71,8 +71,6 @@ export const actions = {
     return this.$axios.post(`${defaultUrl}`, params)
   },
   destroy ({ commit }, params) {
-    commit('delete', params)
-
     return this.$axios.delete(`${defaultUrl}/${params.id}`, params)
   },
 }

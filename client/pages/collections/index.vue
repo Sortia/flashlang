@@ -163,7 +163,10 @@ export default {
     destroy (collection) {
       if (confirm(`Удалить коллекцию  "${collection.name}"?`))
         this.$store.dispatch('collections/destroy', collection).then(() => {
+          this.$store.commit('collections/delete', collection)
           this.$notifier.success()
+        }).catch(() => {
+          this.$notifier.error()
         })
     },
     infiniteHandler ($state) {

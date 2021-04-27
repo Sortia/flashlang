@@ -7,6 +7,7 @@ use App\Models\Flashcard;
 use App\Services\FlashcardService;
 use App\Services\PackService;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class PackController extends Controller
 {
@@ -48,6 +49,8 @@ class PackController extends Controller
      */
     public function show(Pack $pack): Pack
     {
+        $this->checkAccess($pack);
+
         return $pack->load('flashcards.status');
     }
 
@@ -59,6 +62,8 @@ class PackController extends Controller
      */
     public function store(Pack $pack): Pack
     {
+        $this->checkAccess($pack);
+
         $this->packService->save($this->request, $pack);
         $this->flashcardService->save($this->request->flashcards, $pack);
 
@@ -73,6 +78,8 @@ class PackController extends Controller
      */
     public function update(Pack $pack): Pack
     {
+        $this->checkAccess($pack);
+
         $this->packService->save($this->request, $pack);
         $this->flashcardService->save($this->request->flashcards, $pack);
 
@@ -84,8 +91,20 @@ class PackController extends Controller
      */
     public function destroy(Pack $pack)
     {
+        $this->checkAccess($pack);
+
         Flashcard::wherePackId($pack->id)->delete();
 
         $pack->delete();
+    }
+
+    /**
+     * @param Pack $pack
+     */
+    private function checkAccess(Pack $pack)
+    {
+        if ($pack->user_id !== Auth::id()) {
+            abort(403);
+        }
     }
 }

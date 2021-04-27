@@ -43,6 +43,6 @@ export default {
 
 <style scoped>
 .content {
-  background-color: rgb(241, 245, 249);
+  background-color: rgb(231, 247, 234);
 }
 </style>

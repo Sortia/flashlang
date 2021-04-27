@@ -159,7 +159,10 @@ export default {
     destroy (pack) {
       if (confirm(`Удалить набор  "${pack.name}"?`))
         this.$store.dispatch('packs/destroy', pack).then(() => {
+          this.$store.commit('packs/delete', pack)
           this.$notifier.success()
+        }).catch(() => {
+          this.$notifier.error()
         })
     },
     infiniteHandler ($state) {

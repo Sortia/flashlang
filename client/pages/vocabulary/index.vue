@@ -89,7 +89,7 @@ export default {
     },
     getDataFromApi () {
       this.loading = true
-      this.$axios.get('api/vocabulary', { params: this.options }).then((response) => {
+      this.$axios.get('api/flashcards', { params: this.options }).then((response) => {
         this.list = response.data.data
         this.totalDesserts = response.data.total
         this.loading = false

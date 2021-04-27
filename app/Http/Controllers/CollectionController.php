@@ -10,6 +10,7 @@ use App\Services\FlashcardService;
 use App\Services\PackService;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CollectionController extends Controller
 {
@@ -84,6 +85,8 @@ class CollectionController extends Controller
      */
     public function update(Collection $collection): Collection
     {
+        $this->checkAccess($collection);
+
         $this->service->save($this->request, $collection);
         $this->flashcardService->save($this->request->flashcards, $collection);
 
@@ -98,6 +101,8 @@ class CollectionController extends Controller
      */
     public function destroy(Collection $collection)
     {
+        $this->checkAccess($collection);
+
         Flashcard::wherePackId($collection->id)->delete();
 
         $collection->delete();
@@ -136,5 +141,15 @@ class CollectionController extends Controller
         $this->service->copyProcess($collection);
 
         return $pack;
+    }
+
+    /**
+     * @param Collection $collection
+     */
+    private function checkAccess(Collection $collection)
+    {
+        if ($collection->user_id !== Auth::id()) {
+            abort(403);
+        }
     }
 }

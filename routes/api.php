@@ -42,7 +42,6 @@ Route::group(['prefix' => 'api'], function () {
     Route::post('collections/{collection}/copy', [CollectionController::class, 'copy']);
 
     Route::get('settings', [SettingController::class, 'index']);
-    Route::get('vocabulary', [VocabularyController::class, 'index']);
     Route::post('settings/set', [SettingController::class, 'set']);
 
 
