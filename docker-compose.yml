@@ -50,6 +50,15 @@ services:
     ports:
       - 5432:5432
 
+  #Adminer db access interface
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - 8888:8080
+    networks:
+      - app-network
+
   #Node js for building project
   nodejs:
     build: ./node
