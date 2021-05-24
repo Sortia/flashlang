@@ -6,11 +6,11 @@ const heatmap = {
   name: 'Heatmap',
   create() {
     // defaults
-    const width = 980
-    const height = 100
+    const width = 1100
+    const height = 115
     const legendWidth = 150
     let selector = 'body'
-    const SQUARE_LENGTH = 12
+    const SQUARE_LENGTH = 14
     const SQUARE_PADDING = 6
     const MONTH_LABEL_PADDING = 6
     let now = moment().endOf('day').toDate()
@@ -230,7 +230,11 @@ const heatmap = {
               cur_x = prev_x + 20;
             }
 
-            return prev_x = cur_x + 20
+            if (i !== 0) {
+              cur_x += 25
+            }
+
+            return prev_x = cur_x
           })
           .attr('y', 0) // fix these to the top
 

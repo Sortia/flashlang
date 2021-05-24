@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col lg="4">
+    <v-col lg="3">
       <v-card class="rounded-lg border-0" elevation="10">
         <v-img
           height="160"
@@ -13,8 +13,20 @@
               color="rgba(0, 0, 0, .4)"
               dark
             >
-              <v-list-item-content style="padding-top: 90px;">
-                <v-list-item-title class="title overline text-subtitle-2 h2">
+              <v-list-item-content class="d-block">
+                <v-btn
+                  style="max-width: 40px; float: right; background-color: #8ca3b7 !important;"
+                  color="warning"
+                  fab
+                  small
+                  dark
+                  @click="editModal = true"
+                >
+                  <v-icon style="left: 2px">
+                    mdi-account-edit-outline
+                  </v-icon>
+                </v-btn>
+                <v-list-item-title class="title overline text-subtitle-2 h2" style="padding-top: 75px;">
                   {{ user.name }}
                 </v-list-item-title>
               </v-list-item-content>
@@ -23,7 +35,7 @@
         </v-img>
         <v-col lg="12">
           <v-row>
-            <v-col lg="6">
+            <v-col lg="12">
               <div class="pl-2 v-sheet">
                 <div class="transition-swing text-subtitle-2 overline">
                   Электронный адрес
@@ -33,7 +45,7 @@
                 </div>
               </div>
             </v-col>
-            <v-col lg="6">
+            <v-col lg="12">
               <div class="pl-2 v-sheet">
                 <div class="transition-swing text-subtitle-2 overline">
                   Дата регистрации
@@ -46,7 +58,7 @@
           </v-row>
           <v-divider />
           <v-row>
-            <v-col lg="6">
+            <v-col lg="12">
               <div class="pl-2 v-sheet">
                 <div class="transition-swing text-subtitle-2 overline">
                   Сложность
@@ -61,7 +73,7 @@
         </v-col>
       </v-card>
     </v-col>
-    <v-col lg="8">
+    <v-col lg="9">
       <v-card class="pt-4 rounded-lg" elevation="10">
         <v-row no-gutters>
           <v-col md="3">
@@ -137,10 +149,10 @@
                   {{ flashcard.first_side }}
                 </span>
                 <span v-if="flashcard.transcription">
-                - {{ flashcard.transcription }}
+                  - {{ flashcard.transcription }}
                 </span>
                 <span>
-                - {{ flashcard.second_side }}
+                  - {{ flashcard.second_side }}
                 </span>
               </v-card-text>
               <v-divider />
@@ -149,6 +161,92 @@
         </v-row>
       </v-card>
     </v-col>
+
+    <v-dialog
+      v-model="editModal"
+      max-width="500px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="headline">Редактирование профиля</span>
+        </v-card-title>
+        <v-divider class="m-0" />
+        <v-form ref="form" class="m-3">
+          <div>
+            <v-text-field
+              :value="user.name"
+              label="Имя"
+              :rules="rules.name"
+              autocomplete="false"
+            />
+          </div>
+          <div>
+            <v-text-field
+              :value="user.email"
+              label="Электронная почта"
+              :rules="rules.email"
+              autocomplete="false"
+            />
+          </div>
+          <div>
+            <v-text-field
+              :value="user.complexity ? user.complexity.count_flashcards : ''"
+              label="Сложность"
+              autocomplete="false"
+            />
+          </div>
+          <v-row>
+            <v-divider />
+          </v-row>
+          <h5 style="font-size: 18px; font-weight: 400;">
+            Смена пароля
+          </h5>
+          <div>
+            <v-text-field
+              v-model="login.password"
+              label="Текущий пароль"
+              type="password"
+              :rules="rules.password"
+              autocomplete="false"
+            />
+          </div>
+          <div>
+            <v-text-field
+              v-model="login.password"
+              label="Новый пароль"
+              type="password"
+              :rules="rules.password"
+              autocomplete="false"
+            />
+          </div>
+          <div>
+            <v-text-field
+              v-model="login.confirm"
+              label="Подтверждение"
+              type="password"
+              :rules="rules.confirm"
+              autocomplete="false"
+            />
+          </div>
+          <v-card-actions>
+            <v-btn
+              color="green darken-1"
+              text
+            >
+              Сохранить
+            </v-btn>
+            <v-spacer />
+            <v-btn
+              color="primary"
+              text
+              @click="editModal = false"
+            >
+              Отмена
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+      </v-card>
+    </v-dialog>
   </v-row>
 </template>
 
@@ -166,6 +264,31 @@ export default {
   data () {
     return {
       date: '',
+      editModal: false,
+      login: {
+        name: '',
+        email: '',
+        password: '',
+        confirm: '',
+      },
+      rules: {
+        name: [
+          value => !!value || 'Поле обязательно для заполнения',
+          value => (value && value.length <= 25) || 'Поле должно быть не длиннее 25 символов',
+        ],
+        email: [
+          v => !!v || 'Пожалуйста введите электронную почту!',
+          v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Электронная почта введена не верно!',
+        ],
+        password: [
+          value => !!value || 'Пожалуйста введите пароль!',
+          value => (value && value.length >= 6) || 'Минимум 6 символов!',
+        ],
+        confirm: [
+          value => !!value || 'Подтвердите пароль!',
+          value => value === this.login.password || 'Пароли не совпадают!',
+        ],
+      },
     }
   },
   computed: {
@@ -191,18 +314,15 @@ export default {
       this.setHeatmapDay(new Date())
     },
   },
-  mounted () {
-    this.fetch()
+  async asyncData ({ store }) {
+    await store.dispatch('users/show', { id: store.state.auth.user.id })
+    await store.dispatch('heatmaps/get', { user_id: store.state.auth.user.id })
   },
   methods: {
     getCountDaysInMonth () {
       const now = new Date()
 
       return new Date(now.getFullYear(), now.getMonth(), 0).getDate()
-    },
-    async fetch () {
-      await this.$store.dispatch('users/show', { id: this.$auth.user.id })
-      return this.$store.dispatch('heatmaps/get', { user_id: this.$auth.user.id })
     },
     setHeatmap (data) {
       const chartData = data.map((item) => {
@@ -283,4 +403,13 @@ box-sizing: initial;
 padding: 15px 0;
 }
 
+</style>
+
+<style scoped>
+.profile-edit {
+  font-size: 30px;
+  color: #efe6e6;
+  text-align: right;
+  margin-top: -10px;
+}
 </style>
