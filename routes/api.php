@@ -3,9 +3,12 @@
 use App\Http\Controllers\API\DictionaryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FlashcardController;
 use App\Http\Controllers\HeatmapController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LessonController;
+use App\Http\Controllers\LessonItemController;
 use App\Http\Controllers\PackController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SPAController;
@@ -37,6 +40,10 @@ Route::group(['prefix' => 'api'], function () {
     Route::resource('heatmaps', HeatmapController::class);
     Route::resource('storybooks', StorybookController::class);
     Route::resource('flashcards', FlashcardController::class);
+
+    Route::resource('courses', CourseController::class);
+    Route::resource('lessons', LessonController::class);
+    Route::resource('lesson_items', LessonItemController::class);
 
     Route::resource('collections', CollectionController::class);
     Route::post('collections/{collection}/copy', [CollectionController::class, 'copy']);

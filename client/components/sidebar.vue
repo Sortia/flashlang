@@ -30,6 +30,10 @@
       <i class="nc-icon nc-map-big" />
       <p>Курсы</p>
     </sidebar-link>
+    <sidebar-link to="/courses/manage">
+      <i class="nc-icon nc-map-big" />
+      <p>Управление курсами</p>
+    </sidebar-link>
   </side-bar>
 </template>
 
