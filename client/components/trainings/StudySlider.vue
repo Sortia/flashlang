@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: 'FlashcardSlider',
+  name: 'StudySlider',
   props: {
     flashcard: {
       type: Object,
@@ -68,7 +68,7 @@ export default {
   color: white;
 }
 
-.container .flashcard-card:hover .face.face1{
+.container .flashcard-card .face.face1{
   background: #efbc55;
 
   transform: translateY(0);
@@ -84,7 +84,7 @@ export default {
   font-weight: 400;
 }
 
-.container .flashcard-card:hover .face.face1 .content{
+.container .flashcard-card .face.face1 .content{
   opacity: 1;
 }
 
@@ -113,7 +113,7 @@ export default {
   color: black !important;
 }
 
-.container .flashcard-card:hover .face.face2{
+.container .flashcard-card .face.face2{
   transform: translateY(0);
 }
 
@@ -132,7 +132,7 @@ export default {
   border: 1px solid #333;
 }
 
-.container .flashcard-card .face.face2 .content a:hover{
+.container .flashcard-card .face.face2 .content a {
   background: #333;
   color: #fff;
 }
