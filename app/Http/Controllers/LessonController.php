@@ -44,7 +44,16 @@ class LessonController extends Controller
      */
     public function destroy(Lesson $lesson)
     {
-        // todo пересчет порядковых номеров после удаления
+        // пересчет порядковых номеров модулей
+        $lessons = Lesson::on()
+            ->where('course_id', $lesson->course_id)
+            ->where('order_number', '>', $lesson->order_number)
+            ->get();
+
+        $mover = new MoveHelper($lessons, $lesson->order_number);
+
+        $mover->moveUp();
+
         return $lesson->delete();
     }
 

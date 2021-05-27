@@ -15,7 +15,7 @@ class MoveHelper
 
     private int $to;
 
-    public function __construct($collection, $from, $to)
+    public function __construct($collection, $from, $to = 10000)
     {
         $this->collection = $collection;
         $this->from = $from;
@@ -43,20 +43,20 @@ class MoveHelper
     private function moveCollection()
     {
         if ($this->from > $this->to) { // перемещение вверх
-            $this->moveUp();
+            $this->moveDown();
         } elseif ($this->from < $this->to) {
-            $this->modeDown();
+            $this->moveUp();
         }
     }
 
-    private function moveUp()
+    public function moveDown()
     {
         foreach ($this->collection as $element) {
             $element->update(['order_number' => $element->order_number + 1]);
         }
     }
 
-    private function modeDown()
+    public function moveUp()
     {
         foreach ($this->collection as $element) {
             $element->update(['order_number' => $element->order_number - 1]);
