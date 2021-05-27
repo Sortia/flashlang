@@ -24,11 +24,12 @@
     "move-js": "^0.5.0",
     "nuxt": "^2.14.0",
     "nuxt-tailvue": "^1.0.24",
-    "vue-infinite-loading": "^2.4.5"
+    "vue-infinite-loading": "^2.4.5",
+    "vue2-editor": "^2.10.2",
+    "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
     "@mdi/font": "^5.9.55",
-    "cookie-universal-nuxt": "^2.1.4",
     "@nuxtjs/eslint-config": "^3.1.0",
     "@nuxtjs/eslint-module": "^2.0.0",
     "@nuxtjs/moment": "^1.6.1",
@@ -38,6 +39,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.1.0",
+    "cookie-universal-nuxt": "^2.1.4",
     "eslint": "^7.11.0",
     "eslint-plugin-nuxt": "^1.0.0",
     "jest": "^26.5.3",

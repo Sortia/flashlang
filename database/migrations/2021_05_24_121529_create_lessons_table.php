@@ -20,6 +20,7 @@ class CreateLessonsTable extends Migration
             $table->integer('order_number');
             $table->unsignedBigInteger('course_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

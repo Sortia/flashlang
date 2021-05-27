@@ -14,7 +14,6 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SPAController;
 use App\Http\Controllers\StorybookController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\VocabularyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,7 +41,9 @@ Route::group(['prefix' => 'api'], function () {
     Route::resource('flashcards', FlashcardController::class);
 
     Route::resource('courses', CourseController::class);
+    Route::put('lessons/move', [LessonController::class, 'move']);
     Route::resource('lessons', LessonController::class);
+
     Route::resource('lesson_items', LessonItemController::class);
 
     Route::resource('collections', CollectionController::class);

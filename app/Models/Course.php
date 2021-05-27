@@ -13,4 +13,9 @@ class Course extends Model
         'name',
         'description'
     ];
+
+    public function lessons()
+    {
+        return $this->hasMany(Lesson::class)->orderBy('order_number');
+    }
 }

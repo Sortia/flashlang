@@ -21,6 +21,7 @@ class CreateLessonItems extends Migration
             $table->integer('order_number');
             $table->unsignedBigInteger('lesson_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -3,30 +3,51 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * Class CourseController
+ * @package App\Http\Controllers
+ */
 class CourseController extends Controller
 {
+    /**
+     * @return Course[]|Collection
+     */
     public function index()
     {
         return Course::all();
     }
 
+    /**
+     * @param Course $course
+     * @return Course
+     */
     public function show(Course $course)
     {
-        return $course;
+        return $course->load('lessons');
     }
 
-    public function store(Request $request)
+    /**
+     * @return mixed
+     */
+    public function store()
     {
-        return Course::create($request->all());
+        return Course::create($this->request->all());
     }
 
-    public function update(Course $course, Request $request)
+    /**
+     * @param Course $course
+     * @return bool
+     */
+    public function update(Course $course)
     {
-        return $course->update($request->all());
+        return $course->update($this->request->all());
     }
 
+    /**
+     * @param Course $course
+     */
     public function destroy(Course $course)
     {
         $course->delete();

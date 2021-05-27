@@ -96,7 +96,7 @@
         cols="12"
         class="mb-5"
       >
-        <nuxt-link :to="`/courses/manage/${course.id}`">
+        <nuxt-link :to="`/manage/courses/${course.id}`">
           <v-hover
             v-slot:default="{ hover }"
           >
@@ -168,7 +168,6 @@ export default {
 
     },
     merge (data) {
-      console.log(data)
       this.$store.commit('courses/merge', data)
     },
   },

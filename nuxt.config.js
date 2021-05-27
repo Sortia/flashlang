@@ -49,6 +49,8 @@ export default {
     '~/plugins/heatmap.js',
     // '~/plugins/laravel-permissions',
     '~/plugins/bus',
+    '~/plugins/vuedraggable',
+    '~/plugins/vue2-editor',
   ],
   /*
   ** Auto import components
