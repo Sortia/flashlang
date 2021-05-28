@@ -16,10 +16,10 @@ class LessonController extends Controller
      * @param Lesson $lesson
      * @return Lesson
      */
-//    public function show(Lesson $lesson)
-//    {
-//        return $lesson->load('items');
-//    }
+    public function show(Lesson $lesson)
+    {
+        return $lesson->load('items');
+    }
 
     /**
      * @return mixed

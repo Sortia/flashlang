@@ -57,7 +57,7 @@ export const actions = {
   },
 }
 export const getters = {
-  pages: (state) => {
+  list: (state) => {
     return state.course.lessons
   },
 }

@@ -1,8 +1,8 @@
-const defaultUrl = '/api/lessons'
+const defaultUrl = '/api/lesson_items'
 
 export const state = () => ({
   list: [],
-  lesson: [],
+  lesson_item: [],
 })
 
 export const mutations = {
@@ -12,14 +12,29 @@ export const mutations = {
   clear (state) {
     state.list = []
   },
-  setLesson (state, lesson = {}) {
-    state.lesson = lesson
+  setLessonItem (state, lesson_item = {}) {
+    state.lesson_item = lesson_item
   },
   merge (state, form) {
-    state.lesson = {
-      ...state.lesson,
+    state.lesson_item = {
+      ...state.lesson_item,
       ...form,
     }
+  },
+  mergeAnswer (state, form) {
+    if (!state.lesson_item.answers)
+      state.lesson_item.answers = {}
+
+    if (!state.lesson_item.answers.list)
+      state.lesson_item.answers.list = []
+
+    state.lesson_item.answers.list[form.index] = form.value
+  },
+  mergeRight (state, form) {
+    if (!state.lesson_item.answers)
+      state.lesson_item.answers = {}
+
+    state.lesson_item.answers.right = form.value
   },
   delete (state, form) {
     const index = state.list.findIndex(n => n.id === form.id)
@@ -36,7 +51,7 @@ export const actions = {
   },
   show ({ commit }, params) {
     this.$axios.get(`${defaultUrl}/${params.id}`).then((res) => {
-      commit('setLesson', res.data)
+      commit('setItem', res.data)
     })
   },
   update ({ commit }, params) {
@@ -47,11 +62,5 @@ export const actions = {
   },
   destroy ({ commit }, params) {
     return this.$axios.delete(`${defaultUrl}/${params.id}`, params)
-  },
-}
-
-export const getters = {
-  list: (state) => {
-    return state.lesson.items
   },
 }

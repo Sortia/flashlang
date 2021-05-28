@@ -16,8 +16,9 @@ class CreateLessonItems extends Migration
         Schema::create('lesson_items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type', ['theory', 'test']);
+            $table->boolean('type')->comment('0 - theory, 1 - test');
             $table->text('content')->nullable();
+            $table->json('answers')->nullable();
             $table->integer('order_number');
             $table->unsignedBigInteger('lesson_id');
             $table->timestamps();

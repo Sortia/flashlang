@@ -22,10 +22,10 @@
       <i class="nc-icon nc-atom" />
       <p>Тренировки</p>
     </sidebar-link>
-    <sidebar-link to="/testing">
-      <i class="nc-icon nc-layers-3" />
-      <p>Тестирование</p>
-    </sidebar-link>
+<!--    <sidebar-link to="/testing">-->
+<!--      <i class="nc-icon nc-layers-3" />-->
+<!--      <p>Тестирование</p>-->
+<!--    </sidebar-link>-->
     <sidebar-link to="/courses">
       <i class="nc-icon nc-map-big" />
       <p>Курсы</p>

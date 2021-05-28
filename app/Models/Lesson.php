@@ -25,6 +25,6 @@ class Lesson extends Model
 
     public function items()
     {
-        return $this->hasMany(LessonItem::class);
+        return $this->hasMany(LessonItem::class)->orderBy('order_number');
     }
 }

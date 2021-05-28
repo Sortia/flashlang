@@ -27,7 +27,7 @@
     </v-card>
     <v-card class="mt-5" elevation="10" shaped>
       <div class="col-12">
-        <div class="mt-0" style="font-size: 26px; font-weight: 300;">
+        <div class="mt-0 mb-1" style="font-size: 26px; font-weight: 300;">
           Модули курса
           <v-btn
             class="float-right"
@@ -41,23 +41,24 @@
         </div>
 
         <draggable
-          :v-model="pages"
+          :v-model="list"
           class="list-group"
           ghost-class="ghost"
-          :options="{group:{name:'pages',pull:true,put:true},animation: 150}"
-          :move="move"
+          :options="{group:{name:'list',pull:true,put:true},animation: 150}"
           @sort="move"
         >
           <div
-            v-for="item in pages"
+            v-for="item in list"
             :key="item.name"
             class="list-group-item"
           >
-            <span style="font-size: 18px;">
-              {{ item.order_number + 1 }}.
-              {{ item.name }}
+            <span class="middle">
+              <span style="font-size: 18px;">
+                {{ item.order_number + 1 }}.
+                {{ item.name }}
+              </span>
+              <span>- {{ item.description }}</span>
             </span>
-            <span>- {{ item.description }}</span>
             <span class="float-right lesson-manage-icon-list">
               <nuxt-link :to="`/manage/lessons/${item.id}`">
                 <v-btn class="mx-1" icon><v-icon>mdi-eye</v-icon></v-btn>
@@ -75,7 +76,7 @@
     >
       <v-card>
         <v-card-title class="headline">
-          Добавить новый модуль
+          Модуль
         </v-card-title>
 
         <v-card-text class="pb-0">
@@ -150,13 +151,9 @@ export default {
     ...mapState({
       course: state => state.courses.course,
     }),
-    pages: {
+    list: {
       get () {
-        return this.$store.getters['courses/pages']
-      },
-      set (value) {
-        console.log(value)
-        this.$store.commit('courses/setLessons', { value })
+        return this.$store.getters['courses/list']
       },
     },
   },
@@ -171,15 +168,22 @@ export default {
       if (this.$refs.lesson_form.validate()) {
         this.lesson.course_id = this.course.id
 
-        if (this.course.lessons.length === 0)
-          this.lesson.order_number = 0
-        else
-          this.lesson.order_number = Math.max(...this.course.lessons.map(lesson => lesson.order_number)) + 1
+        if (this.isCreate())
+          if (this.course.lessons.length === 0)
+            this.lesson.order_number = 0
+          else
+            this.lesson.order_number = Math.max(...this.course.lessons.map(lesson => lesson.order_number)) + 1
 
-        this.$store.dispatch('lessons/' + (this.lesson.id ? 'update' : 'create'), this.lesson).then(() => {
+        this.$store.dispatch('lessons/' + (this.isCreate() ? 'create' : 'update'), this.lesson).then(() => {
           this.$notifier.success()
           this.$store.dispatch('courses/show', this.$route.params)
           this.dialog = false
+          this.lesson = {
+            name: '',
+            description: '',
+            order_number: '',
+            course_id: null,
+          }
         })
       }
     },
@@ -194,15 +198,21 @@ export default {
     },
     move (value) {
       this.$axios.put('/api/lessons/move', { from: value.oldIndex, to: value.newIndex, course_id: this.course.id }).then(() => {
-        this.$notifier.show()
+        this.$notifier.success()
         this.$store.dispatch('courses/show', this.$route.params)
       }).catch(() => {
         this.$notifier.error()
       })
-      // this.$store.dispatch('lessons/move', ).then(() => {
-      //   this.$notifier.success()
-      // })
+    },
+    isCreate () {
+      return !this.lesson.id
     },
   },
 }
 </script>
+
+<style scoped>
+.middle {
+  vertical-align: -webkit-baseline-middle;
+}
+</style>

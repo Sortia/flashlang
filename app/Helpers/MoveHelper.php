@@ -2,14 +2,13 @@
 
 namespace App\Helpers;
 
-use App\Models\Lesson;
 use Illuminate\Database\Eloquent\Collection;
 
 class MoveHelper
 {
     private Collection $collection;
 
-    private Lesson $element;
+    private object $element;
 
     private int $from;
 
