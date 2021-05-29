@@ -22,19 +22,17 @@
       <i class="nc-icon nc-atom" />
       <p>Тренировки</p>
     </sidebar-link>
-<!--    <sidebar-link to="/testing">-->
-<!--      <i class="nc-icon nc-layers-3" />-->
-<!--      <p>Тестирование</p>-->
-<!--    </sidebar-link>-->
     <sidebar-link to="/courses">
       <i class="nc-icon nc-map-big" />
       <p>Курсы</p>
     </sidebar-link>
-    <v-divider />
-    <sidebar-link to="/manage/courses">
-      <i class="nc-icon nc-map-big" />
-      <p>Управление курсами</p>
-    </sidebar-link>
+    <div v-if="$auth.user.is_admin">
+      <v-divider />
+      <sidebar-link to="/manage/courses">
+        <i class="nc-icon nc-map-big" />
+        <p>Управление курсами</p>
+      </sidebar-link>
+    </div>
   </side-bar>
 </template>
 

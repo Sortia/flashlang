@@ -74,7 +74,6 @@ export default {
   },
   methods: {
     check () {
-      console.log(this.lesson)
       if (+this.task.type === 0 || this.selectedItem === this.task.answers.right) {
         this.$store.dispatch('lessons/show', { id: this.task.lesson_id })
 

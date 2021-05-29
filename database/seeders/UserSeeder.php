@@ -20,6 +20,7 @@ class UserSeeder extends BaseSeeder
                 'email' => 'mail@mail.ru',
                 'password' => Hash::make('123'),
                 'api_token' => Str::random(60),
+                'is_admin' => true,
             ],
         ];
 

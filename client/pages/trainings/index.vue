@@ -1,126 +1,132 @@
 <template>
-  <v-row class="trainings">
-    <v-col md="6">
-      <v-card shaped elevation="20" class="p-4 training-first">
-        <v-card-title class="p-0">
-          <h3 class="pa-2 m-0 p-0">
-            <strong>Изучение</strong>
-          </h3>
-        </v-card-title>
-        <v-card-text class="pa-2">
-          Изучение открытых карточек
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <nuxt-link to="/trainings/study">
-            <v-btn class="mt-5 float-right px-5" dark rounded>
-              Начать
-            </v-btn>
-          </nuxt-link>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-    <v-col md="6">
-      <v-card shaped elevation="20" class="p-4 training-second">
-        <v-card-title class="p-0">
-          <h3 class="pa-2 m-0 p-0">
-            <strong>Флеш-карточки</strong>
-          </h3>
-        </v-card-title>
-        <v-card-text class="pa-2">
-          Каждая карточка содержит вопрос с одной стороны и ответ - с другой.
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <nuxt-link to="/trainings/flashcards">
-            <v-btn class="mt-5 float-right px-5" dark rounded>
-              Начать
-            </v-btn>
-          </nuxt-link>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-    <v-col md="6">
-      <v-card shaped elevation="20" class="p-4 training-third">
-        <v-card-title class="p-0">
-          <h3 class="pa-2 m-0 p-0">
-            <strong>Выбор</strong>
-          </h3>
-        </v-card-title>
-        <v-card-text class="pa-2">
-          Выберите один из предложенных вариантов перевода слова.
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <nuxt-link to="/trainings/choose">
-            <v-btn class="mt-5 float-right px-5" dark rounded>
-              Начать
-            </v-btn>
-          </nuxt-link>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-    <v-col md="6">
-      <v-card shaped elevation="20" class="p-4 training-fourth">
-        <v-card-title class="p-0">
-          <h3 class="pa-2 m-0 p-0">
-            <strong>Конструктор</strong>
-          </h3>
-        </v-card-title>
-        <v-card-text class="pa-2">
-          Соберите правильный перевод из предложенных букв.
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <nuxt-link to="/trainings/constructor">
-            <v-btn class="mt-5 float-right px-5" dark rounded>
-              Начать
-            </v-btn>
-          </nuxt-link>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-    <v-col md="6">
-      <v-card shaped elevation="20" class="p-4 training-fifth">
-        <v-card-title class="p-0">
-          <h3 class="pa-2 m-0 p-0">
-            <strong>Письмо</strong>
-          </h3>
-        </v-card-title>
-        <v-card-text class="pa-2">
-          Напишите перевод предложенного слова.
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <nuxt-link to="/trainings/writing">
-            <v-btn class="mt-5 float-right px-5" dark rounded>
-              Начать
-            </v-btn>
-          </nuxt-link>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-    <v-col md="6">
-      <v-card shaped elevation="20" class="p-4 training-sixth">
-        <v-card-title class="p-0">
-          <h3 class="pa-2 m-0 p-0">
-            <strong>Чтение</strong>
-          </h3>
-        </v-card-title>
-        <v-card-text class="pa-2">
-          Специально подобранные предложения с изученными словами.
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <nuxt-link to="/trainings/reading">
-            <v-btn class="mt-5 float-right px-5" dark rounded>
-              Начать
-            </v-btn>
-          </nuxt-link>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+  <div>
+    <v-card shaped elevation="5" class="px-5 py-3 mb-4" style="color: black">
+      <!--   todo   -->
+      Тут должна быть подсказка что с этими тренировками делать...
+    </v-card>
+    <v-row class="trainings">
+      <v-col md="6">
+        <v-card shaped elevation="20" class="p-4 training-first">
+          <v-card-title class="p-0">
+            <h3 class="pa-2 m-0 p-0">
+              <strong>Изучение</strong>
+            </h3>
+          </v-card-title>
+          <v-card-text class="pa-2">
+            Изучение открытых карточек
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <nuxt-link to="/trainings/study">
+              <v-btn class="mt-5 float-right px-5" dark rounded>
+                Начать
+              </v-btn>
+            </nuxt-link>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+      <v-col md="6">
+        <v-card shaped elevation="20" class="p-4 training-second">
+          <v-card-title class="p-0">
+            <h3 class="pa-2 m-0 p-0">
+              <strong>Флеш-карточки</strong>
+            </h3>
+          </v-card-title>
+          <v-card-text class="pa-2">
+            Каждая карточка содержит вопрос с одной стороны и ответ - с другой.
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <nuxt-link to="/trainings/flashcards">
+              <v-btn class="mt-5 float-right px-5" dark rounded>
+                Начать
+              </v-btn>
+            </nuxt-link>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+      <v-col md="6">
+        <v-card shaped elevation="20" class="p-4 training-third">
+          <v-card-title class="p-0">
+            <h3 class="pa-2 m-0 p-0">
+              <strong>Выбор</strong>
+            </h3>
+          </v-card-title>
+          <v-card-text class="pa-2">
+            Выберите один из предложенных вариантов перевода слова.
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <nuxt-link to="/trainings/choose">
+              <v-btn class="mt-5 float-right px-5" dark rounded>
+                Начать
+              </v-btn>
+            </nuxt-link>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+      <v-col md="6">
+        <v-card shaped elevation="20" class="p-4 training-fourth">
+          <v-card-title class="p-0">
+            <h3 class="pa-2 m-0 p-0">
+              <strong>Конструктор</strong>
+            </h3>
+          </v-card-title>
+          <v-card-text class="pa-2">
+            Соберите правильный перевод из предложенных букв.
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <nuxt-link to="/trainings/constructor">
+              <v-btn class="mt-5 float-right px-5" dark rounded>
+                Начать
+              </v-btn>
+            </nuxt-link>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+      <v-col md="6">
+        <v-card shaped elevation="20" class="p-4 training-fifth">
+          <v-card-title class="p-0">
+            <h3 class="pa-2 m-0 p-0">
+              <strong>Письмо</strong>
+            </h3>
+          </v-card-title>
+          <v-card-text class="pa-2">
+            Напишите перевод предложенного слова.
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <nuxt-link to="/trainings/writing">
+              <v-btn class="mt-5 float-right px-5" dark rounded>
+                Начать
+              </v-btn>
+            </nuxt-link>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+      <v-col md="6">
+        <v-card shaped elevation="20" class="p-4 training-sixth">
+          <v-card-title class="p-0">
+            <h3 class="pa-2 m-0 p-0">
+              <strong>Чтение</strong>
+            </h3>
+          </v-card-title>
+          <v-card-text class="pa-2">
+            Специально подобранные предложения с изученными словами.
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <nuxt-link to="/trainings/reading">
+              <v-btn class="mt-5 float-right px-5" dark rounded>
+                Начать
+              </v-btn>
+            </nuxt-link>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>

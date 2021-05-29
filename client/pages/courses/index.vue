@@ -30,9 +30,9 @@
                   {{ course.description }}
                 </v-card-text>
               </v-col>
-              <v-card-text class="p-2 w-100">
-                <v-progress-linear rounded :value="0" color="green" />
-              </v-card-text>
+<!--              <v-card-text class="p-2 w-100">-->
+<!--                <v-progress-linear rounded :value="0" color="green" />-->
+<!--              </v-card-text>-->
             </v-card>
           </v-hover>
         </nuxt-link>
