@@ -1,8 +1,7 @@
 <template>
   <div>
     <v-card elevation="5" class="pack-tip px-5 py-3 mb-4">
-      <!--   todo   -->
-      Тут должна быть подсказка что с этими наборами делать...
+      Наборы по 5-20 слов для изучения одним блоком
     </v-card>
     <v-text-field
       v-model="query"

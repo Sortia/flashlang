@@ -1,8 +1,7 @@
 <template>
   <div>
     <v-card elevation="5" shaped class="pack-tip px-5 py-3 mb-4">
-      <!--   todo   -->
-      Тут должно быть описание что это такое...
+      Список всех слов содержащихся в наборах
     </v-card>
     <!--    <v-card elevation="5" class="px-5 py-3 mb-4">-->
     <v-data-table

@@ -1,9 +1,5 @@
 <template>
   <div>
-    <v-card elevation="5" class="course-tip px-5 py-3 mb-4">
-      <!--   todo   -->
-      Тут должна быть подсказка что с этими курсами делать...
-    </v-card>
     <v-row>
       <v-col
         lg="3"

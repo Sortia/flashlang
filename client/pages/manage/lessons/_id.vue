@@ -1,9 +1,5 @@
 <template>
   <div>
-    <v-card elevation="5" shaped class="px-5 py-3 mb-4">
-      <!--   todo   -->
-      Тут должна быть подсказка что с этими модулями делать...
-    </v-card>
     <v-card class="mt-5" elevation="10" shaped>
       <div class="col-12">
         <div class="mt-0 mb-1" style="font-size: 26px; font-weight: 300;">

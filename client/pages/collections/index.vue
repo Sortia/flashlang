@@ -1,8 +1,7 @@
 <template>
   <div>
     <v-card elevation="5" class="collection-tip px-5 py-3 mb-4">
-      <!--   todo   -->
-      Тут должна быть подсказка что с этими коллекциями делать...
+      Предопределенные наборы слов для копирования к себе и последующего изучения
     </v-card>
     <v-text-field
       v-model="query"

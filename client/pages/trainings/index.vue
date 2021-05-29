@@ -1,8 +1,7 @@
 <template>
   <div>
     <v-card shaped elevation="5" class="px-5 py-3 mb-4" style="color: black">
-      <!--   todo   -->
-      Тут должна быть подсказка что с этими тренировками делать...
+      Несколько видов тренировок на запоминание слов из наборов
     </v-card>
     <v-row class="trainings">
       <v-col md="6">
