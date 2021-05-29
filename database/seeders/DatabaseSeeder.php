@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingValueSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(StatusSeeder::class);
-        $this->call(ComplexitySeeder::class);
         $this->call(PackSeeder::class);
     }
 }

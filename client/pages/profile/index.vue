@@ -20,7 +20,7 @@
                   fab
                   small
                   dark
-                  @click="editModal = true"
+                  @click="editModal = true; fillModal()"
                 >
                   <v-icon style="left: 2px">
                     mdi-account-edit-outline
@@ -65,7 +65,7 @@
                   <tooltip text="В зависимости от сложности расчитывается прогресс" />
                 </div>
                 <div class="transition-swing text-caption text-secondary">
-                  {{ user.complexity ? user.complexity.count_flashcards : '' }} карточек в день
+                  {{ user.complexity }} карточек в день
                 </div>
               </div>
             </v-col>
@@ -174,7 +174,7 @@
         <v-form ref="form" class="m-3">
           <div>
             <v-text-field
-              :value="user.name"
+              v-model="login.name"
               label="Имя"
               :rules="rules.name"
               autocomplete="false"
@@ -182,7 +182,7 @@
           </div>
           <div>
             <v-text-field
-              :value="user.email"
+              v-model="login.email"
               label="Электронная почта"
               :rules="rules.email"
               autocomplete="false"
@@ -190,7 +190,7 @@
           </div>
           <div>
             <v-text-field
-              :value="user.complexity ? user.complexity.count_flashcards : ''"
+              v-model="login.complexity"
               label="Сложность"
               autocomplete="false"
             />
@@ -198,50 +198,15 @@
           <v-row>
             <v-divider />
           </v-row>
-          <h5 style="font-size: 18px; font-weight: 400;">
-            Смена пароля
-          </h5>
-          <div>
-            <v-text-field
-              v-model="login.password"
-              label="Текущий пароль"
-              type="password"
-              :rules="rules.password"
-              autocomplete="false"
-            />
-          </div>
-          <div>
-            <v-text-field
-              v-model="login.password"
-              label="Новый пароль"
-              type="password"
-              :rules="rules.password"
-              autocomplete="false"
-            />
-          </div>
-          <div>
-            <v-text-field
-              v-model="login.confirm"
-              label="Подтверждение"
-              type="password"
-              :rules="rules.confirm"
-              autocomplete="false"
-            />
-          </div>
           <v-card-actions>
-            <v-btn
-              color="green darken-1"
-              text
-            >
-              Сохранить
-            </v-btn>
             <v-spacer />
             <v-btn
-              color="primary"
+              class="float-right"
+              color="green darken-1"
               text
-              @click="editModal = false"
+              @click="save"
             >
-              Отмена
+              Сохранить
             </v-btn>
           </v-card-actions>
         </v-form>
@@ -261,6 +226,10 @@ export default {
   components: {
     Tooltip,
   },
+  async asyncData ({ store }) {
+    await store.dispatch('users/show', { id: store.state.auth.user.id })
+    await store.dispatch('heatmaps/get', { user_id: store.state.auth.user.id })
+  },
   data () {
     return {
       date: '',
@@ -268,8 +237,7 @@ export default {
       login: {
         name: '',
         email: '',
-        password: '',
-        confirm: '',
+        complexity: '',
       },
       rules: {
         name: [
@@ -279,14 +247,6 @@ export default {
         email: [
           v => !!v || 'Пожалуйста введите электронную почту!',
           v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Электронная почта введена не верно!',
-        ],
-        password: [
-          value => !!value || 'Пожалуйста введите пароль!',
-          value => (value && value.length >= 6) || 'Минимум 6 символов!',
-        ],
-        confirm: [
-          value => !!value || 'Подтвердите пароль!',
-          value => value === this.login.password || 'Пароли не совпадают!',
         ],
       },
     }
@@ -298,14 +258,10 @@ export default {
       day: state => state.heatmaps.selected,
     }),
     weeklyProgress () {
-      if (!this.user.complexity) return 0
-
-      return (this.user.studied_in_this_week_flashcards_count / (this.user.complexity.count_flashcards * 7)) * 100
+      return (this.user.studied_in_this_week_flashcards_count / (this.user.complexity * 7)) * 100
     },
     monthlyProgress () {
-      if (!this.user.complexity) return 0
-
-      return (this.user.studied_in_this_month_flashcards_count / (this.user.complexity.count_flashcards * this.getCountDaysInMonth())) * 100
+      return (this.user.studied_in_this_month_flashcards_count / (this.user.complexity * this.getCountDaysInMonth())) * 100
     },
   },
   watch: {
@@ -313,10 +269,6 @@ export default {
       this.setHeatmap(heatmap)
       this.setHeatmapDay(new Date())
     },
-  },
-  async asyncData ({ store }) {
-    await store.dispatch('users/show', { id: store.state.auth.user.id })
-    await store.dispatch('heatmaps/get', { user_id: store.state.auth.user.id })
   },
   methods: {
     getCountDaysInMonth () {
@@ -348,6 +300,17 @@ export default {
       const day = this.heatmap.find(item => item.date === moment(date).format('YYYY-MM-DD'))
 
       return this.$store.commit('heatmaps/select', day || null)
+    },
+    fillModal () {
+      this.login.name = this.user.name
+      this.login.email = this.user.email
+      this.login.complexity = this.user.complexity
+    },
+    save () {
+      this.$axios.put('/api/users/' + this.$auth.user.id, this.login).then(() => {
+        this.editModal = false
+        this.$store.dispatch('users/show', { id: this.$auth.user.id })
+      })
     },
   },
 }

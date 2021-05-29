@@ -27,12 +27,11 @@ class UserController extends Controller
     public function show(User $user)
     {
         return $user->loadCount(
-            'complexity',
             'studiedFlashcards',
             'studyFlashcards',
             'studiedInThisWeekFlashcards',
             'studiedInThisMonthFlashcards',
-        )->load('complexity');
+        );
     }
 
     /**

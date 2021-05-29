@@ -30,6 +30,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'complexity',
     ];
 
     /**
@@ -59,11 +60,6 @@ class User extends Authenticatable
     public function flashcards()
     {
         return $this->hasManyThrough(Flashcard::class, Pack::class);
-    }
-
-    public function complexity()
-    {
-        return $this->belongsTo(Complexity::class);
     }
 
     public function courses()
