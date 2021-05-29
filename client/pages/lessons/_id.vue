@@ -33,7 +33,7 @@
       </div>
 
       <div class="text-center pt-5">
-        <nuxt-link :to="'/tasks/' + lesson.tasks[0].id">
+        <nuxt-link :to="link">
           <v-btn
             class="big-color-btn"
             color="success"
@@ -57,6 +57,9 @@ export default {
     ...mapState({
       lesson: state => state.lessons.lesson,
     }),
+    link () {
+      return this.lesson.tasks ? '/tasks/' + this.lesson.tasks[0].id : '#'
+    },
   },
   mounted () {
     this.$store.dispatch('lessons/show', this.$route.params)
