@@ -143,8 +143,13 @@ export default {
         this.$store.dispatch('lessons/show', this.$route.params)
       })
     },
-    move () {
-
+    move (value) {
+      this.$axios.put('/api/tasks/move', { from: value.oldIndex, to: value.newIndex, lesson_id: this.lesson.id }).then(() => {
+        this.$notifier.success()
+        this.$store.dispatch('lessons/show', this.$route.params)
+      }).catch(() => {
+        this.$notifier.error()
+      })
     },
     isCreate () {
       return !this.task.id

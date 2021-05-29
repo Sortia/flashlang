@@ -42,10 +42,12 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::post('courses/{course}/start', [CourseController::class, 'start']);
     Route::resource('courses', CourseController::class);
-    Route::post('lessons/{lesson}/finish', [LessonController::class, 'finish']);
+
     Route::put('lessons/move', [LessonController::class, 'move']);
+    Route::post('lessons/{lesson}/finish', [LessonController::class, 'finish']);
     Route::resource('lessons', LessonController::class);
 
+    Route::put('tasks/move', [TaskController::class, 'move']);
     Route::resource('tasks', TaskController::class);
 
     Route::resource('collections', CollectionController::class);
@@ -53,8 +55,6 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::get('settings', [SettingController::class, 'index']);
     Route::post('settings/set', [SettingController::class, 'set']);
-
-
 
     Route::group(['prefix' => 'dictionary'], function () {
         Route::get('translate', [DictionaryController::class, 'translate']);
