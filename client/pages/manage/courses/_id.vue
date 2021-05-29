@@ -34,7 +34,7 @@
             color="success"
             elevation="2"
             small
-            @click="dialog = true"
+            @click="dialog = true; clearLesson()"
           >
             Добавить
           </v-btn>
@@ -183,12 +183,7 @@ export default {
           this.$notifier.success()
           this.$store.dispatch('courses/show', this.$route.params)
           this.dialog = false
-          this.lesson = {
-            name: '',
-            description: '',
-            order_number: '',
-            course_id: null,
-          }
+          this.clearLesson()
         })
       }
     },
@@ -211,6 +206,14 @@ export default {
     },
     isCreate () {
       return !this.lesson.id
+    },
+    clearLesson () {
+      this.lesson = {
+        name: '',
+        description: '',
+        order_number: '',
+        course_id: null,
+      }
     },
   },
 }

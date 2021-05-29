@@ -5,7 +5,7 @@
         <v-btn-toggle
           :value="+task.type"
           rounded
-          @change="merge({ type: $event })"
+          @change="changeType"
         >
           <v-btn>
             <span class="type-text">Теория</span>
@@ -16,7 +16,7 @@
         </v-btn-toggle>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row v-if="task.type !== undefined">
       <v-col lg="12">
         <v-text-field
           :value="task.name"
@@ -142,6 +142,11 @@ export default {
       task: state => state.tasks.task,
     }),
   },
+  watch: {
+    task (val) {
+      this.content = val.content
+    },
+  },
   methods: {
     merge (data) {
       this.$store.commit('tasks/merge', data)
@@ -156,6 +161,11 @@ export default {
       if (this.task.answers && this.task.answers.list)
         return this.task.answers.list[index]
       else return ''
+    },
+    changeType (value) {
+      this.content = ''
+      this.$store.commit('tasks/setTask')
+      this.merge({ type: value })
     },
   },
 }

@@ -13,7 +13,7 @@
             color="success"
             elevation="2"
             small
-            @click="dialog = true"
+            @click="dialog = true; $store.commit('tasks/setTask')"
           >
             Добавить
           </v-btn>
