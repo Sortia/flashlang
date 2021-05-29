@@ -8,7 +8,7 @@
       </v-btn>
       <div class="face face1">
         <v-row>
-          <v-col lg="12" class="ml-3">
+          <v-col cols="12" class="ml-3">
             <v-rating
               color="warning"
               hover
@@ -19,7 +19,7 @@
               @input="update(flashcard, $event)"
             />
           </v-col>
-          <v-col lg="12">
+          <v-col cols="12">
             <div class="content pt-0">
               <v-row>
                 <v-col cols="12">

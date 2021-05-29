@@ -1,20 +1,20 @@
 <template>
   <v-card elevation="10" shaped class="px-5 py-2 mt-5">
     <v-row>
-      <v-col lg="4" md="12">
+      <v-col lg="4" md="12" sm="12" cols="12">
         <v-text-field
           v-model="dictionary.word"
           label="Слово для перевода"
           @keyup.enter="translate"
         />
       </v-col>
-      <v-col lg="4" md="12">
+      <v-col lg="4" md="12" sm="12" cols="12">
         <v-text-field
           v-model="dictionary.transcription"
           label="Транскрипция"
         />
       </v-col>
-      <v-col lg="4" md="12">
+      <v-col lg="4" md="12" sm="12" cols="12">
         <v-text-field
           v-model="dictionary.translate"
           label="Перевод"

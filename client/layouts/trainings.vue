@@ -6,10 +6,10 @@
         <top-navbar class="w-100 position-absolute" style="z-index: 100; top: 0" />
         <div class="content ml-0 mb-0 p-0 h-100" style="min-height: 1000px">
           <v-row no-gutters class="h-100" style="padding-top: 59px;">
-            <v-col sm="9" xl="10" class="h-100">
+            <v-col sm="10" cols="9" class="h-100">
               <Nuxt min-height="950px" />
             </v-col>
-            <v-col sm="3" xl="2" class="h-100">
+            <v-col sm="2" cols="3" class="h-100">
               <sidebar />
             </v-col>
           </v-row>
