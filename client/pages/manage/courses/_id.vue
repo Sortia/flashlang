@@ -9,7 +9,7 @@
             :rules="rules.name"
             auto
             autocomplete="false"
-            @blur="$emit('update')"
+            @blur="update"
             @input="merge({ name: $event })"
           />
         </v-col>
@@ -19,7 +19,7 @@
             label="Описание"
             autocomplete="false"
             :rules="rules.description"
-            @blur="$emit('update')"
+            @blur="update"
             @input="merge({ description: $event })"
           />
         </v-col>
@@ -162,7 +162,12 @@ export default {
   },
   methods: {
     merge (data) {
-      this.$store.commit('lessons/merge', data)
+      this.$store.commit('courses/merge', data)
+    },
+    update () {
+      this.$store.dispatch('courses/update', this.course).then(() => {
+        this.$notifier.success()
+      })
     },
     create () {
       if (this.$refs.lesson_form.validate()) {

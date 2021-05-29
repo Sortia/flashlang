@@ -154,14 +154,14 @@ export default {
   },
   mounted () {
     this.$store.dispatch('courses/get')
+    this.$store.commit('courses/setCourse')
   },
   methods: {
     create () {
-      console.log(this.course)
       if (this.$refs.course_form.validate())
         this.$store.dispatch('courses/create', this.course).then((res) => {
           this.$notifier.success()
-          this.$router.push('/courses/manage/' + res.data.id)
+          this.$router.push('/manage/courses/' + res.data.id)
         })
     },
     destroy () {
