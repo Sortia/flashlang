@@ -7,14 +7,29 @@
         </v-icon>
       </v-btn>
       <div class="face face1">
-        <div class="content">
-          <p class="text-center h4">
-            {{ right.front }}
-          </p>
-          <p v-if="right.front === right.first_side && right.transcription" class="text-center transcription-bot">
-            [{{ right.transcription }}]
-          </p>
-        </div>
+        <v-row>
+          <v-col lg="12" class="ml-3" style="position: absolute; top: 0">
+            <v-rating
+              color="warning"
+              hover
+              background-color="grey"
+              length="5"
+              size="23"
+              :value="right.status_id"
+              @input="update(right, $event)"
+            />
+          </v-col>
+          <v-col lg="12">
+            <div class="content">
+              <p class="text-center h4">
+                {{ right.front }}
+              </p>
+              <p v-if="right.front === right.first_side && right.transcription" class="text-center transcription-bot">
+                [{{ right.transcription }}]
+              </p>
+            </div>
+          </v-col>
+        </v-row>
       </div>
       <div class="face face2">
         <div class="content">
@@ -70,6 +85,11 @@ export default {
     },
     hint () {
       return this.choices.findIndex(item => item.id === this.right.id)
+    },
+    update (flashcard, status_id) {
+      this.$axios.put(`/api/flashcards/${flashcard.id}`, { status_id }).then(() => {
+        this.$notifier.success()
+      })
     },
   },
 }
@@ -141,8 +161,6 @@ export default {
 }
 
 .container .flashcard-card .face.face1{
-  background: #efbc55;
-
   transform: translateY(0);
 }
 

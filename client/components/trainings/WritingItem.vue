@@ -7,11 +7,26 @@
         </v-icon>
       </v-btn>
       <div class="face face1">
-        <div class="content">
-          <p class="text-center h4">
-            {{ flashcard.front }}
-          </p>
-        </div>
+        <v-row>
+          <v-col lg="12" class="ml-3" style="position: absolute; top: 0">
+            <v-rating
+              color="warning"
+              hover
+              background-color="grey"
+              length="5"
+              size="23"
+              :value="flashcard.status_id"
+              @input="update(flashcard, $event)"
+            />
+          </v-col>
+          <v-col lg="12">
+            <div class="content">
+              <p class="text-center h4">
+                {{ flashcard.front }}
+              </p>
+            </div>
+          </v-col>
+        </v-row>
       </div>
       <div class="face face2">
         <div class="content w-100">
@@ -59,6 +74,11 @@ export default {
         this.text += this.flashcard.back.substr(textLength, 1)
       else
         this.text = this.flashcard.back.substr(0, 1)
+    },
+    update (flashcard, status_id) {
+      this.$axios.put(`/api/flashcards/${flashcard.id}`, { status_id }).then(() => {
+        this.$notifier.success()
+      })
     },
   },
 }
@@ -114,8 +134,6 @@ export default {
 }
 
 .container .flashcard-card .face.face1{
-  background: #efbc55;
-
   transform: translateY(0);
 }
 

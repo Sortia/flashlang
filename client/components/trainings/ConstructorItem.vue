@@ -7,34 +7,49 @@
         </v-icon>
       </v-btn>
       <div class="face face1">
-        <div class="content">
-          <v-row>
-            <v-col cols="12">
-              <p class="text-center h4">
-                {{ flashcard.front }}
-              </p>
-              <p v-if="flashcard.back === flashcard.second_side && flashcard.transcription" class="text-center transcription-bot">
+        <v-row>
+          <v-col lg="12" class="ml-3">
+            <v-rating
+              color="warning"
+              hover
+              background-color="grey"
+              length="5"
+              size="23"
+              :value="flashcard.status_id"
+              @input="update(flashcard, $event)"
+            />
+          </v-col>
+          <v-col lg="12">
+            <div class="content pt-0">
+              <v-row>
+                <v-col cols="12">
+                  <p class="text-center h4">
+                    {{ flashcard.front }}
+                  </p>
+                  <p v-if="flashcard.back === flashcard.second_side && flashcard.transcription" class="text-center transcription-bot">
+                    [{{ flashcard.transcription }}]
+                  </p>
+                </v-col>
+              </v-row>
+              <div class="row justify-content-center mb-4">
+                <v-card
+                  v-for="(letter, index) in answer"
+                  :key="index"
+                  color="#229288"
+                  class="card-letter m-2"
+                  @click="$set(answer, index, null); $set(blocked, letters.indexOf(letter), null)"
+                >
+                  <v-card-title class="text-center d-block">
+                    {{ letter }}
+                  </v-card-title>
+                </v-card>
+              </div>
+              <p v-if="answer.join('') === flashcard.back && flashcard.transcription && flashcard.back === flashcard.first_side" class="text-center transcription-bot">
                 [{{ flashcard.transcription }}]
               </p>
-            </v-col>
-          </v-row>
-          <div class="row justify-content-center mb-4">
-            <v-card
-              v-for="(letter, index) in answer"
-              :key="index"
-              color="#229288"
-              class="card-letter m-2"
-              @click="$set(answer, index, null); $set(blocked, letters.indexOf(letter), null)"
-            >
-              <v-card-title class="text-center d-block">
-                {{ letter }}
-              </v-card-title>
-            </v-card>
-          </div>
-          <p v-if="answer.join('') === flashcard.back && flashcard.transcription && flashcard.back === flashcard.first_side" class="text-center transcription-bot">
-            [{{ flashcard.transcription }}]
-          </p>
-        </div>
+            </div>
+          </v-col>
+        </v-row>
       </div>
       <div class="face face2">
         <div class="content">
@@ -98,6 +113,11 @@ export default {
 
       return { index, letter }
     },
+    update (flashcard, status_id) {
+      this.$axios.put(`/api/flashcards/${flashcard.id}`, { status_id }).then(() => {
+        this.$notifier.success()
+      })
+    },
   },
 }
 </script>
@@ -152,8 +172,6 @@ export default {
 }
 
 .container .flashcard-card .face.face1{
-  background: #efbc55;
-
   transform: translateY(0);
 }
 

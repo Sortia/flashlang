@@ -2,14 +2,31 @@
   <div class="container p-5">
     <div class="flashcard-card px-5 pt-4">
       <div class="face face1">
-        <div class="content">
-          <p class="text-center h4">
-            {{ flashcard.front }}
-          </p>
-          <p v-if="flashcard.back === flashcard.second_side && flashcard.transcription" class="text-center transcription-top">
-            [{{ flashcard.transcription }}]
-          </p>
-        </div>
+        <v-col lg="12">
+          <v-row>
+            <v-col lg="12" style="margin-top: -65px;">
+              <v-rating
+                color="warning"
+                hover
+                background-color="grey"
+                length="5"
+                size="23"
+                :value="flashcard.status_id"
+                @input="update(flashcard, $event)"
+              />
+            </v-col>
+            <v-col lg="12">
+              <div class="content">
+                <p class="text-center h4">
+                  {{ flashcard.front }}
+                </p>
+                <p v-if="flashcard.back === flashcard.second_side && flashcard.transcription" class="text-center transcription-top">
+                  [{{ flashcard.transcription }}]
+                </p>
+              </div>
+            </v-col>
+          </v-row>
+        </v-col>
       </div>
       <div class="face face2">
         <div class="content">
@@ -32,6 +49,13 @@ export default {
     flashcard: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    update (flashcard, status_id) {
+      this.$axios.put(`/api/flashcards/${flashcard.id}`, { status_id }).then(() => {
+        this.$notifier.success()
+      })
     },
   },
 }
@@ -69,8 +93,6 @@ export default {
 }
 
 .container .flashcard-card:hover .face.face1{
-  background: #efbc55;
-
   transform: translateY(0);
 }
 

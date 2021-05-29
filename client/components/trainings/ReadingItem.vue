@@ -67,8 +67,6 @@ export default {
 }
 
 .container .flashcard-card:hover .face.face1{
-  background: #efbc55;
-
   transform: translateY(0);
 }
 
