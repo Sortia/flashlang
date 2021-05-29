@@ -8,11 +8,11 @@ use App\Http\Controllers\FlashcardController;
 use App\Http\Controllers\HeatmapController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LessonController;
-use App\Http\Controllers\LessonItemController;
 use App\Http\Controllers\PackController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SPAController;
 use App\Http\Controllers\StorybookController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,11 +40,13 @@ Route::group(['prefix' => 'api'], function () {
     Route::resource('storybooks', StorybookController::class);
     Route::resource('flashcards', FlashcardController::class);
 
+    Route::post('courses/{course}/start', [CourseController::class, 'start']);
     Route::resource('courses', CourseController::class);
+    Route::post('lessons/{lesson}/finish', [LessonController::class, 'finish']);
     Route::put('lessons/move', [LessonController::class, 'move']);
     Route::resource('lessons', LessonController::class);
 
-    Route::resource('lesson_items', LessonItemController::class);
+    Route::resource('tasks', TaskController::class);
 
     Route::resource('collections', CollectionController::class);
     Route::post('collections/{collection}/copy', [CollectionController::class, 'copy']);

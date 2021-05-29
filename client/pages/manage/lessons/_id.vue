@@ -103,7 +103,7 @@ export default {
   computed: {
     ...mapState({
       lesson: state => state.lessons.lesson,
-      lesson_item: state => state.lesson_items.lesson_item,
+      task: state => state.tasks.task,
     }),
     pages: {
       get () {
@@ -117,28 +117,29 @@ export default {
   methods: {
     create () {
       if (this.$refs.item_form.validate()) {
-        this.lesson_item.lesson_id = this.lesson.id
-        this.$store.commit('lesson_items/merge', { lesson_id: this.lesson.id })
+        this.task.lesson_id = this.lesson.id
+        this.$store.commit('tasks/merge', { lesson_id: this.lesson.id })
 
         if (this.isCreate())
-          if (this.lesson.items.length === 0)
-            this.$store.commit('lesson_items/merge', { order_number: 0 })
+          if (this.lesson.tasks.length === 0)
+            this.$store.commit('tasks/merge', { order_number: 0 })
           else
-            this.$store.commit('lesson_items/merge', { order_number: Math.max(...this.lesson.items.map(item => item.order_number)) + 1 })
+            this.$store.commit('tasks/merge', { order_number: Math.max(...this.lesson.tasks.map(item => item.order_number)) + 1 })
 
-        this.$store.dispatch('lesson_items/' + (this.isCreate() ? 'create' : 'update'), this.lesson_item).then(() => {
+        this.$store.dispatch('tasks/' + (this.isCreate() ? 'create' : 'update'), this.task).then(() => {
           this.$notifier.success()
           this.$store.dispatch('lessons/show', this.$route.params)
+          this.$store.commit('tasks/setTask')
           this.dialog = false
         })
       }
     },
-    edit (lesson_item) {
-      this.$store.commit('lesson_items/setLessonItem', lesson_item)
+    edit (task) {
+      this.$store.commit('tasks/setTask', task)
       this.dialog = true
     },
-    destroy (lesson_item) {
-      this.$store.dispatch('lesson_items/destroy', lesson_item).then(() => {
+    destroy (task) {
+      this.$store.dispatch('tasks/destroy', task).then(() => {
         this.$store.dispatch('lessons/show', this.$route.params)
       })
     },
@@ -146,7 +147,7 @@ export default {
 
     },
     isCreate () {
-      return !this.lesson_item.id
+      return !this.task.id
     },
   },
 }

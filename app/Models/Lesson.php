@@ -23,8 +23,8 @@ class Lesson extends Model
         return $this->belongsTo(Course::class);
     }
 
-    public function items()
+    public function tasks()
     {
-        return $this->hasMany(LessonItem::class)->orderBy('order_number');
+        return $this->hasMany(Task::class)->orderBy('order_number');
     }
 }

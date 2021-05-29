@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\MoveHelper;
+use App\Models\Course;
+use App\Models\CourseUser;
 use App\Models\Lesson;
+use App\Models\LessonUser;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -18,7 +22,7 @@ class LessonController extends Controller
      */
     public function show(Lesson $lesson)
     {
-        return $lesson->load('items');
+        return $lesson->load('tasks');
     }
 
     /**
@@ -77,6 +81,19 @@ class LessonController extends Controller
 
             return true;
         });
+    }
+
+    /**
+     * @param Lesson $lesson
+     */
+    public function finish(Lesson $lesson)
+    {
+        if (!LessonUser::on()->where('lesson_id', $lesson->id)->where('user_id', Auth::id())->exists()) {
+            LessonUser::create([
+                'lesson_id' => $lesson->id,
+                'user_id' => Auth::id(),
+            ]);
+        }
     }
 }
 

@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\MoveHelper;
-use App\Models\LessonItem;
+use App\Models\Task;
 use Illuminate\Support\Facades\DB;
 
-class LessonItemController extends Controller
+class TaskController extends Controller
 {
     /**
-     * @param LessonItem $lessonItem
-     * @return LessonItem
+     * @param Task $task
+     * @return Task
      */
-    public function show(LessonItem $lessonItem)
+    public function show(Task $task)
     {
-        return $lessonItem;
+        return $task;
     }
 
     /**
@@ -22,35 +22,35 @@ class LessonItemController extends Controller
      */
     public function store()
     {
-        return LessonItem::create($this->request->all());
+        return Task::create($this->request->all());
     }
 
     /**
-     * @param LessonItem $lessonItem
+     * @param Task $task
      * @return bool
      */
-    public function update(LessonItem $lessonItem)
+    public function update(Task $task)
     {
-        return $lessonItem->update($this->request->all());
+        return $task->update($this->request->all());
     }
 
     /**
-     * @param LessonItem $lessonItem
+     * @param Task $task
      * @return bool|null
      */
-    public function destroy(LessonItem $lessonItem)
+    public function destroy(Task $task)
     {
         // пересчет порядковых номеров элементов
-        $lessonItems = LessonItem::on()
-            ->where('lesson_id', $lessonItem->lesson_id)
-            ->where('order_number', '>', $lessonItem->order_number)
+        $tasks = Task::on()
+            ->where('lesson_id', $task->lesson_id)
+            ->where('order_number', '>', $task->order_number)
             ->get();
 
-        $mover = new MoveHelper($lessonItems, $lessonItem->order_number);
+        $mover = new MoveHelper($tasks, $task->order_number);
 
         $mover->moveUp();
 
-        return $lessonItem->delete();
+        return $task->delete();
     }
 
     /**
@@ -62,13 +62,13 @@ class LessonItemController extends Controller
             $max = $this->request->from > $this->request->to ? $this->request->from : $this->request->to;
             $min = $this->request->from < $this->request->to ? $this->request->from : $this->request->to;
 
-            $lessonItems = LessonItem::on()
+            $tasks = Task::on()
                 ->where('lesson_id', $this->request->lesson_id)
                 ->where('order_number', '>=', $min)
                 ->where('order_number', '<=', $max)
                 ->get();
 
-            $mover = new MoveHelper($lessonItems, $this->request->from, $this->request->to);
+            $mover = new MoveHelper($tasks, $this->request->from, $this->request->to);
             $mover->move();
 
             return true;

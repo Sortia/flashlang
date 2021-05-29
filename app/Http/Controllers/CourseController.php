@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\CourseUser;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class CourseController
@@ -51,5 +53,18 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         $course->delete();
+    }
+
+    /**
+     * @param Course $course
+     */
+    public function start(Course $course)
+    {
+        if (!CourseUser::on()->where('course_id', $course->id)->where('user_id', Auth::id())->exists()) {
+            CourseUser::create([
+                'course_id' => $course->id,
+                'user_id' => Auth::id(),
+            ]);
+        }
     }
 }

@@ -16,7 +16,9 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $with = [
-        'role.permissions'
+        'role.permissions',
+        'courses',
+        'lessons',
     ];
 
     /**
@@ -64,6 +66,16 @@ class User extends Authenticatable
         return $this->belongsTo(Complexity::class);
     }
 
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
+    }
+
+    public function lessons()
+    {
+        return $this->belongsToMany(Lesson::class);
+    }
+
     public function studyFlashcards()
     {
         return $this->flashcards()->whereNull('studied_at');
@@ -94,14 +106,12 @@ class User extends Authenticatable
     public function getPermissionsAttribute()
     {
         return [];
-//        $empty = ['error' => 'no permissions'];
-//        return array_map(function ($e) {
-//                return is_object($e) ? $e->name : $e['name'];
-//            }, $this->role->permissions->toArray()) ?? $empty;
     }
 
     public function getSettingsAttribute()
     {
         return get_all_settings();
     }
+
+
 }

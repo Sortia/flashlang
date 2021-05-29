@@ -3,7 +3,7 @@
     <v-row class="pt-3">
       <v-col class="text-center">
         <v-btn-toggle
-          :value="+lesson_item.type"
+          :value="+task.type"
           rounded
           @change="merge({ type: $event })"
         >
@@ -19,8 +19,8 @@
     <v-row>
       <v-col lg="12">
         <v-text-field
-          :value="lesson_item.name"
-          :label="lesson_item.type === 0 ? 'Название' : (lesson_item.type === 1 ? 'Вопрос' : '')"
+          :value="task.name"
+          :label="task.type === 0 ? 'Название' : (task.type === 1 ? 'Вопрос' : '')"
           :rules="rules.name"
           auto
           autocomplete="false"
@@ -28,7 +28,7 @@
         />
       </v-col>
     </v-row>
-    <v-row v-if="+lesson_item.type === 0">
+    <v-row v-if="+task.type === 0">
       <v-col lg="12">
         <h4 class="mt-0">
           Текст:
@@ -36,7 +36,7 @@
         <VueEditor v-model="content" placeholder="Write Something..." @text-change="merge({ content: content })" />
       </v-col>
     </v-row>
-    <v-row v-if="+lesson_item.type === 1">
+    <v-row v-if="+task.type === 1">
       <v-col lg="12">
         <h4 class="my-0">
           Варианты ответов:
@@ -84,7 +84,7 @@
           </v-col>
           <v-col lg="12">
             <v-select
-              :value="lesson_item.answers ? lesson_item.answers.right : null"
+              :value="task.answers ? task.answers.right : null"
               :items="answerSelectItems"
               label="Правильный ответ"
               @change="mergeRight"
@@ -139,24 +139,22 @@ export default {
   },
   computed: {
     ...mapState({
-      lesson_item: state => state.lesson_items.lesson_item,
+      task: state => state.tasks.task,
     }),
   },
   methods: {
     merge (data) {
-      this.$store.commit('lesson_items/merge', data)
+      this.$store.commit('tasks/merge', data)
     },
     mergeAnswer (value, index) {
-      this.$store.commit('lesson_items/mergeAnswer', { value, index })
-      console.log(this.lesson_item)
+      this.$store.commit('tasks/mergeAnswer', { value, index })
     },
     mergeRight (value) {
-      this.$store.commit('lesson_items/mergeRight', { value })
-      console.log(this.lesson_item)
+      this.$store.commit('tasks/mergeRight', { value })
     },
     getAnswer (index) {
-      if (this.lesson_item.answers && this.lesson_item.answers.list)
-        return this.lesson_item.answers.list[index]
+      if (this.task.answers && this.task.answers.list)
+        return this.task.answers.list[index]
       else return ''
     },
   },

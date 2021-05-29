@@ -52,6 +52,6 @@ export const actions = {
 
 export const getters = {
   list: (state) => {
-    return state.lesson.items
+    return state.lesson.tasks
   },
 }

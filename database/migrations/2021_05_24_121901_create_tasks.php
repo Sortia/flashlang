@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLessonItems extends Migration
+class CreateTasks extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLessonItems extends Migration
      */
     public function up()
     {
-        Schema::create('lesson_items', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->boolean('type')->comment('0 - theory, 1 - test');
@@ -33,6 +33,6 @@ class CreateLessonItems extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lesson_items');
+        Schema::dropIfExists('tasks');
     }
 }

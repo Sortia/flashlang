@@ -57,3 +57,20 @@ button {
 .v-data-table-header tr th {
   font-size: 14px !important;
 }
+
+.v-stepper__step__step {
+  background-color: #1976d2 !important;
+  border-color: #1976d2 !important;
+}
+
+.v-stepper__label {
+  color: black !important;
+}
+
+.v-stepper {
+  box-shadow: none !important;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
