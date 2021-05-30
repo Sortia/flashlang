@@ -1,5 +1,5 @@
 <template>
-  <footer class="footer">
+  <footer class="footer" style="background-color: #fff;">
     <div class="container-fluid">
       <div class="copyright text-center">
         &copy; Coded

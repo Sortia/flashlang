@@ -6,10 +6,10 @@
         <top-navbar class="w-100 position-absolute" style="z-index: 100; top: 0" />
         <div class="content ml-0 mb-0 p-0 h-100" style="min-height: 1000px">
           <v-row no-gutters class="h-100" style="padding-top: 59px;">
-            <v-col sm="10" cols="9" class="h-100">
+            <v-col cols="12" md="10" class="h-100">
               <Nuxt min-height="950px" />
             </v-col>
-            <v-col sm="2" cols="3" class="h-100">
+            <v-col cols="12" md="2" class="h-100 sidebar-block">
               <sidebar />
             </v-col>
           </v-row>
@@ -38,7 +38,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .main-panel {
   max-height: 100vh !important;
 }
@@ -46,5 +46,11 @@ export default {
 .main-panel .content {
   position: absolute;
   width: 100%;
+}
+
+.sidebar-block {
+  @media screen and (max-width: 959px) {
+    height: initial !important;
+  }
 }
 </style>

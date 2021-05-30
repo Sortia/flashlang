@@ -24,9 +24,7 @@
         </v-list-item>
       </v-list-item-group>
     </v-list>
-    <div class="overflow-hidden" style="position:absolute; bottom: 0; width: 100%">
-      <v-divider />
-
+    <div class="overflow-hidden sidebar-left">
       <v-bottom-navigation horizontal>
         <v-menu
           v-model="menu"
@@ -141,11 +139,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .v-navigation-drawer {
   height: 100%;
   width: auto;
   max-height: 100%;
   /*min-height: 950px;*/
+}
+
+.sidebar-left {
+  position:absolute;
+  bottom: 0;
+  width: 100%;
+
+  @media screen and (max-width: 959px) {
+    position: initial;
+  }
 }
 </style>

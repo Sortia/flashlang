@@ -1,11 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <v-tabs class="tabs">
-        <v-tab @click="toCreatePack">
-          New Pack
-        </v-tab>
-      </v-tabs>
       <a class="navbar-brand" href="#" />
       <button
         type="button"
@@ -65,9 +60,6 @@ export default {
       this.$auth.logout()
       this.$router.push('/login')
     },
-    toCreatePack () {
-      this.$router.push('/packs/create')
-    },
   },
 }
 
@@ -81,20 +73,21 @@ export default {
     <div class="container-fluid">
       <v-tabs class="tabs">
 
-<!--        <button-->
-<!--          type="button"-->
-<!--          class="navbar-toggler navbar-toggler-right"-->
-<!--          aria-controls="navigation-index"-->
-<!--          aria-expanded="false"-->
-<!--          aria-label="Toggle navigation"-->
-<!--          @click="toggleSidebar"-->
-<!--        >-->
-<!--          <span class="navbar-toggler-bar burger-lines" />-->
-<!--          <span class="navbar-toggler-bar burger-lines" />-->
-<!--          <span class="navbar-toggler-bar burger-lines" />-->
-<!--        </button>-->
-        <div class="collapse navbar-collapse justify-content-end">
-          <ul class="navbar-nav ml-auto">
+        <button
+          type="button"
+          class="navbar-toggler navbar-toggler-right"
+          aria-controls="navigation-index"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          @click="toggleSidebar"
+          style="margin-top: 8px;"
+        >
+          <span class="navbar-toggler-bar burger-lines" />
+          <span class="navbar-toggler-bar burger-lines" />
+          <span class="navbar-toggler-bar burger-lines" />
+        </button>
+        <div class="navbar-collapse justify-content-end">
+          <ul class="navbar-nav ml-auto logout-link">
             <li class="nav-item">
               <a href="#" class="nav-link" @click="logout">
                 Выйти
@@ -148,3 +141,12 @@ export default {
 }
 
 </script>
+
+<style lang="scss" scoped>
+.logout-link {
+  @media screen and (max-width: 959px) {
+    display: table;
+    margin-top: 5px;
+  }
+}
+</style>

@@ -5,7 +5,7 @@
   >
     <div class="sidebar-wrapper">
       <div class="" style="z-index: 10">
-        <div class="logo">
+        <div class="logo p-1">
           <a href="#" class="simple-text logo__container">
             <div class="logo-img">
               <img src="@/assets/img/vue-logo.png" alt="">
@@ -15,7 +15,7 @@
         </div>
 
         <slot name="content" />
-        <ul class="nav nav-main__links">
+        <ul class="nav nav-main__links mt-0">
           <!--By default vue-router adds an active class to each route link. This way the links are colored when clicked-->
           <slot>
             <sidebar-link

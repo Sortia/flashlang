@@ -5,7 +5,7 @@
       <i class="nc-icon nc-grid-45" />
       <p>Мои Наборы</p>
     </sidebar-link>
-    <hr>
+    <hr class="my-0">
     <sidebar-link to="/profile">
       <i class="nc-icon nc-circle-09" />
       <p>Профиль</p>
