@@ -50,8 +50,9 @@ export default {
     })
   },
   mounted () {
-    this.$store.dispatch('packs/get').then(() => {
-      this.$store.commit('packs/setPack', this.packs[0])
+    this.$axios.get('/api/packs/').then((res) => {
+      this.$store.commit('packs/set', res.data)
+      this.$store.commit('packs/setPack', res.data[0])
     })
   },
   beforeDestroy () {
