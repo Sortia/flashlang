@@ -4,7 +4,9 @@ namespace App\Console\Commands;
 
 use App\Models\Storybook;
 use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Http;
 
 class ReindexCommand extends Command
 {
@@ -29,6 +31,8 @@ class ReindexCommand extends Command
         parent::__construct();
 
         $this->elasticsearch = $elasticsearch;
+
+//        dd(Http::get('https://laravel.com/docs/8.x/http-client')->body());
     }
 
     public function handle()

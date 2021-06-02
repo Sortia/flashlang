@@ -37,6 +37,7 @@ class LoadStorybooks extends Command
      */
     public function handle(): void
     {
+        ini_set('memory_limit', '-1');
         Timer::start();
 
         $rus = $this->readFile($this->argument('rus'));
@@ -45,7 +46,7 @@ class LoadStorybooks extends Command
         $this->process($eng, $rus);
 
         Timer::stop();
-        $this->comment(Timer::get());
+        $this->comment("\nExecution time: " . Timer::get());
     }
 
     /**

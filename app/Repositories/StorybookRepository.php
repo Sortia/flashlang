@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Storybook;
 use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 

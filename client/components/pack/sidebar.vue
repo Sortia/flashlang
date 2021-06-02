@@ -112,7 +112,7 @@ export default {
   },
   mounted () {
     this.$axios.get('/api/settings/').then((res) => {
-      this.show_side = res.data.find(item => item.setting === 'study_show_side').value || 'first'
+      this.show_side = res.data.find(item => item.setting === 'study_show_side') ? res.data.find(item => item.setting === 'study_show_side').value : 'first'
     })
   },
   methods: {
